@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Roboto:wght@400;700&display=swap');
+
+:root{
+  --body-font: 'Merriweather', Georgia, "Times New Roman", serif;
+  --heading-font: 'Roboto', Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --body-size: 21px; /* ~16pt */
+  --heading-size: 28px; /* ~21pt */
+  --muted: #ccc;
+  --bg: #0b0b0b;
+  --text-on-dark: #fff;
+}
+
+html, body, * {
+  box-sizing: border-box;
+}
+
+body, html {
+  color: var(--text-on-dark);
+  margin: 0;
+  font-family: var(--body-font);
+  font-size: var(--body-size);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings use sans-serif for clarity */
+h1, h2, h3, h4, h5 {
+  font-family: var(--heading-font);
+  color: var(--text-on-dark);
+  margin-top: 0;
+}
+
+h1 { font-size: calc(var(--heading-size) * 1.2); }
+h2 { font-size: calc(var(--heading-size) * 1.0); }
+h3 { font-size: calc(var(--heading-size) * 0.85); }
+
+/* Support dark cards and components which expect white text */
+.dark-card, .dark-section { background: #0b0b0b; color: var(--text-on-dark); }
+
+/* Button utilities */
+.btn {
+  font-family: var(--body-font);
+  font-size: 1rem;
+  padding: 0.5rem 0.9rem; /* slightly smaller than before */
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-group { display: inline-flex; gap: 0.5rem; }
+
+@media (max-width: 760px) {
+  :root { --body-size: 18px; --heading-size: 22px; }
+  body { font-size: var(--body-size); }
+}
+

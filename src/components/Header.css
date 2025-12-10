@@ -1,0 +1,30 @@
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #a31515; /* darker red for header background */
+  padding: 0 2rem;
+  height: 80px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.header-logo img {
+  height: 180px;
+  width: 100px;
+}
+
+.header-nav {
+  display: flex;
+  gap: 2rem;
+}
+
+.header-link {
+  color: #fff !important;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: color 0.2s;
+}
+
+
