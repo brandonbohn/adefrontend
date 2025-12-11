@@ -1,27 +1,29 @@
 
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const ImpactBoard = ({ id = 1 }: { id?: number }) => {
-  const [impact, setImpact] = useState<any>(null);
+const ImpactBoard: React.FC = () => {
+  const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    setLoading(true);
-    setError(null);
-    axios.get(`/api/webbuilder/${id}`)
+    axios.get("http://localhost:3000/api/content")
       .then(res => {
-        setImpact(res.data.sectionsData?.impactBoard || null);
+        setData(res.data.sectionsData?.impactBoard || res.data.impactBoard);
+        setLoading(false);
       })
-      .catch(() => setError("Failed to load impact board"))
-      .finally(() => setLoading(false));
-  }, [id]);
+      .catch(() => {
+        setError("Unable to load impact board data.");
+        setLoading(false);
+      });
+  }, []);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
-  if (!impact) return <div>No impact board found.</div>;
-  const { highlight, metrics = [] } = impact;
+  if (loading) return <div style={{textAlign:'center',margin:'2rem'}}>Loading Impact Board...</div>;
+  if (error) return <div style={{textAlign:'center',margin:'2rem',color:'#d32f2f'}}>{error}</div>;
+  if (!data) return <div>No impact board found.</div>;
+  const { highlight, metrics = [] } = data;
   return (
     <section style={{ margin: "2rem 0", padding: "0", background: "transparent", borderRadius: "0", color: "inherit", boxShadow: "none", maxWidth: "1200px", width: "100%" }}>
       {highlight && (

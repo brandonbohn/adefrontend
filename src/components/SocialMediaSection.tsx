@@ -1,29 +1,19 @@
 
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 import '../home.css';
 
-const SocialMediaSection = ({ id = 1, customStyle = {} }) => {
-    const [social, setSocial] = useState<any>(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+type SocialLink = { name: string; url: string };
+type SocialData = { links: SocialLink[] };
 
-    useEffect(() => {
-        setLoading(true);
-        setError(null);
-        axios.get(`/api/webbuilder/${id}`)
-            .then(res => {
-                const data = res.data as { sectionsData?: { socialSection?: any } };
-                setSocial(data.sectionsData?.socialSection || null);
-                setLoading(false);
-            })
-            .catch(() => {
-                setError('Failed to load social section');
-                setLoading(false);
-            });
-    }, [id]);
+interface SocialMediaSectionProps {
+    data: SocialData;
+    customStyle?: React.CSSProperties;
+}
 
-    const linkStyle = (color: string) => ({
+const SocialMediaSection: React.FC<SocialMediaSectionProps> = ({ data, customStyle = {} }) => {
+    if (!data) return <div>No social section found.</div>;
+
+        const linkStyle = (color: string) => ({
         color,
         textDecoration: 'none',
         fontSize: 'clamp(1rem, 2.5vw, 1.1rem)',
@@ -34,10 +24,6 @@ const SocialMediaSection = ({ id = 1, customStyle = {} }) => {
         display: 'inline-block',
         minWidth: '120px'
     });
-
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div>{error}</div>;
-    if (!social) return <div>No social section found.</div>;
 
     return (
         <section className="box" style={{ 
@@ -60,7 +46,7 @@ const SocialMediaSection = ({ id = 1, customStyle = {} }) => {
                 gap: '2rem',
                 flexWrap: 'wrap' as const
             }}>
-                {(social.links || []).map((link: { name: string; url: string }, idx: number) => (
+                {(data.links || []).map((link: SocialLink, idx: number) => (
                     <a 
                         key={idx}
                         href={link.url}

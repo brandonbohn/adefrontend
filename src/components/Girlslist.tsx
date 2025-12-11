@@ -1,4 +1,6 @@
+
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { getImagePath } from '../imageRegistry';
 
 interface Girl {
@@ -11,31 +13,30 @@ interface Girl {
 }
 
 const GirlsList: React.FC = () => {
-  const [girls, setGirls] = useState<Girl[]>([]);
+  const [data, setData] = useState<{ title?: string; girls: Girl[] } | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch('http://localhost:3002/Backend/json/adedata.json')
-      .then(res => res.json())
-      .then(data => {
-        const girlsData = data[0]?.sectionsData?.girlsSection?.girls || [];
-        setGirls(girlsData);
+    axios.get('http://localhost:3000/api/content')
+      .then(res => {
+        console.log('GirlsList backend data:', res.data);
+        setData(res.data.girlsSection || null);
         setLoading(false);
       })
-      .catch(err => {
-        setError('Failed to load girls list.');
+      .catch(() => {
+        setError('Unable to load girls list.');
         setLoading(false);
       });
   }, []);
 
-  if (loading) return <div>Loading girls...</div>;
-  if (error) return <div style={{ color: '#a31515' }}>{error}</div>;
-  if (!girls.length) return <div>No girls found.</div>;
+  if (loading) return <div style={{textAlign:'center',margin:'2rem'}}>Loading Girls...</div>;
+  if (error) return <div style={{textAlign:'center',margin:'2rem',color:'#d32f2f'}}>{error}</div>;
+  if (!data || !Array.isArray(data.girls) || data.girls.length === 0) return <div>No girls found.</div>;
 
   return (
     <div style={{ display: 'grid', gap: '2rem', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
-      {girls.map((girl, idx) => (
+      {data.girls.map((girl, idx) => (
         <div
           key={idx}
           style={{

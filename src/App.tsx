@@ -1,4 +1,3 @@
-
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Contact from './pages/Contact';
@@ -8,8 +7,6 @@ import DonateTerms from './pages/DonateTerms';
 import SponsorAGirl from './pages/SponsorAGirl';
 import SponsoredGirls from './pages/SponsoredGirls';
 import MeetTheTeams from './pages/MeetTheTeams';
-import Header from './components/Header';
-import Footer from './components/Footer';
 import Foundersection from './components/FoundersSection';
 
 function App() {
@@ -17,7 +14,6 @@ function App() {
 
 
     <div>
-      <Header />
       <div style={{ paddingTop: '20px' }}>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -30,7 +26,6 @@ function App() {
           <Route path="/meet-the-teams" element={<MeetTheTeams />} />
         </Routes>
       </div>
-      <Footer />
     </div>
   
   

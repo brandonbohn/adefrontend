@@ -71,6 +71,8 @@ export const imageRegistry: ImageRegistryItem[] = [
     { id: 22, filename: "trophyceremony.jpeg", alt: "Trophy Ceremony", description: "Trophy ceremony photo" },
     { id: 23, filename: "twogirls.jpeg", alt: "Two Girls", description: "Two girls photo" },
     { id: 24, filename: "whiteteam.jpeg", alt: "White Team", description: "White team group photo" },
+    { id: 31, filename: "placeholder.jpg", alt: "Founder Placeholder", description: "Placeholder for founder image" },
+    { id: 32, filename: "placeholder.jpg", alt: "Founder Placeholder", description: "Placeholder for founder image" },
 
     
     // Add more images here as needed
@@ -90,5 +92,5 @@ export const getImageById = (id: number): ImageRegistryItem | undefined => {
 
 export const getImagePath = (id: number): string => {
     const image = getImageById(id);
-    return image ? `/${image.filename}` : `/placeholder-${id}.jpg`;
+    return image ? `/${image.filename}` : `/placeholder.jpg`;
 };

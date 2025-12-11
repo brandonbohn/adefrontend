@@ -34,7 +34,12 @@ export interface clientdata {
         };
         foundersSection?: {
             title?: string;
-            FounderBios?: string;
+            founders: {
+                name: string;
+                role: string;
+                image?: string | number;
+                bio: string;
+            }[];
             sections?: any[];
         };
         aboutSection?: {

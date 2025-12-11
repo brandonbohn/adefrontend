@@ -1,9 +1,7 @@
+import React from "react";
 
-import type { clientdata } from "../types";
-import React, { useEffect, useState } from "react";
-
-import HeroSection from "../pages/HeroSection";
-import AboutSection from "../pages/AboutSection";
+import HeroSection from "../components/HeroSection";
+import AboutSection from "../components/AboutSection";
 import ImpactSection from "../pages/ImpactSection";
 import WhatWeDoSection from "./WhatWeDoSection";
 import VisionSection from "./VisionSection";
@@ -11,11 +9,11 @@ import ContactSection from "./ContactSection";
 import  SocialMediaSection from "./SocialMediaSection";
 import Foundersection from "./FoundersSection";
 import ImpactBoard from "./ImpactBoard";
+import GirlsList, { GirlsListProps } from "./Girlslist";
 
-type WebsiteSection = 'hero' | 'about' | 'services' | 'contact' | 'social'| 'founder';
+type WebsiteSection = 'hero' | 'impact' | 'about' | 'founder' | 'meetTheTeams' | 'services' | 'contact' | 'social' | 'mission' | 'girls';
 interface WebsiteComponentProps {
-
-    entry: clientdata;
+    entry: any;
     sections?: WebsiteSection[];
     customStyles?: {
         hero?: React.CSSProperties;
@@ -27,63 +25,86 @@ interface WebsiteComponentProps {
     };
 }
 
-const WebsiteComponent = ({ entry, sections = ['hero', 'founder', 'about', 'services', 'contact', 'social'], customStyles = {} }: WebsiteComponentProps) => {
+import MissionPage from '../pages/MissionPage';
+
+const WebsiteComponent = ({ entry, sections = ['hero', 'impact', 'about', 'founder', 'meetTheTeams'], customStyles = {} }: WebsiteComponentProps) => {
     if (!entry) return <div>No entry found.</div>;
+
+    // Extract mission from MissionPage logic
+    const mission = entry.sectionsData?.mission || entry.mission || entry.sectionsData?.ourMission || entry.ourMission || { title: 'Our Mission', description: '' };
+
+    const sectionComponents: Record<string, React.ReactNode> = {
+        hero: (
+            <HeroSection data={{ ...(entry.sectionsData?.heroSection || entry.heroSection), mission }} />
+        ),
+        impact: (
+            <ImpactBoard />
+        ),
+        about: null,
+        founder: (
+            <Foundersection customStyle={customStyles.founder} />
+        ),
+        meetTheTeams: null, // Prevent duplicate rendering of AboutSection/teams
+        services: (
+            <WhatWeDoSection data={entry.sectionsData?.WhatweDo || entry.WhatweDo} customStyle={customStyles.services} />
+        ),
+        contact: (
+            <ContactSection data={entry.sectionsData?.contactSection || entry.contactSection} customStyle={customStyles.contact} />
+        ),
+        social: (
+            <SocialMediaSection data={entry.sectionsData?.socialSection || entry.socialSection} customStyle={customStyles.social} />
+        ),
+        mission: (
+            <VisionSection data={entry.sectionsData?.visionSection || entry.visionSection} />
+        ),
+        girls: (
+            <GirlsList data={entry.sectionsData?.girlsSection || entry.girlsSection} />
+        ),
+    };
+
     return (
         <div style={{ maxWidth: "100%", margin: "0" }}>
-            {entry.sectionsData.impactBoard && (
-                <ImpactBoard id={entry.sectionsData.impactBoard.id} />
+
+            {/* Render hero section first */}
+            {sectionComponents['hero']}
+
+            {/* Render ImpactBoard immediately after hero */}
+            {sectionComponents['impact']}
+
+            {/* Dedicated section: three black boxes horizontally aligned, after ImpactBoard */}
+            {(entry.sectionsData?.aboutSection || entry.sectionsData?.WhatweDo || entry.sectionsData?.visionSection) && (
+                <section aria-label="who-we-are-grid" style={{ maxWidth: 1200, margin: '2rem auto', padding: '0 1rem' }}>
+                    <AboutSection data={{
+                        title: entry.sectionsData?.aboutSection?.title || "",
+                        intro: entry.sectionsData?.aboutSection?.intro || "",
+                        description: entry.sectionsData?.aboutSection?.description || "",
+                        WhatweDo: entry.sectionsData?.aboutSection?.WhatweDo || entry.sectionsData?.WhatweDo || {
+                            title: "",
+                            intro: "",
+                            sections: [],
+                            boxStyle: {},
+                            education: "",
+                            lifeSupport: { title: "", items: [] },
+                            mentorship: { title: "", description: "", items: [] }
+                        },
+                        visionSection: entry.sectionsData?.aboutSection?.visionSection || entry.sectionsData?.visionSection || {
+                            title: "",
+                            description: "",
+                            boxStyle: {}
+                        },
+                        sections: entry.sectionsData?.aboutSection?.sections || [],
+                        boxStyle: entry.sectionsData?.aboutSection?.boxStyle || {}
+                    }} customStyle={customStyles.about} />
+
+                </section>
             )}
-            {sections.includes('hero') && (
-                <HeroSection data={entry} />
-            )}
-            {sections.includes('founder') && (
-                <Foundersection
-                    customStyle={customStyles.founder}
-                    // Remove id prop since foundersSection does not have an id property
-                />
-            )}
-                        {/* Combined info: Who We Are | What We Do | Our Vision */}
-                        {(entry.sectionsData.aboutSection || entry.sectionsData.WhatweDo || entry.sectionsData.visionSection) && (
-                                <section aria-label="combined-info" style={{ maxWidth: 1200, margin: '2rem auto', padding: '0 1rem' }}>
-                                    <div style={{ display: 'flex', gap: '1rem', alignItems: 'stretch', justifyContent: 'space-between', flexWrap: 'wrap' }}>
-                                        {/* About Section */}
-                                        {entry.sectionsData.aboutSection && (
-                                            <div style={{ borderRadius: 12, padding: '1rem', boxShadow: '0 6px 20px rgba(0,0,0,0.25)', flex: '1 1 0', minWidth: 240, boxSizing: 'border-box' }}>
-                                                <h3 style={{ margin: '0 0 0.5rem 0', fontFamily: 'Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif', fontSize: '28px', lineHeight: 1.15 }}>{entry.sectionsData.aboutSection.title || 'Who We Are'}</h3>
-                                                <div style={{ lineHeight: 1.6, fontFamily: 'Georgia, "Times New Roman", serif', fontSize: '21px', color: '#fff' }}>{entry.sectionsData.aboutSection.description}</div>
-                                            </div>
-                                        )}
-                                        {/* What We Do Section */}
-                                        {entry.sectionsData.WhatweDo && (
-                                            <div style={{ borderRadius: 12, padding: '1rem', boxShadow: '0 6px 20px rgba(0,0,0,0.25)', flex: '1 1 0', minWidth: 240, boxSizing: 'border-box' }}>
-                                                <h3 style={{ margin: '0 0 0.5rem 0', fontFamily: 'Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif', fontSize: '28px', lineHeight: 1.15 }}>{entry.sectionsData.WhatweDo.title || 'What We Do'}</h3>
-                                                <div style={{ lineHeight: 1.6, fontFamily: 'Georgia, "Times New Roman", serif', fontSize: '21px', color: '#fff' }}>{entry.sectionsData.WhatweDo.intro}</div>
-                                            </div>
-                                        )}
-                                        {/* Vision Section */}
-                                        {entry.sectionsData.visionSection && (
-                                            <div style={{ borderRadius: 12, padding: '1rem', boxShadow: '0 6px 20px rgba(0,0,0,0.25)', flex: '1 1 0', minWidth: 240, boxSizing: 'border-box' }}>
-                                                <h3 style={{ margin: '0 0 0.5rem 0', fontFamily: 'Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif', fontSize: '28px', lineHeight: 1.15 }}>{entry.sectionsData.visionSection.title || 'Our Vision'}</h3>
-                                                <div style={{ lineHeight: 1.6, fontFamily: 'Georgia, "Times New Roman", serif', fontSize: '21px', color: '#fff' }}>{entry.sectionsData.visionSection.description}</div>
-                                            </div>
-                                        )}
-                                    </div>
-                                    <style>{`
-                                        @media (max-width: 760px) {
-                                            section[aria-label="combined-info"] > div { flex-direction: column; }
-                                            section[aria-label="combined-info"] h3 { font-size: 22px !important; }
-                                            section[aria-label="combined-info"] div { font-size: 18px !important; }
-                                        }
-                                    `}</style>
-                                </section>
-                        )}
-            {sections.includes('contact') && (
-                <ContactSection id={entry.id} customStyle={customStyles.contact} />
-            )}
-            {sections.includes('social') && (
-                <SocialMediaSection id={entry.id} customStyle={customStyles.social} />
-            )}
+
+            {/* Render remaining sections except hero, impact, meetTheTeams, and girls (to avoid duplicate dashboard, teams/about and remove girls from front page) */}
+            {sections.filter(s => s !== 'hero' && s !== 'impact' && s !== 'meetTheTeams' && s !== 'girls').map(section => (
+                <React.Fragment key={section}>
+                    {sectionComponents[section]}
+                </React.Fragment>
+            ))}
         </div>
     );
 };
