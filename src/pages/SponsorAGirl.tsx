@@ -22,20 +22,20 @@ const SponsorAGirl: React.FC = () => {
       <h3 style={{ color: '#c2185b', marginBottom: '1rem', textAlign: 'center' }}>Sponsorship Tiers</h3>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
   <div style={{ background: '#000', color: '#fff', borderRadius: 12, padding: '1.25rem', textAlign: 'center', boxShadow: '0 1px 8px rgba(0,0,0,0.12)' }}>
-          <strong>Basic Support - $500/year</strong><br />School fees + meals<br />
+          <strong>Basic Support - $250/year</strong><br />School fees + meals<br />
           <button style={{ background: '#c2185b', color: '#fff', padding: '0.7rem 1.5rem', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: '1rem', marginTop: '1rem' }}>Sponsor a Girl</button>
         </div>
   <div style={{ background: '#000', color: '#fff', borderRadius: 12, padding: '1.25rem', textAlign: 'center', boxShadow: '0 1px 8px rgba(0,0,0,0.12)' }}>
-          <strong>Full Support - $1,000/year</strong><br />Complete package<br />
+          <strong>Full Support - $500/year</strong><br />Complete package<br />
           <button style={{ background: '#c2185b', color: '#fff', padding: '0.7rem 1.5rem', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: '1rem', marginTop: '1rem' }}>Sponsor a Girl</button>
         </div>
   <div style={{ background: '#000', color: '#fff', borderRadius: 12, padding: '1.25rem', textAlign: 'center', boxShadow: '0 1px 8px rgba(0,0,0,0.12)' }}>
-          <strong>Premium - $2,000/year</strong><br />Full support + tutoring<br />
+          <strong>Premium - $1,000/year</strong><br />Full support + tutoring<br />
           <button style={{ background: '#c2185b', color: '#fff', padding: '0.7rem 1.5rem', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: '1rem', marginTop: '1rem' }}>Sponsor a Girl</button>
         </div>
       </div>
   <div style={{ background: '#000', color: '#fff', borderRadius: 12, padding: '1.25rem', textAlign: 'center', boxShadow: '0 1px 8px rgba(0,0,0,0.12)', marginBottom: '1.5rem' }}>
-        <strong>Can’t commit annually?</strong><br />Monthly sponsorship available: Starting at $42/month<br />
+        <strong>Can’t commit annually?</strong><br />Monthly sponsorship available: Starting at $21/month<br />
         <button style={{ background: '#c2185b', color: '#fff', padding: '0.7rem 1.5rem', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: '1rem', marginTop: '1rem' }}>Become a Sponsor</button>
       </div>
       <div style={{ background: '#fff8f2', borderRadius: 12, padding: '1.25rem', textAlign: 'center', boxShadow: '0 1px 8px rgba(0,0,0,0.04)', marginBottom: '1.5rem', color: '#d32f2f', fontWeight: 600 }}>

@@ -1,17 +1,24 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 
 const heroBg = '/onthefield.jpeg'; // Example image from public folder
 
 
 const Donate: React.FC = () => {
+  const paymentMethods = [
+    { key: 'paypal', label: 'PayPal' },
+    { key: 'flutterwave', label: 'Flutterwave' },
+    { key: 'mpesa', label: 'M-Pesa' }
+  ];
+  const [selectedPayment, setSelectedPayment] = useState('paypal');
+
   return (
     <>
       <section
         style={{
           width: '100%',
           minHeight: '350px',
-          background: `linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url(${heroBg}) center/cover no-repeat`,
+          background: `url(${heroBg}) center/cover no-repeat`,
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
@@ -25,7 +32,7 @@ const Donate: React.FC = () => {
   <h1 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem', textAlign: 'center', letterSpacing: '-1px', color: '#ff7043', textShadow: '0 2px 12px rgba(0,0,0,0.25)' }}>
           Give a Girl in Kibera a Fighting Chance
         </h1>
-        <h2 style={{ fontSize: '1.35rem', fontWeight: 500, textAlign: 'center', marginBottom: 0, color: '#fff', textShadow: '0 1px 8px rgba(0,0,0,0.18)' }}>
+        <h2 style={{ fontSize: '1.35rem', fontWeight: 500, textAlign: 'center', marginBottom: 0, color: '#ff7043', textShadow: '0 1px 8px rgba(0,0,0,0.18)' }}>
           Education &bull; Nutrition &bull; Opportunity
         </h2>
       </section>
@@ -41,6 +48,7 @@ const Donate: React.FC = () => {
           gap: '2rem',
           justifyContent: 'center',
           alignItems: 'stretch',
+          background: '#fff',
         }}
       >
         {/* Donate */}
@@ -48,14 +56,14 @@ const Donate: React.FC = () => {
           <span style={{ fontSize: '2.5rem', marginBottom: '0.5rem', color: '#ff7043' }}>💰</span>
           <h3 style={{ color: '#ff7043', marginBottom: '0.5rem', fontWeight: 700, fontSize: '1.35rem' }}>DONATE</h3>
           <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.05rem' }}>Help provide school fees, food, and essentials</p>
-          <button style={{ background: '#ff7043', color: '#23272a', padding: '0.85rem 2rem', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: '1.05rem', marginTop: 'auto' }}>Give Now</button>
+          <button style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: '1.05rem', marginTop: 'auto' }}>Give Now</button>
         </div>
         {/* Volunteer */}
         <div style={{ flex: '1 1 320px', minWidth: 320, background: '#23272a', borderRadius: 16, boxShadow: '0 2px 12px rgba(0,0,0,0.18)', padding: '2.5rem 2rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <span style={{ fontSize: '2.5rem', marginBottom: '0.5rem', color: '#7fbf7f' }}>👥</span>
           <h3 style={{ color: '#7fbf7f', marginBottom: '0.5rem', fontWeight: 700, fontSize: '1.35rem' }}>VOLUNTEER</h3>
           <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.05rem' }}>Share your time, skills, or expertise</p>
-          <button style={{ background: '#7fbf7f', color: '#23272a', padding: '0.85rem 2rem', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: '1.05rem', marginTop: 'auto' }}>Get Involved</button>
+          <button style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: '1.05rem', marginTop: 'auto' }}>Get Involved</button>
         </div>
         {/* Sponsor */}
         <div style={{ flex: '1 1 320px', minWidth: 320, background: '#23272a', borderRadius: 16, boxShadow: '0 2px 12px rgba(0,0,0,0.18)', padding: '2.5rem 2rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -63,7 +71,7 @@ const Donate: React.FC = () => {
           <h3 style={{ color: '#e91e63', marginBottom: '0.5rem', fontWeight: 700, fontSize: '1.35rem' }}>SPONSOR</h3>
           <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.05rem' }}>Change one girl's entire future</p>
           <a href="/sponsor-a-girl" style={{ textDecoration: 'none', marginTop: 'auto', width: '100%' }}>
-            <button style={{ background: '#e91e63', color: '#fff', padding: '0.85rem 2rem', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: '1.05rem', width: '100%' }}>Sponsor</button>
+            <button style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: '1.05rem', width: '100%' }}>Sponsor</button>
           </a>
         </div>
       </section>
@@ -84,12 +92,12 @@ const Donate: React.FC = () => {
         <div style={{ flex: '1 1 0', background: '#23272a', borderRadius: 18, boxShadow: '0 2px 16px rgba(0,0,0,0.18)', padding: '2.5rem 1.5rem', minWidth: 320, maxWidth: 700, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
           <h2 style={{ color: '#fff', textAlign: 'center', fontWeight: 800, fontSize: '2rem', marginBottom: '1.5rem' }}>Your Money Goes Directly to the Girls</h2>
           <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.1rem' }}><em>Our Commitment:</em></p>
-          <ul style={{ marginBottom: '1.5rem', color: '#fff', fontSize: '1rem', lineHeight: 1.7 }}>
-            <li><span style={{ color: '#d32f2f', fontWeight: 'bold' }}>✓</span> <span style={{ color: '#d32f2f', fontWeight: 'bold' }}>100% of sponsorships fund girl support</span></li>
-            <li><span style={{ color: '#d32f2f', fontWeight: 'bold' }}>✓</span> <span style={{ color: '#d32f2f', fontWeight: 'bold' }}>Transparent reporting on all spending</span></li>
-            <li><span style={{ color: '#d32f2f', fontWeight: 'bold' }}>✓</span> <span style={{ color: '#d32f2f', fontWeight: 'bold' }}>Tax-deductible receipts (if applicable)</span></li>
-            <li><span style={{ color: '#d32f2f', fontWeight: 'bold' }}>✓</span> <span style={{ color: '#d32f2f', fontWeight: 'bold' }}>Secure payment processing</span></li>
-            <li><span style={{ color: '#d32f2f', fontWeight: 'bold' }}>✓</span> <span style={{ color: '#d32f2f', fontWeight: 'bold' }}>Cancel anytime</span></li>
+          <ul style={{ marginBottom: '1.5rem', color: '#fff', fontSize: '1rem', lineHeight: 1.7, listStyle: 'disc', paddingLeft: 24 }}>
+            <li style={{ color: '#d32f2f', fontWeight: 'bold' }}><span style={{ color: '#d32f2f', fontWeight: 'bold' }}>✓</span> 100% of sponsorships fund girl support</li>
+            <li style={{ color: '#d32f2f', fontWeight: 'bold' }}><span style={{ color: '#d32f2f', fontWeight: 'bold' }}>✓</span> Transparent reporting on all spending</li>
+            <li style={{ color: '#d32f2f', fontWeight: 'bold' }}><span style={{ color: '#d32f2f', fontWeight: 'bold' }}>✓</span> Tax-deductible receipts (if applicable)</li>
+            <li style={{ color: '#d32f2f', fontWeight: 'bold' }}><span style={{ color: '#d32f2f', fontWeight: 'bold' }}>✓</span> Secure payment processing</li>
+            <li style={{ color: '#d32f2f', fontWeight: 'bold' }}><span style={{ color: '#d32f2f', fontWeight: 'bold' }}>✓</span> Cancel anytime</li>
           </ul>
           <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
             <a href="/contact" style={{ textDecoration: 'none' }}>
@@ -101,12 +109,12 @@ const Donate: React.FC = () => {
         <div style={{ flex: '1 1 0', background: '#23272a', borderRadius: 18, boxShadow: '0 2px 16px rgba(0,0,0,0.18)', padding: '2.5rem 1.5rem', minWidth: 320, maxWidth: 700, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
           <h2 style={{ color: '#fff', textAlign: 'center', fontWeight: 800, fontSize: '2rem', marginBottom: '1.5rem' }}>The Reality in Kibera</h2>
           <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.1rem' }}><em>Without support, these girls face:</em></p>
-          <ul style={{ marginBottom: '1.5rem', color: '#fff', fontSize: '1rem', lineHeight: 1.7 }}>
-            <li>Dropping out of school permanently</li>
-            <li>Child marriage</li>
-            <li>Exploitation and abuse</li>
-            <li>Chronic malnutrition</li>
-            <li>No path out of extreme poverty</li>
+          <ul style={{ marginBottom: '1.5rem', color: '#fff', fontSize: '1rem', lineHeight: 1.7, listStyle: 'disc', paddingLeft: 24 }}>
+            <li style={{ color: '#d32f2f', fontWeight: 'bold' }}>Dropping out of school permanently</li>
+            <li style={{ color: '#d32f2f', fontWeight: 'bold' }}>Child marriage</li>
+            <li style={{ color: '#d32f2f', fontWeight: 'bold' }}>Exploitation and abuse</li>
+            <li style={{ color: '#d32f2f', fontWeight: 'bold' }}>Chronic malnutrition</li>
+            <li style={{ color: '#d32f2f', fontWeight: 'bold' }}>No path out of extreme poverty</li>
           </ul>
           <p style={{ textAlign: 'center', color: '#fff', fontWeight: 500, fontSize: '1.1rem' }}>
             Football brings them together. Your support keeps them in school, fed, and dreaming of a better future.
@@ -119,13 +127,13 @@ const Donate: React.FC = () => {
           <em>In Kibera, girls face impossible choices.</em><br />
           Your donation provides:
         </p>
-  <ul style={{ marginBottom: '1.5rem', color: '#fff', fontSize: '1rem', lineHeight: 1.7 }}>
-          <li>School fees and uniforms</li>
-          <li>Daily meals and nutrition</li>
-          <li>Sanitary products and dignity</li>
-          <li>Books and school supplies</li>
-          <li>Safe transportation</li>
-          <li>Football training and mentorship</li>
+  <ul style={{ marginBottom: '1.5rem', color: '#fff', fontSize: '1rem', lineHeight: 1.7, listStyle: 'disc', paddingLeft: 24 }}>
+          <li style={{ color: '#d32f2f', fontWeight: 'bold' }}>School fees and uniforms</li>
+          <li style={{ color: '#d32f2f', fontWeight: 'bold' }}>Daily meals and nutrition</li>
+          <li style={{ color: '#d32f2f', fontWeight: 'bold' }}>Sanitary products and dignity</li>
+          <li style={{ color: '#d32f2f', fontWeight: 'bold' }}>Books and school supplies</li>
+          <li style={{ color: '#d32f2f', fontWeight: 'bold' }}>Safe transportation</li>
+          <li style={{ color: '#d32f2f', fontWeight: 'bold' }}>Football training and mentorship</li>
         </ul>
         {/* Currency Selector */}
         <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
@@ -135,14 +143,39 @@ const Donate: React.FC = () => {
             <option value="KES">KES (KSh)</option>
           </select>
         </div>
-        {/* Donation Form */}
-        <div style={{ background: '#fff8f2', borderRadius: 12, padding: '1.5rem', marginBottom: '1.5rem', boxShadow: '0 1px 8px rgba(0,0,0,0.04)' }}>
+        {/* Payment Method Selector */}
+        <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+          <div style={{ fontWeight: 600, marginBottom: 8, color: '#d32f2f' }}>Choose Payment Method:</div>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem' }}>
+            {paymentMethods.map(method => (
+              <button
+                key={method.key}
+                type="button"
+                onClick={() => setSelectedPayment(method.key)}
+                style={{
+                  background: selectedPayment === method.key ? '#d32f2f' : '#fff',
+                  color: selectedPayment === method.key ? '#fff' : '#d32f2f',
+                  border: selectedPayment === method.key ? '2px solid #d32f2f' : '1px solid #ffd6c2',
+                  fontWeight: 700,
+                  borderRadius: 8,
+                  padding: '0.7rem 1.5rem',
+                  boxShadow: selectedPayment === method.key ? '0 2px 8px rgba(211,47,47,0.15)' : 'none',
+                  cursor: 'pointer',
+                  fontSize: '1rem'
+                }}
+              >
+                {method.label}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div style={{ background: '#fff', borderRadius: 12, padding: '1.5rem', marginBottom: '1.5rem', boxShadow: '0 1px 8px rgba(0,0,0,0.04)' }}>
           <h3 style={{ color: '#d32f2f', marginBottom: '1rem', textAlign: 'center' }}>Make an Impact:</h3>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginBottom: '1rem', flexWrap: 'wrap' }}>
-            <button style={{ padding: '0.7rem 1.5rem', borderRadius: 8, border: '1px solid #ffd6c2', background: '#fff', color: '#d32f2f', fontWeight: 600 }}>25</button>
-            <button style={{ padding: '0.7rem 1.5rem', borderRadius: 8, border: '1px solid #ffd6c2', background: '#fff', color: '#d32f2f', fontWeight: 600 }}>50</button>
-            <button style={{ padding: '0.7rem 1.5rem', borderRadius: 8, border: '1px solid #ffd6c2', background: '#fff', color: '#d32f2f', fontWeight: 600 }}>100</button>
-            <button style={{ padding: '0.7rem 1.5rem', borderRadius: 8, border: '1px solid #ffd6c2', background: '#fff', color: '#d32f2f', fontWeight: 600 }}>250</button>
+            <button style={{ padding: '0.7rem 1.5rem', borderRadius: 8, border: 'none', background: '#d32f2f', color: '#fff', fontWeight: 600 }}>25</button>
+            <button style={{ padding: '0.7rem 1.5rem', borderRadius: 8, border: 'none', background: '#d32f2f', color: '#fff', fontWeight: 600 }}>50</button>
+            <button style={{ padding: '0.7rem 1.5rem', borderRadius: 8, border: 'none', background: '#d32f2f', color: '#fff', fontWeight: 600 }}>100</button>
+            <button style={{ padding: '0.7rem 1.5rem', borderRadius: 8, border: 'none', background: '#d32f2f', color: '#fff', fontWeight: 600 }}>250</button>
           </div>
           <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
             <label htmlFor="customAmount" style={{ marginRight: 8, fontWeight: 500 }}>Custom Amount:</label>
@@ -155,15 +188,15 @@ const Donate: React.FC = () => {
           </div>
           <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
             <button style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 10, border: 'none', fontWeight: 700, fontSize: '1.1rem', marginRight: 10 }}>Donate Now</button>
-            <button style={{ background: '#009e3c', color: '#fff', padding: '0.85rem 2rem', borderRadius: 10, border: 'none', fontWeight: 700, fontSize: '1.1rem' }}>Pay with M-Pesa</button>
+            <button style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 10, border: 'none', fontWeight: 700, fontSize: '1.1rem' }}>Pay with M-Pesa</button>
           </div>
         </div>
         {/* Impact Examples */}
-  <div style={{ marginBottom: '1.5rem', color: '#fff', fontSize: '1rem', textAlign: 'center' }}>
-          <div><strong>25</strong> = School uniform for one girl</div>
-          <div><strong>50</strong> = One month of meals</div>
-          <div><strong>100</strong> = Term’s school fees</div>
-          <div><strong>250</strong> = Full term of school + nutrition</div>
+    <div style={{ marginBottom: '1.5rem', color: '#fff', fontSize: '1rem', textAlign: 'center' }}>
+      <div><strong>25</strong> = School uniform for one girl</div>
+      <div><strong>50</strong> = One month of meals</div>
+      <div><strong>100</strong> = Term’s school fees</div>
+      <div><strong>250</strong> = Full term of school + nutrition</div>
         </div>
   <p style={{ textAlign: 'center', color: '#fff', fontWeight: 500, fontSize: '1.1rem' }}>
           Football is how we reach them. Education and nutrition are how we change their lives.
@@ -235,7 +268,7 @@ const Donate: React.FC = () => {
             <input type="text" placeholder="e.g. weekends, evenings" style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #b3c6e6' }} />
           </div>
           <div style={{ textAlign: 'center' }}>
-            <button type="submit" style={{ background: '#1976d2', color: '#fff', padding: '0.85rem 2rem', borderRadius: 10, border: 'none', fontWeight: 700, fontSize: '1.1rem' }}>Submit</button>
+            <button type="submit" style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 10, border: 'none', fontWeight: 700, fontSize: '1.1rem' }}>Submit</button>
           </div>
         </form>
       </section>
