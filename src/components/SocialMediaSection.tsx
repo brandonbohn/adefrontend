@@ -1,19 +1,27 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import '../home.css';
 
-type SocialLink = { name: string; url: string };
-type SocialData = { links: SocialLink[] };
+const SocialMediaSection: React.FC = () => {
+    const [data, setData] = useState<any>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
-interface SocialMediaSectionProps {
-    data: SocialData;
-    customStyle?: React.CSSProperties;
-}
+    useEffect(() => {
+        axios.get('http://localhost:3000/api/content')
+            .then(res => {
+                const data = res.data as { sectionsData?: { socialSection?: any } };
+                setData(data.sectionsData?.socialSection || null);
+                setLoading(false);
+            })
+            .catch(() => {
+                setError('Unable to load social media section. Please try again later.');
+                setLoading(false);
+            });
+    }, []);
 
-const SocialMediaSection: React.FC<SocialMediaSectionProps> = ({ data, customStyle = {} }) => {
-    if (!data) return <div>No social section found.</div>;
-
-        const linkStyle = (color: string) => ({
+    const linkStyle = (color: string) => ({
         color,
         textDecoration: 'none',
         fontSize: 'clamp(1rem, 2.5vw, 1.1rem)',
@@ -25,8 +33,12 @@ const SocialMediaSection: React.FC<SocialMediaSectionProps> = ({ data, customSty
         minWidth: '120px'
     });
 
+    if (loading) return <div style={{textAlign:'center',margin:'2rem'}}>Loading...</div>;
+    if (error) return <div style={{textAlign:'center',margin:'2rem',color:'#d32f2f'}}>{error}</div>;
+    if (!data) return <div>No social section found.</div>;
+
     return (
-        <section className="box" style={{ 
+        <section className="box" style={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -37,22 +49,18 @@ const SocialMediaSection: React.FC<SocialMediaSectionProps> = ({ data, customSty
             width: '100%',
             boxSizing: 'border-box',
             gap: '20px',
-            ...customStyle 
         }}>
-            {/* Social links displayed without a title per design request */}
-            <div style={{ 
-                display: 'flex', 
-                justifyContent: 'center', 
-                gap: '2rem',
-                flexWrap: 'wrap' as const
-            }}>
-                {(data.links || []).map((link: SocialLink, idx: number) => (
-                    <a 
+            <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', marginBottom: '1rem', color: '#333' }}>
+                Social Media
+            </h2>
+            <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+                {data.links.map((link: any, idx: number) => (
+                    <a
                         key={idx}
                         href={link.url}
-                        style={linkStyle('#4267B2')}
                         target="_blank"
                         rel="noopener noreferrer"
+                        style={linkStyle('#a31515')}
                     >
                         {link.name}
                     </a>

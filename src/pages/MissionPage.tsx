@@ -28,16 +28,9 @@ const MissionPage: React.FC = () => {
 
   return (
     <div style={{ position: 'relative', width: '100%', minHeight: '60vh', overflow: 'hidden', background: '#000' }}>
-      <video
-        src={require('../../public/soccervideo.mp4')}
-        autoPlay
-        loop
-        muted
-        playsInline
-        style={{ width: '100%', height: '60vh', objectFit: 'cover', filter: 'brightness(0.7)' }}
-      />
-      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', paddingTop: '2.5rem', display: 'flex', justifyContent: 'center', pointerEvents: 'none' }}>
-        <div style={{ background: '#000', color: '#fff', borderRadius: 16, padding: '2rem 3rem', maxWidth: 700, width: '90%', boxShadow: '0 4px 24px rgba(0,0,0,0.18)', textAlign: 'center', pointerEvents: 'auto' }}>
+     
+      <div style={{ width: '100%', paddingTop: '2.5rem', display: 'flex', justifyContent: 'center' }}>
+        <div style={{ background: '#000', color: '#fff', borderRadius: 16, padding: '2rem 3rem', maxWidth: 700, width: '90%', boxShadow: '0 4px 24px rgba(0,0,0,0.18)', textAlign: 'center' }}>
           <h1 style={{ fontSize: '2.5rem', marginBottom: '1.5rem', fontWeight: 700 }}>{mission.title}</h1>
           <p style={{ fontSize: '1.3rem', color: '#ccc', lineHeight: '1.7' }}>{mission.description}</p>
         </div>

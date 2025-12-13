@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { getImagePath } from '../imageRegistry';
@@ -13,25 +12,9 @@ interface Girl {
 }
 
 const GirlsList: React.FC = () => {
-  const [data, setData] = useState<{ title?: string; girls: Girl[] } | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  // Use hardcoded girlsData for production stability
+  const data = girlsData;
 
-  useEffect(() => {
-    axios.get('http://localhost:3000/api/content')
-      .then(res => {
-        console.log('GirlsList backend data:', res.data);
-        setData(res.data.girlsSection || null);
-        setLoading(false);
-      })
-      .catch(() => {
-        setError('Unable to load girls list.');
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) return <div style={{textAlign:'center',margin:'2rem'}}>Loading Girls...</div>;
-  if (error) return <div style={{textAlign:'center',margin:'2rem',color:'#d32f2f'}}>{error}</div>;
   if (!data || !Array.isArray(data.girls) || data.girls.length === 0) return <div>No girls found.</div>;
 
   return (
@@ -93,6 +76,68 @@ const GirlsList: React.FC = () => {
       ))}
     </div>
   );
+};
+
+export const girlsData = {
+  title: 'Sponsored Girls',
+  girls: [
+    {
+      name: 'Amina',
+      age: '13',
+      dream: 'Become a doctor',
+      description: 'Bright and determined student excelling in science subjects.',
+      situation: 'Previously at risk of dropping out due to lack of school fees.',
+      image: 1
+    },
+    {
+      name: 'Neema',
+      age: '14',
+      dream: 'Play professional football',
+      description: 'Talented midfielder with strong leadership on the pitch.',
+      situation: 'Lives with grandmother; sponsorship covers meals and equipment.',
+      image: 2
+    },
+    {
+      name: 'Joy',
+      age: '12',
+      dream: 'Become a teacher',
+      description: 'Helps younger children with homework after practice.',
+      situation: 'Struggled with attendance before receiving sanitary supplies.',
+      image: 3
+    },
+    {
+      name: 'Faith',
+      age: '15',
+      dream: 'Engineer designing community solutions',
+      description: 'Enjoys math and building small craft projects.',
+      situation: 'Lost a parent; sponsorship ensures continued education.',
+      image: 4
+    },
+    {
+      name: 'Grace',
+      age: '13',
+      dream: 'Nurse supporting girls health',
+      description: 'Advocates for hygiene and wellness among teammates.',
+      situation: 'Was missing school monthly due to lack of sanitary products.',
+      image: 5
+    },
+    {
+      name: 'Mary',
+      age: '14',
+      dream: 'Journalist telling community stories',
+      description: 'Writes short articles about training sessions.',
+      situation: 'Shared one uniform with sibling before support arrived.',
+      image: 6
+    },
+    {
+      name: 'Rose',
+      age: '12',
+      dream: 'Software developer',
+      description: 'Curious about technology and problem solving.',
+      situation: 'Nearly dropped out after family relocation; stabilized with sponsorship.',
+      image: 7
+    }
+  ]
 };
 
 export default GirlsList;

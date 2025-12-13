@@ -1,15 +1,28 @@
-import React from 'react';
-import type { clientdata } from '../types';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import '../home.css';
 
-interface ServicesSectionProps {
-	data: clientdata;
-	customStyle?: React.CSSProperties;
-}
+const ServicesSection: React.FC = () => {
+	const [data, setData] = useState<any>(null);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState<string | null>(null);
 
-const ServicesSection: React.FC<ServicesSectionProps> = ({ data, customStyle }) => {
-	const servicesSection = data.sectionsData?.servicesSection;
-	if (!servicesSection) return null;
+	useEffect(() => {
+		axios.get('http://localhost:3000/api/content')
+			.then(res => {
+				setData(res.data.sectionsData?.servicesSection || null);
+				setLoading(false);
+			})
+			.catch(() => {
+				setError('Unable to load services section. Please try again later.');
+				setLoading(false);
+			});
+	}, []);
+
+	if (loading) return <div style={{textAlign:'center',margin:'2rem'}}>Loading...</div>;
+	if (error) return <div style={{textAlign:'center',margin:'2rem',color:'#d32f2f'}}>{error}</div>;
+	if (!data) return null;
+
 	return (
 		<section className="box" style={{
 			display: 'flex',
@@ -21,13 +34,12 @@ const ServicesSection: React.FC<ServicesSectionProps> = ({ data, customStyle }) 
 			maxWidth: '90vw',
 			width: '100%',
 			boxSizing: 'border-box',
-			...customStyle
 		}}>
 			<h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', marginBottom: '1rem', color: '#333' }}>
-				{servicesSection.title}
+				{data.title}
 			</h2>
 			<ul style={{ listStyle: 'none', padding: 0 }}>
-				{(servicesSection.items || []).map((service: string, idx: number) => (
+				{(data.items || []).map((service: string, idx: number) => (
 					<li key={idx} style={{ fontSize: 'clamp(1rem, 2.5vw, 1.2rem)', color: '#555', marginBottom: '0.5rem' }}>
 						{service}
 					</li>

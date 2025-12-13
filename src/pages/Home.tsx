@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import About from '../components/AboutSection';
 import Foundersection from '../components/FoundersSection';
 import MeetTheTeams from './MeetTheTeams';
+import HeroSection from '../components/HeroSection';
 import type { clientdata } from '../types';
 
 const Home: React.FC = () => {
@@ -34,8 +35,14 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <Header />
-      <WebsiteComponent entry={entry} />
+      {/* Move Header to very top, outside any background */}
+      <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', zIndex: 100 }}>
+        <Header />
+      </div>
+      <div style={{ paddingTop: '80px' }}>
+        {/* <HeroSection data={entry} /> removed to render only from WebsiteComponent */}
+        <WebsiteComponent entry={entry} />
+      </div>
       {/* Render Meet the Teams section below About grid */}
       <div style={{ margin: '2.5rem auto 1.5rem auto', maxWidth: 1200, width: '100%' }}>
         <MeetTheTeams />

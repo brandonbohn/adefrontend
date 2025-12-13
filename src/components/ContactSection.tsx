@@ -1,17 +1,27 @@
-
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import '../home.css';
 
-interface ContactSectionProps {
-    data: {
-        title: string;
-        instructions: string;
-        // Add more fields as needed
-    };
-    customStyle?: React.CSSProperties;
-}
+const ContactSection: React.FC = () => {
+    const [data, setData] = useState<any>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
-const ContactSection: React.FC<ContactSectionProps> = ({ data, customStyle = {} }) => {
+    useEffect(() => {
+        axios.get('http://localhost:3000/api/content')
+            .then(res => {
+                const data = res.data as { sectionsData?: { contactSection?: any } };
+                setData(data.sectionsData?.contactSection || null);
+                setLoading(false);
+            })
+            .catch(() => {
+                setError('Unable to load contact section. Please try again later.');
+                setLoading(false);
+            });
+    }, []);
+
+    if (loading) return <div style={{textAlign:'center',margin:'2rem'}}>Loading...</div>;
+    if (error) return <div style={{textAlign:'center',margin:'2rem',color:'#d32f2f'}}>{error}</div>;
     if (!data) return <div>No contact section found.</div>;
 
     return (
@@ -25,7 +35,6 @@ const ContactSection: React.FC<ContactSectionProps> = ({ data, customStyle = {} 
             maxWidth: '90vw',
             width: '100%',
             boxSizing: 'border-box',
-            ...customStyle 
         }}>
             <div style={{ 
                 width: '100%', 

@@ -1,18 +1,29 @@
-
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ImageComponent from '../components/ImageComponent';
 
-const MeetTheTeams: React.FC = () => {
-  const [teamGallery, setTeamGallery] = useState<Array<{ id: number; src: string; alt: string }> | null>(null);
-  const [loading, setLoading] = useState(true);
+interface MeetTheTeamsProps {
+  data?: Array<{ id: number; src: string; alt: string }>;
+}
+
+const MeetTheTeams: React.FC<MeetTheTeamsProps> = ({ data: propData }) => {
+  const [teamGallery, setTeamGallery] = useState<Array<{ id: number; src: string; alt: string }> | null>(propData || null);
+  const [loading, setLoading] = useState(!propData);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (propData) return;
     axios.get('http://localhost:3000/api/content')
       .then(res => {
         console.log('MeetTheTeams backend data:', res.data);
-        const gallery = res.data.teamGallery || null;
+        // Support both array and object data contracts
+        let gallery = null;
+        if (Array.isArray(res.data)) {
+          gallery = (res.data as any[])[0]?.sectionsData?.aboutSection?.teamGallery || null;
+        } else {
+          const dataObj = res.data as { sectionsData?: { aboutSection?: { teamGallery?: Array<{ id: number; src: string; alt: string }> } } };
+          gallery = dataObj.sectionsData?.aboutSection?.teamGallery || null;
+        }
         setTeamGallery(gallery);
         setLoading(false);
       })
@@ -20,7 +31,7 @@ const MeetTheTeams: React.FC = () => {
         setError('Unable to load team gallery.');
         setLoading(false);
       });
-  }, []);
+  }, [propData]);
 
   if (loading) return <div style={{textAlign:'center',margin:'2rem'}}>Loading Teams...</div>;
   if (error) return <div style={{textAlign:'center',margin:'2rem',color:'#d32f2f'}}>{error}</div>;
