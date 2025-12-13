@@ -12,7 +12,7 @@ const ImpactBoard: React.FC<ImpactBoardProps> = ({ data: propData }) => {
 
     useEffect(() => {
         if (propData) return;
-        axios.get('http://localhost:3000/api/content')
+        axios.get('https://adebackend-production.up.railway.app/api/content')
             .then(res => {
                 const data = res.data as { sectionsData?: { impactBoard?: any } };
                 setData(data.sectionsData?.impactBoard || null);

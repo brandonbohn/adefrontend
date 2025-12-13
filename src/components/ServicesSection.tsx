@@ -8,7 +8,7 @@ const ServicesSection: React.FC = () => {
 	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
-		axios.get('http://localhost:3000/api/content')
+		axios.get('https://adebackend-production.up.railway.app/api/content')
 			.then(res => {
 				setData(res.data.sectionsData?.servicesSection || null);
 				setLoading(false);

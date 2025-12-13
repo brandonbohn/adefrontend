@@ -17,7 +17,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     setLoading(true);
     setError(null);
-    axios.get('http://localhost:3000/api/content')
+    axios.get('https://adebackend-production.up.railway.app/api/content')
       .then(res => {
         console.log('Backend data:', res.data); // Inspect backend response
         setEntry(res.data as clientdata);

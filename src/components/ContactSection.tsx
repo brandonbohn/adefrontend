@@ -8,7 +8,7 @@ const ContactSection: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        axios.get('http://localhost:3000/api/content')
+        axios.get('https://adebackend-production.up.railway.app/api/content')
             .then(res => {
                 const data = res.data as { sectionsData?: { contactSection?: any } };
                 setData(data.sectionsData?.contactSection || null);

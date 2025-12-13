@@ -9,7 +9,7 @@ const MissionPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/content')
+    axios.get('https://adebackend-production.up.railway.app/api/content')
       .then(res => {
         setContent(res.data);
         setLoading(false);
@@ -24,7 +24,7 @@ const MissionPage: React.FC = () => {
   if (error) return <div style={{textAlign:'center',margin:'2rem',color:'#d32f2f'}}>{error}</div>;
   if (!content) return null;
 
-  const mission = content.ourMission || content.mission || { title: 'Our Mission', description: '' };
+  const mission = content.ourMission || content.mission || { title: '', description: '' };
 
   return (
     <div style={{ position: 'relative', width: '100%', minHeight: '60vh', overflow: 'hidden', background: '#000' }}>

@@ -13,7 +13,7 @@ const MeetTheTeams: React.FC<MeetTheTeamsProps> = ({ data: propData }) => {
 
   useEffect(() => {
     if (propData) return;
-    axios.get('http://localhost:3000/api/content')
+    axios.get('https://adebackend-production.up.railway.app/api/content')
       .then(res => {
         console.log('MeetTheTeams backend data:', res.data);
         // Support both array and object data contracts
