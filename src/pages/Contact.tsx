@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 import ImageComponent from '../components/ImageComponent';
 
 
@@ -11,7 +12,7 @@ const Contact = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    axios.get('https://adebackend-production.up.railway.app/api/content')
+    axios.get(`${API_BASE_URL}/api/content`)
       .then(res => {
         setContent(res.data);
         setLoading(false);

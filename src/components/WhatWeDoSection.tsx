@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { API_BASE_URL } from '../config';
 
 const WhatWeDoSection: React.FC = () => {
   const [data, setData] = useState<any>(null);
@@ -7,7 +8,7 @@ const WhatWeDoSection: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    axios.get('https://adebackend-production.up.railway.app/api/content')
+    axios.get(`${API_BASE_URL}/api/content`)
       .then(res => {
         const responseData = res.data as { sectionsData?: { whatWeDoSection?: any } };
         setData(responseData.sectionsData?.whatWeDoSection || null);

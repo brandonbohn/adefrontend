@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 import '../home.css';
 
 const ContactSection: React.FC = () => {
@@ -8,7 +9,7 @@ const ContactSection: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        axios.get('https://adebackend-production.up.railway.app/api/content')
+        axios.get(`${API_BASE_URL}/api/content`)
             .then(res => {
                 const data = res.data as { sectionsData?: { contactSection?: any } };
                 setData(data.sectionsData?.contactSection || null);

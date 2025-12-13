@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 
 interface ImpactBoardProps {
     data?: any;
@@ -12,7 +13,7 @@ const ImpactBoard: React.FC<ImpactBoardProps> = ({ data: propData }) => {
 
     useEffect(() => {
         if (propData) return;
-        axios.get('https://adebackend-production.up.railway.app/api/content')
+        axios.get(`${API_BASE_URL}/api/content`)
             .then(res => {
                 const data = res.data as { sectionsData?: { impactBoard?: any } };
                 setData(data.sectionsData?.impactBoard || null);

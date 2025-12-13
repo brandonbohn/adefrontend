@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 import WebsiteComponent from '../components/webbuildercomponent';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -17,7 +18,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     setLoading(true);
     setError(null);
-    axios.get('https://adebackend-production.up.railway.app/api/content')
+    axios.get(`${API_BASE_URL}/api/content`)
       .then(res => {
         console.log('Backend data:', res.data); // Inspect backend response
         setEntry(res.data as clientdata);

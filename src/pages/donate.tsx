@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 
 const heroBg = '/onthefield.jpeg'; // Example image from public folder
 
@@ -12,7 +13,7 @@ const Donate: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    axios.get('https://adebackend-production.up.railway.app/api/content')
+    axios.get(`${API_BASE_URL}/api/content`)
       .then(res => {
         setContent(res.data);
         setLoading(false);
