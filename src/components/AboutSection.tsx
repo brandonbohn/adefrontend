@@ -29,7 +29,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ about, whatWeDo, vision }) 
             boxShadow: 'none',
             ...(about.boxStyle ? about.boxStyle : defaultBoxStyle)
         }}>
-            <div style={{
+            <div className="about-section-flex" style={{
                 display: 'flex',
                 flexDirection: 'row',
                 alignItems: 'stretch',
@@ -64,11 +64,14 @@ const AboutSection: React.FC<AboutSectionProps> = ({ about, whatWeDo, vision }) 
                     <p>{vision?.description || "We envision a global community that harnesses sports for transformative change."}</p>
                 </div>
             </div>
-            <style>{`
-                @media (max-width: 900px) {
-                    .box > div { grid-template-columns: 1fr !important; }
-                }
-            `}</style>
+                        <style>{`
+                                @media (max-width: 900px) {
+                                    .about-section-flex {
+                                        flex-direction: column !important;
+                                        gap: 1.2rem !important;
+                                    }
+                                }
+                        `}</style>
         </section>
     );
 };

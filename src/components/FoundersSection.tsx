@@ -18,7 +18,7 @@ const Foundersection: React.FC<FoundersectionProps> = ({ data, customStyle = {} 
   return (
     <div style={{ margin: '2.5rem auto 1.5rem auto', maxWidth: 1100, width: '100%', ...customStyle }}>
       <div className="red-box">
-        {'Our Founders'}
+        <span className="red-box-caption">Our Founders</span>
       </div>
       <section style={{
         background: '#000',
@@ -27,13 +27,13 @@ const Foundersection: React.FC<FoundersectionProps> = ({ data, customStyle = {} 
         padding: '1.5rem',
         boxSizing: 'border-box'
       }}>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', justifyContent: 'center', alignItems: 'flex-start' }}>
+        <div className="founders-grid">
           {data.founders.map((founder, idx) => (
-            <div key={idx} style={{ flex: '1 1 260px', minWidth: 260, maxWidth: 340, background: '#111', borderRadius: 10, padding: '1.5rem', textAlign: 'center', boxShadow: '0 4px 16px rgba(0,0,0,0.18)' }}>
+            <div key={idx} className="founder-card">
               {founder.image ? (
-                <img src={`/${founder.image}.jpeg`} alt={founder.name} style={{ width: 120, height: 120, borderRadius: '50%', objectFit: 'cover', marginBottom: '1rem' }} />
+                <img src={`/${founder.image}.jpeg`} alt={founder.name} className="founder-img" />
               ) : (
-                <div style={{ width: 120, height: 120, borderRadius: '50%', background: '#222', margin: '0 auto 1rem auto', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>No Photo</div>
+                <div className="founder-img" style={{ background: '#222', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>No Photo</div>
               )}
               <div style={{ fontWeight: 700, fontSize: '1.2rem', marginBottom: 4 }}>{founder.name}</div>
               <div style={{ color: '#ccc', fontSize: '1rem', marginBottom: 8 }}>{founder.role}</div>
@@ -42,6 +42,104 @@ const Foundersection: React.FC<FoundersectionProps> = ({ data, customStyle = {} 
           ))}
         </div>
       </section>
+      <style>{`
+        @media (max-width: 700px) {
+          .hide-on-mobile {
+            display: none !important;
+          }
+        }
+        @media (max-width: 700px) {
+          .red-box-caption {
+            display: none !important;
+          }
+          .founders-grid {
+            display: grid !important;
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 1.2rem !important;
+            justify-items: center !important;
+          }
+          .founder-card {
+            width: 100% !important;
+            max-width: 100% !important;
+            background: #111;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+          }
+          .founder-img {
+            width: 150px !important;
+            height: 150px !important;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+          }
+        }
+        @media (min-width: 701px) {
+          .founders-grid {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            gap: 2rem !important;
+            justify-content: center !important;
+            align-items: flex-start !important;
+          }
+          .founder-card {
+            min-width: 260px !important;
+            max-width: 340px !important;
+            flex: 1 1 260px !important;
+            background: #111;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+          }
+          .founder-img {
+            width: 120px !important;
+            height: 120px !important;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+          }
+        }
+      `}</style>
+      <style>{`
+        @media (max-width: 700px) {
+          .red-box {
+            display: none !important;
+          }
+          .founders-grid {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+            gap: 1.2rem !important;
+            justify-items: center !important;
+          }
+          .founders-grid > div {
+            min-width: 0 !important;
+            width: 100% !important;
+            max-width: 100% !important;
+          }
+        }
+        @media (min-width: 701px) {
+          .founders-grid {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            gap: 2rem !important;
+            justify-content: center !important;
+            align-items: flex-start !important;
+          }
+          .founders-grid > div {
+            min-width: 260px !important;
+            max-width: 340px !important;
+            flex: 1 1 260px !important;
+          }
+        }
+      `}</style>
     </div>
   );
 };

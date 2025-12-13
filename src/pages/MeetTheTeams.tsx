@@ -42,20 +42,92 @@ const MeetTheTeams: React.FC<MeetTheTeamsProps> = ({ data: propData }) => {
     <section style={{ maxWidth: '1100px', margin: '2rem auto', padding: '1rem' }}>
       <div style={{ background: '#a31515', borderRadius: 20, padding: '2.5rem 2rem 2rem 2rem', boxShadow: '0 4px 24px rgba(163,21,21,0.12)', position: 'relative' }}>
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2.5rem' }}>
-          <div style={{ background: '#000', color: '#fff', borderRadius: 12, padding: '1rem 2.5rem', fontSize: '2.2rem', fontWeight: 700, textAlign: 'center', boxShadow: '0 4px 16px rgba(0,0,0,0.18)' }}>
+          <div className="hide-on-mobile" style={{ background: '#000', color: '#fff', borderRadius: 12, padding: '1rem 2.5rem', fontSize: '2.2rem', fontWeight: 700, textAlign: 'center', boxShadow: '0 4px 16px rgba(0,0,0,0.18)' }}>
+            Meet the Teams
+          </div>
+          <div className="show-on-mobile" style={{ background: '#000', color: '#fff', borderRadius: 12, padding: '0.7rem 1.2rem', fontSize: '1.3rem', fontWeight: 700, textAlign: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.18)', margin: '0 auto', display: 'none' }}>
             Meet the Teams
           </div>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem' }}>
+        <div className="team-gallery-grid">
           {teamGallery.map((photo, idx) => (
-            <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <div style={{ background: '#000', borderRadius: 12, width: 300, height: 300, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '0.5rem' }}>
-                <ImageComponent id={photo.id} src={photo.src} alt={photo.alt} width={300} height={300} customStyle={{ width: 280, height: 280, objectFit: 'cover', borderRadius: 10 }} />
+            <div key={idx} className="team-photo-cell">
+              <div className="team-photo-img-wrap">
+                <ImageComponent id={photo.id} src={photo.src} alt={photo.alt} width={150} height={150} customStyle={{ width: 140, height: 140, objectFit: 'cover', borderRadius: 10 }} />
               </div>
-              <div style={{ marginTop: '1rem', fontWeight: 600, color: '#fff', textAlign: 'center' }}>{photo.alt}</div>
+              <div className="team-photo-caption hide-on-mobile">{photo.alt}</div>
             </div>
           ))}
         </div>
+      <style>{`
+        @media (max-width: 700px) {
+          .show-on-mobile {
+            display: block !important;
+          }
+        }
+        @media (min-width: 701px) {
+          .show-on-mobile {
+            display: none !important;
+          }
+        }
+        @media (max-width: 700px) {
+          .hide-on-mobile {
+            display: none !important;
+          }
+        }
+        .team-gallery-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 2rem;
+        }
+        .team-photo-cell {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        .team-photo-img-wrap {
+          background: #000;
+          border-radius: 12px;
+          width: 150px;
+          height: 150px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 0.5rem;
+        }
+        .team-photo-caption {
+          margin-top: 0.5rem;
+          font-weight: 600;
+          color: #fff;
+          text-align: center;
+          font-size: 1rem;
+        }
+        @media (max-width: 900px) {
+          .team-gallery-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 1.2rem !important;
+          }
+        }
+        @media (max-width: 600px) {
+          .team-gallery-grid {
+            grid-template-columns: 1fr 1fr !important;
+            gap: 1.2rem !important;
+            justify-items: center !important;
+          }
+          .team-photo-img-wrap {
+            width: 140px !important;
+            height: 140px !important;
+          }
+          .team-photo-caption {
+            font-size: 0.85rem;
+          }
+        }
+        @media (max-width: 400px) {
+          .team-gallery-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
       </div>
     </section>
   );

@@ -35,7 +35,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroTitle, mission, videoSrc,
 
   return (
     <>
-      <div style={{ width: '98vw', margin: '0 auto', padding: 0 }}>
+      <div style={{ width: '98vw', margin: '0 auto', padding: 0, position: 'relative' }}>
         {_videoSrc && (
           <video
             src={_videoSrc}
@@ -47,15 +47,15 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroTitle, mission, videoSrc,
             style={{ display: 'block', width: '100%', height: '700px', marginTop: 0, padding: 0, background: 'none', border: 'none', objectFit: 'cover', borderRadius: '0' }}
           />
         )}
-          <div style={{ position: 'relative', width: '100%', height: 0 }}>
-            {/* Single transparent box for hero title and subtitle, centered in the middle of the video (hardcoded) */}
-            <div
+          <div className="hero-flex-stack" style={{ position: 'relative', width: '100%', height: 0, display: 'flex', flexDirection: 'column' }}>
+            {/* On mobile, show hero title box at top, mission box in center; on desktop, mission box at top, hero title in center */}
+            <div className="hero-title-box hero-title-bottom"
               style={{
                 position: 'absolute',
-                top: 'calc(50% - 350px)', // moved down by 100px
+                bottom: 0,
                 left: '50%',
-                transform: 'translate(-50%, -50%)',
-                background: 'rgba(0,0,0,0.55)',
+                transform: 'translateX(-50%)',
+                background: '#000',
                 color: '#fff',
                 padding: '0.8rem 1.5rem',
                 borderRadius: '14px',
@@ -63,18 +63,18 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroTitle, mission, videoSrc,
                 textAlign: 'center',
                 width: '60%',
                 maxWidth: '700px',
-                zIndex: 2,
+                zIndex: 21,
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
+                opacity: 1,
               }}
             >
               <h1 style={{ fontSize: '2.1rem', fontWeight: 800, margin: 0, marginBottom: '0.7rem', letterSpacing: '-1px', textShadow: '2px 2px 8px rgba(0,0,0,0.18)' }}>ADE Community Foundation</h1>
               <div style={{ fontSize: '1.05rem', fontWeight: 400, margin: 0, textShadow: '2px 2px 8px rgba(0,0,0,0.10)' }}>changing girls lives one goal at a time</div>
-              {/* Buttons moved just below the hero box, above the fold */}
               {Array.isArray(_buttons) && _buttons.length > 0 && (
-                <div style={{ marginTop: '1.5rem', display: 'flex', gap: '2rem', justifyContent: 'center', width: '100%' }}>
+                <div className="hero-buttons-row" style={{ marginTop: '1.5rem', display: 'flex', gap: '2rem', justifyContent: 'center', width: '100%' }}>
                   {_buttons.map((btn: any, idx: number) => (
                     <a
                       href={btn.link}
@@ -112,6 +112,51 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroTitle, mission, videoSrc,
             </div>
           </div>
       </div>
+      {/* Media query for stacking hero buttons on mobile */}
+      <style>{`
+        @media (max-width: 600px) {
+          .hero-flex-stack {
+            position: static !important;
+            display: flex !important;
+            flex-direction: column !important;
+            width: 100vw !important;
+            height: auto !important;
+          }
+          .hero-title-bottom {
+            position: absolute !important;
+            left: 50% !important;
+            bottom: 0 !important;
+            transform: translateX(-50%) !important;
+            width: 98vw !important;
+            max-width: 98vw !important;
+            border-radius: 14px !important;
+            background: #000 !important;
+            opacity: 1 !important;
+            z-index: 21 !important;
+            padding-left: 0.5rem !important;
+            padding-right: 0.5rem !important;
+          }
+          .hero-buttons-row {
+            flex-direction: column !important;
+            gap: 1rem !important;
+            align-items: stretch !important;
+          }
+          .hero-buttons-row a {
+            min-width: 0 !important;
+            width: 100% !important;
+            font-size: 1rem !important;
+          }
+        }
+        @media (min-width: 601px) {
+          .hero-title-bottom {
+            top: calc(50% - 300px) !important;
+            bottom: auto !important;
+            transform: translate(-50%, -50%) !important;
+            width: 60% !important;
+            max-width: 700px !important;
+          }
+        }
+      `}</style>
       {/* Mission box overlay: always rendered at top of video, hardcoded text */}
       <div
         style={{
