@@ -41,7 +41,7 @@ const Donate: React.FC = () => {
   const volunteerCta = content.volunteerCta || 'Share your time, skills, or expertise';
   const sponsorCta = content.sponsorCta || "Change one girl's entire future";
   // Button configs (labels, links, visibility)
-  const donateButton = content.donateButton || { label: 'Give Now', link: '#donate', visible: true };
+  const donateButton = content.donateButton || { label: 'Give Now', link: 'https://www.adekiberafoundation.org/donate', visible: true };
   const volunteerButton = content.volunteerButton || { label: 'Get Involved', link: '#volunteer', visible: true };
   const sponsorButton = content.sponsorButton || { label: 'Sponsor', link: '/sponsor-a-girl', visible: true };
   // Main donation action buttons (e.g., Donate Now, Pay with M-Pesa)
