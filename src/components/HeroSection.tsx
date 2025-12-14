@@ -83,10 +83,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroTitle, mission, videoSrc,
               <div style={{ fontSize: '1.05rem', fontWeight: 400, margin: 0, textShadow: '2px 2px 8px rgba(0,0,0,0.10)' }}>changing girls lives one goal at a time</div>
               {/* Fallback: Always show two static buttons */}
               <div className="hero-buttons-row" style={{ marginTop: '1.5rem', display: 'flex', gap: '2rem', justifyContent: 'center', width: '100%' }}>
-                <a
-                  href="https://www.adekiberafoundation.org/donate"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  to="/donate"
                   style={{
                     textDecoration: 'none',
                   }}
@@ -116,7 +114,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroTitle, mission, videoSrc,
                   >
                     Donate
                   </button>
-                </a>
+                </Link>
                 <Link
                   to="/sponsor-a-girl"
                   style={{
