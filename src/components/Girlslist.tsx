@@ -19,7 +19,7 @@ const GirlsList: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    axios.get(`${API_BASE_URL}/api/girls`)
+    axios.get(`${API_BASE_URL}/api/content/section/girlsSection`)
       .then(res => {
         setData(res.data);
         setLoading(false);

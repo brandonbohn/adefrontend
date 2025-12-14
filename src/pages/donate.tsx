@@ -13,7 +13,7 @@ const Donate: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    axios.get(`${API_BASE_URL}/api/content`)
+    axios.get(`${API_BASE_URL}/api/content/section/donateSection`)
       .then(res => {
         setContent(res.data);
         setLoading(false);
@@ -36,9 +36,19 @@ const Donate: React.FC = () => {
   ];
   const heroTitle = content.heroTitle || 'Give a Girl in Kibera a Fighting Chance';
   const heroSubtitle = content.heroSubtitle || 'Education • Nutrition • Opportunity';
+  // Button/CTA configs from backend, fallback to defaults
   const donateCta = content.donateCta || 'Help provide school fees, food, and essentials';
   const volunteerCta = content.volunteerCta || 'Share your time, skills, or expertise';
   const sponsorCta = content.sponsorCta || "Change one girl's entire future";
+  // Button configs (labels, links, visibility)
+  const donateButton = content.donateButton || { label: 'Give Now', link: '#donate', visible: true };
+  const volunteerButton = content.volunteerButton || { label: 'Get Involved', link: '#volunteer', visible: true };
+  const sponsorButton = content.sponsorButton || { label: 'Sponsor', link: '/sponsor-a-girl', visible: true };
+  // Main donation action buttons (e.g., Donate Now, Pay with M-Pesa)
+  const mainDonateButtons = content.mainDonateButtons || [
+    { label: 'Donate Now', link: '#', visible: true },
+    { label: 'Pay with M-Pesa', link: '#', visible: true }
+  ];
   const impactExamples = content.impactExamples || [
     { amount: 25, desc: 'School uniform for one girl' },
     { amount: 50, desc: 'One month of meals' },
@@ -119,23 +129,33 @@ const Donate: React.FC = () => {
           <span style={{ fontSize: '2.5rem', marginBottom: '0.5rem', color: '#d32f2f' }}>💰</span>
           <h3 style={{ color: '#d32f2f', marginBottom: '0.5rem', fontWeight: 700, fontSize: '1.35rem' }}>DONATE</h3>
           <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#23272a', fontSize: '1.05rem' }}>{donateCta}</p>
-          <button style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: '1.05rem', marginTop: 'auto' }}>Give Now</button>
+          {donateButton.visible && (
+            <a href={donateButton.link} style={{ textDecoration: 'none', marginTop: 'auto', width: '100%' }}>
+              <button style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: '1.05rem', width: '100%' }}>{donateButton.label}</button>
+            </a>
+          )}
         </div>
         {/* Volunteer */}
         <div style={{ flex: '1 1 320px', minWidth: 320, background: '#fff', borderRadius: 16, boxShadow: '0 2px 12px rgba(0,0,0,0.10)', padding: '2.5rem 2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid #f5f5f5' }}>
           <span style={{ fontSize: '2.5rem', marginBottom: '0.5rem', color: '#388e3c' }}>👥</span>
           <h3 style={{ color: '#388e3c', marginBottom: '0.5rem', fontWeight: 700, fontSize: '1.35rem' }}>VOLUNTEER</h3>
           <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#23272a', fontSize: '1.05rem' }}>{volunteerCta}</p>
-          <button style={{ background: '#388e3c', color: '#fff', padding: '0.85rem 2rem', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: '1.05rem', marginTop: 'auto' }}>Get Involved</button>
+          {volunteerButton.visible && (
+            <a href={volunteerButton.link} style={{ textDecoration: 'none', marginTop: 'auto', width: '100%' }}>
+              <button style={{ background: '#388e3c', color: '#fff', padding: '0.85rem 2rem', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: '1.05rem', width: '100%' }}>{volunteerButton.label}</button>
+            </a>
+          )}
         </div>
         {/* Sponsor */}
         <div style={{ flex: '1 1 320px', minWidth: 320, background: '#fff', borderRadius: 16, boxShadow: '0 2px 12px rgba(0,0,0,0.10)', padding: '2.5rem 2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid #f5f5f5' }}>
           <span style={{ fontSize: '2.5rem', marginBottom: '0.5rem', color: '#e91e63' }}>💝</span>
           <h3 style={{ color: '#e91e63', marginBottom: '0.5rem', fontWeight: 700, fontSize: '1.35rem' }}>SPONSOR</h3>
           <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#23272a', fontSize: '1.05rem' }}>{sponsorCta}</p>
-          <a href="/sponsor-a-girl" style={{ textDecoration: 'none', marginTop: 'auto', width: '100%' }}>
-            <button style={{ background: '#e91e63', color: '#fff', padding: '0.85rem 2rem', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: '1.05rem', width: '100%' }}>Sponsor</button>
-          </a>
+          {sponsorButton.visible && (
+            <a href={sponsorButton.link} style={{ textDecoration: 'none', marginTop: 'auto', width: '100%' }}>
+              <button style={{ background: '#e91e63', color: '#fff', padding: '0.85rem 2rem', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: '1.05rem', width: '100%' }}>{sponsorButton.label}</button>
+            </a>
+          )}
         </div>
       </section>
 
@@ -237,9 +257,12 @@ const Donate: React.FC = () => {
             <label style={{ marginRight: 12 }}><input type="radio" name="frequency" defaultChecked /> One-time</label>
             <label><input type="radio" name="frequency" /> Monthly</label>
           </div>
-          <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
-            <button style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 10, border: 'none', fontWeight: 700, fontSize: '1.1rem', marginRight: 10 }}>Donate Now</button>
-            <button style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 10, border: 'none', fontWeight: 700, fontSize: '1.1rem' }}>Pay with M-Pesa</button>
+          <div style={{ textAlign: 'center', marginBottom: '1rem', display: 'flex', justifyContent: 'center', gap: 10 }}>
+            {mainDonateButtons.filter((btn: { label: string; link: string; visible: boolean }) => btn.visible).map((btn: { label: string; link: string; visible: boolean }, idx: number) => (
+              <a key={idx} href={btn.link || '#'} style={{ textDecoration: 'none' }}>
+                <button style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 10, border: 'none', fontWeight: 700, fontSize: '1.1rem', marginRight: 10 }}>{btn.label}</button>
+              </a>
+            ))}
           </div>
         </div>
         {/* Impact Examples */}
