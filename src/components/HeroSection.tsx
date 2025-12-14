@@ -88,56 +88,66 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroTitle, mission, videoSrc,
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
-                    padding: '0.5rem 3.5rem',
-                    fontSize: '1.15rem',
-                    background: '#d32f2f',
-                    color: '#fff',
-                    border: 'none',
-                    borderRadius: '12px',
-                    cursor: 'pointer',
-                    fontWeight: 700,
-                    letterSpacing: '1px',
                     textDecoration: 'none',
-                    boxShadow: '0 4px 16px rgba(0,0,0,0.25)',
-                    transition: 'background 0.3s ease',
-                    minWidth: '220px',
-                    height: '52px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
                   }}
                 >
-                  Donate
+                  <button
+                    style={{
+                      padding: '0.5rem 3.5rem',
+                      fontSize: '1.15rem',
+                      background: '#d32f2f',
+                      color: '#fff',
+                      border: 'none',
+                      borderRadius: '12px',
+                      cursor: 'pointer',
+                      fontWeight: 700,
+                      letterSpacing: '1px',
+                      boxShadow: '0 4px 16px rgba(0,0,0,0.25)',
+                      transition: 'background 0.3s ease',
+                      minWidth: '220px',
+                      height: '52px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}
+                  >
+                    Donate
+                  </button>
                 </a>
                 <Link
                   to="/sponsor-a-girl"
                   style={{
-                    padding: '0.5rem 3.5rem',
-                    fontSize: '1.15rem',
-                    background: '#388e3c',
-                    color: '#fff',
-                    border: 'none',
-                    borderRadius: '12px',
-                    cursor: 'pointer',
-                    fontWeight: 700,
-                    letterSpacing: '1px',
                     textDecoration: 'none',
-                    boxShadow: '0 4px 16px rgba(0,0,0,0.25)',
-                    transition: 'background 0.3s ease',
-                    minWidth: '220px',
-                    height: '52px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
                   }}
                 >
-                  Sponsor a Girl
+                  <button
+                    style={{
+                      padding: '0.5rem 3.5rem',
+                      fontSize: '1.15rem',
+                      background: '#d32f2f',
+                      color: '#fff',
+                      border: 'none',
+                      borderRadius: '12px',
+                      cursor: 'pointer',
+                      fontWeight: 700,
+                      letterSpacing: '1px',
+                      boxShadow: '0 4px 16px rgba(0,0,0,0.25)',
+                      transition: 'background 0.3s ease',
+                      minWidth: '220px',
+                      height: '52px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}
+                  >
+                    Sponsor a Girl
+                  </button>
                 </Link>
               </div>
             </div>
