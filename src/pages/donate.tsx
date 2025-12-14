@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { API_BASE_URL } from '../config';
+import { getImagePath, getImageById } from '../imageRegistry';
 
 const heroBg = '/onthefield.jpeg'; // Example image from public folder
 
@@ -119,16 +120,16 @@ const Donate: React.FC = () => {
           gap: '2rem',
           justifyContent: 'center',
           alignItems: 'stretch',
-          background: '#fff',
+          background: '#111',
           borderRadius: 18,
-          boxShadow: '0 2px 12px rgba(0,0,0,0.08)',
+          boxShadow: '0 2px 12px rgba(0,0,0,0.18)',
         }}
       >
         {/* Donate */}
-        <div style={{ flex: '1 1 320px', minWidth: 320, background: '#fff', borderRadius: 16, boxShadow: '0 2px 12px rgba(0,0,0,0.10)', padding: '2.5rem 2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid #f5f5f5' }}>
+        <div style={{ flex: '1 1 320px', minWidth: 320, background: '#111', borderRadius: 16, boxShadow: '0 2px 12px rgba(0,0,0,0.18)', padding: '2.5rem 2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid #222' }}>
           <span style={{ fontSize: '2.5rem', marginBottom: '0.5rem', color: '#d32f2f' }}>💰</span>
           <h3 style={{ color: '#d32f2f', marginBottom: '0.5rem', fontWeight: 700, fontSize: '1.35rem' }}>DONATE</h3>
-          <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#23272a', fontSize: '1.05rem' }}>{donateCta}</p>
+          <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.05rem' }}>{donateCta}</p>
           {donateButton.visible && (
             <a href={donateButton.link} style={{ textDecoration: 'none', marginTop: 'auto', width: '100%' }}>
               <button style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: '1.05rem', width: '100%' }}>{donateButton.label}</button>
@@ -136,24 +137,24 @@ const Donate: React.FC = () => {
           )}
         </div>
         {/* Volunteer */}
-        <div style={{ flex: '1 1 320px', minWidth: 320, background: '#fff', borderRadius: 16, boxShadow: '0 2px 12px rgba(0,0,0,0.10)', padding: '2.5rem 2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid #f5f5f5' }}>
+        <div style={{ flex: '1 1 320px', minWidth: 320, background: '#111', borderRadius: 16, boxShadow: '0 2px 12px rgba(0,0,0,0.18)', padding: '2.5rem 2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid #222' }}>
           <span style={{ fontSize: '2.5rem', marginBottom: '0.5rem', color: '#388e3c' }}>👥</span>
           <h3 style={{ color: '#388e3c', marginBottom: '0.5rem', fontWeight: 700, fontSize: '1.35rem' }}>VOLUNTEER</h3>
-          <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#23272a', fontSize: '1.05rem' }}>{volunteerCta}</p>
+          <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.05rem' }}>{volunteerCta}</p>
           {volunteerButton.visible && (
             <a href={volunteerButton.link} style={{ textDecoration: 'none', marginTop: 'auto', width: '100%' }}>
-              <button style={{ background: '#388e3c', color: '#fff', padding: '0.85rem 2rem', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: '1.05rem', width: '100%' }}>{volunteerButton.label}</button>
+              <button style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: '1.05rem', width: '100%' }}>{volunteerButton.label}</button>
             </a>
           )}
         </div>
         {/* Sponsor */}
-        <div style={{ flex: '1 1 320px', minWidth: 320, background: '#fff', borderRadius: 16, boxShadow: '0 2px 12px rgba(0,0,0,0.10)', padding: '2.5rem 2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid #f5f5f5' }}>
+        <div style={{ flex: '1 1 320px', minWidth: 320, background: '#111', borderRadius: 16, boxShadow: '0 2px 12px rgba(0,0,0,0.18)', padding: '2.5rem 2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid #222' }}>
           <span style={{ fontSize: '2.5rem', marginBottom: '0.5rem', color: '#e91e63' }}>💝</span>
           <h3 style={{ color: '#e91e63', marginBottom: '0.5rem', fontWeight: 700, fontSize: '1.35rem' }}>SPONSOR</h3>
-          <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#23272a', fontSize: '1.05rem' }}>{sponsorCta}</p>
+          <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.05rem' }}>{sponsorCta}</p>
           {sponsorButton.visible && (
             <a href={sponsorButton.link} style={{ textDecoration: 'none', marginTop: 'auto', width: '100%' }}>
-              <button style={{ background: '#e91e63', color: '#fff', padding: '0.85rem 2rem', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: '1.05rem', width: '100%' }}>{sponsorButton.label}</button>
+              <button style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: '1.05rem', width: '100%' }}>{sponsorButton.label}</button>
             </a>
           )}
         </div>
@@ -166,34 +167,88 @@ const Donate: React.FC = () => {
   {/* Removed duplicate Trust & Transparency section. Only side-by-side layout remains. */}
 
       {/* Side-by-side Trust & Reality Sections */}
-      <section style={{ width: '100%', maxWidth: 1400, margin: '2.5rem auto', display: 'flex', gap: '2.5rem', justifyContent: 'center', alignItems: 'stretch' }}>
-        {/* Trust & Transparency */}
-        <div style={{ flex: '1 1 0', background: '#23272a', borderRadius: 18, boxShadow: '0 2px 16px rgba(0,0,0,0.18)', padding: '2.5rem 1.5rem', minWidth: 320, maxWidth: 700, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <h2 style={{ color: '#fff', textAlign: 'center', fontWeight: 800, fontSize: '2rem', marginBottom: '1.5rem' }}>Your Money Goes Directly to the Girls</h2>
-          <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.1rem' }}><em>Our Commitment:</em></p>
-          <ul style={{ marginBottom: '1.5rem', color: '#fff', fontSize: '1rem', lineHeight: 1.7, listStyle: 'disc', paddingLeft: 24 }}>
-            {trustBullets.map((item: string, idx: number) => (
-              <li key={idx} style={{ color: '#d32f2f', fontWeight: 'bold' }}><span style={{ color: '#d32f2f', fontWeight: 'bold' }}>✓</span> {item}</li>
+      <section style={{ width: '100%', maxWidth: 700, margin: '2.5rem auto', display: 'flex', flexDirection: 'column', gap: '2.5rem', alignItems: 'center' }}>
+        {/* Trust & Transparency Layout: 2 images, card, 2 images */}
+        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'stretch', width: '100%' }}>
+          {/* Left images */}
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', marginRight: '1rem', width: 180, minWidth: 120 }}>
+            {[1,2].map(id => (
+              <img
+                key={id}
+                src={getImagePath(id)}
+                alt={getImageById(id)?.alt || 'ADEFC'}
+                style={{ width: '100%', height: 'calc(50% - 6px)', objectFit: 'cover', borderRadius: 16, marginBottom: id === 1 ? '12px' : 0 }}
+              />
             ))}
-          </ul>
-          <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
-            <a href="/contact" style={{ textDecoration: 'none' }}>
-              <button style={{ background: '#fff', color: '#23272a', padding: '0.85rem 2rem', borderRadius: 10, border: 'none', fontWeight: 700, fontSize: '1.1rem' }}>Contact Us</button>
-            </a>
+          </div>
+          {/* Card */}
+          <div style={{ background: '#23272a', borderRadius: 12, boxShadow: '0 1px 8px rgba(0,0,0,0.18)', padding: '2rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%', maxWidth: 700, minHeight: 340 }}>
+            {/* Image inside card */}
+            <img src={getImagePath(3)} alt={getImageById(3)?.alt || 'ADEFC'} style={{ width: 120, height: 80, objectFit: 'cover', borderRadius: 8, marginBottom: '1rem' }} />
+            <h2 style={{ color: '#fff', textAlign: 'center', fontWeight: 800, fontSize: '2rem', marginBottom: '1.5rem' }}>Your Money Goes Directly to the Girls</h2>
+            <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.1rem' }}><em>Our Commitment:</em></p>
+            <ul style={{ marginBottom: '1.5rem', color: '#fff', fontSize: '1rem', lineHeight: 1.7, listStyle: 'disc', paddingLeft: 24, textAlign: 'left' }}>
+              {trustBullets.map((item: string, idx: number) => (
+                <li key={idx} style={{ color: '#d32f2f', fontWeight: 'bold' }}><span style={{ color: '#d32f2f', fontWeight: 'bold' }}>✓</span> {item}</li>
+              ))}
+            </ul>
+            <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
+              <a href="/contact" style={{ textDecoration: 'none' }}>
+                <button style={{ background: '#fff', color: '#23272a', padding: '0.85rem 2rem', borderRadius: 10, border: 'none', fontWeight: 700, fontSize: '1.1rem' }}>Contact Us</button>
+              </a>
+            </div>
+          </div>
+          {/* Right images */}
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', marginLeft: '1rem', width: 180, minWidth: 120 }}>
+            {[4,5].map(id => (
+              <img
+                key={id}
+                src={getImagePath(id)}
+                alt={getImageById(id)?.alt || 'ADEFC'}
+                style={{ width: '100%', height: 'calc(50% - 6px)', objectFit: 'cover', borderRadius: 16, marginBottom: id === 4 ? '12px' : 0 }}
+              />
+            ))}
           </div>
         </div>
-        {/* Reality Check */}
-        <div style={{ flex: '1 1 0', background: '#23272a', borderRadius: 18, boxShadow: '0 2px 16px rgba(0,0,0,0.18)', padding: '2.5rem 1.5rem', minWidth: 320, maxWidth: 700, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <h2 style={{ color: '#fff', textAlign: 'center', fontWeight: 800, fontSize: '2rem', marginBottom: '1.5rem' }}>The Reality in Kibera</h2>
-          <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.1rem' }}><em>Without support, these girls face:</em></p>
-          <ul style={{ marginBottom: '1.5rem', color: '#fff', fontSize: '1rem', lineHeight: 1.7, listStyle: 'disc', paddingLeft: 24 }}>
-            {realityBullets.map((item: string, idx: number) => (
-              <li key={idx} style={{ color: '#d32f2f', fontWeight: 'bold' }}>{item}</li>
+        {/* Reality Check Layout: 2 images, card, 2 images */}
+        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'stretch', width: '100%' }}>
+          {/* Left images */}
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', marginRight: '1rem', width: 180, minWidth: 120 }}>
+            {[6,7].map(id => (
+              <img
+                key={id}
+                src={getImagePath(id)}
+                alt={getImageById(id)?.alt || 'ADEFC'}
+                style={{ width: '100%', height: 'calc(50% - 6px)', objectFit: 'cover', borderRadius: 16, marginBottom: id === 6 ? '12px' : 0 }}
+              />
             ))}
-          </ul>
-          <p style={{ textAlign: 'center', color: '#fff', fontWeight: 500, fontSize: '1.1rem' }}>
-            Football brings them together. Your support keeps them in school, fed, and dreaming of a better future.
-          </p>
+          </div>
+          {/* Card */}
+          <div style={{ background: '#23272a', borderRadius: 12, boxShadow: '0 1px 8px rgba(0,0,0,0.18)', padding: '2rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '1000px', maxWidth: 1500, minHeight: 340 }}>
+            {/* Image inside card */}
+            <img src={getImagePath(8)} alt={getImageById(8)?.alt || 'ADEFC'} style={{ width: 120, height: 80, objectFit: 'cover', borderRadius: 8, marginBottom: '1rem' }} />
+            <h2 style={{ color: '#fff', textAlign: 'center', fontWeight: 800, fontSize: '2rem', marginBottom: '1.5rem' }}>The Reality in Kibera</h2>
+            <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.1rem' }}><em>Without support, these girls face:</em></p>
+            <ul style={{ marginBottom: '1.5rem', color: '#fff', fontSize: '1rem', lineHeight: 1.7, listStyle: 'disc', paddingLeft: 24, textAlign: 'left' }}>
+              {realityBullets.map((item: string, idx: number) => (
+                <li key={idx} style={{ color: '#d32f2f', fontWeight: 'bold' }}>{item}</li>
+              ))}
+            </ul>
+            <p style={{ textAlign: 'center', color: '#fff', fontWeight: 500, fontSize: '1.1rem' }}>
+              Football brings them together. Your support keeps them in school, fed, and dreaming of a better future.
+            </p>
+          </div>
+          {/* Right images */}
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', marginLeft: '1rem', width: 180, minWidth: 120 }}>
+            {[9,10].map(id => (
+              <img
+                key={id}
+                src={getImagePath(id)}
+                alt={getImageById(id)?.alt || 'ADEFC'}
+                style={{ width: '100%', height: 'calc(50% - 6px)', objectFit: 'cover', borderRadius: 16, marginBottom: id === 9 ? '12px' : 0 }}
+              />
+            ))}
+          </div>
         </div>
       </section>
   <section style={{ width: '100%', maxWidth: 700, margin: '2.5rem auto', background: '#fff', borderRadius: 18, boxShadow: '0 2px 16px rgba(0,0,0,0.10)', padding: '2.5rem 1.5rem', border: '1px solid #f5f5f5' }}>
@@ -241,28 +296,18 @@ const Donate: React.FC = () => {
             ))}
           </div>
         </div>
-        <div style={{ background: '#f9f9f9', borderRadius: 12, padding: '1.5rem', marginBottom: '1.5rem', boxShadow: '0 1px 8px rgba(0,0,0,0.04)', border: '1px solid #f5f5f5' }}>
-          <h3 style={{ color: '#d32f2f', marginBottom: '1rem', textAlign: 'center' }}>Make an Impact:</h3>
-          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginBottom: '1rem', flexWrap: 'wrap' }}>
-            {impactExamples.map((ex: any, idx: number) => (
-              <button key={idx} style={{ padding: '0.7rem 1.5rem', borderRadius: 8, border: 'none', background: '#d32f2f', color: '#fff', fontWeight: 600 }}>{ex.amount}</button>
-            ))}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2rem', marginBottom: '1.5rem' }}>
+          <div style={{ background: '#111', borderRadius: 12, padding: '2rem', boxShadow: '0 1px 8px rgba(0,0,0,0.18)', border: '1px solid #222', width: '100%', maxWidth: 500 }}>
+            <h3 style={{ color: '#d32f2f', marginBottom: '1rem', textAlign: 'center' }}>Make an Impact:</h3>
+            <p style={{ color: '#fff', textAlign: 'center', fontSize: '1.1rem', marginBottom: 0 }}>
+              Your donation helps provide school fees, meals, and essentials for girls in Kibera.
+            </p>
           </div>
-          <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
-            <label htmlFor="customAmount" style={{ marginRight: 8, fontWeight: 500 }}>Custom Amount:</label>
-            <input id="customAmount" type="number" min="1" placeholder="Amount" style={{ padding: '0.5rem', borderRadius: 6, border: '1px solid #ffd6c2', width: 120 }} />
-          </div>
-          <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
-            <span style={{ fontWeight: 500, marginRight: 8 }}>Frequency:</span>
-            <label style={{ marginRight: 12 }}><input type="radio" name="frequency" defaultChecked /> One-time</label>
-            <label><input type="radio" name="frequency" /> Monthly</label>
-          </div>
-          <div style={{ textAlign: 'center', marginBottom: '1rem', display: 'flex', justifyContent: 'center', gap: 10 }}>
-            {mainDonateButtons.filter((btn: { label: string; link: string; visible: boolean }) => btn.visible).map((btn: { label: string; link: string; visible: boolean }, idx: number) => (
-              <a key={idx} href={btn.link || '#'} style={{ textDecoration: 'none' }}>
-                <button style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 10, border: 'none', fontWeight: 700, fontSize: '1.1rem', marginRight: 10 }}>{btn.label}</button>
-              </a>
-            ))}
+          <div style={{ background: '#111', borderRadius: 12, padding: '2rem', boxShadow: '0 1px 8px rgba(0,0,0,0.18)', border: '1px solid #222', width: '100%', maxWidth: 500 }}>
+            <h3 style={{ color: '#d32f2f', marginBottom: '1rem', textAlign: 'center' }}>Why Your Support Matters</h3>
+            <p style={{ color: '#fff', textAlign: 'center', fontSize: '1.1rem', marginBottom: 0 }}>
+              Every contribution gives a girl the chance to stay in school, play football, and dream big.
+            </p>
           </div>
         </div>
         {/* Impact Examples */}
