@@ -2,6 +2,7 @@
 import '../home.css';
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../home.css';
 
 
@@ -31,6 +32,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroTitle, mission, videoSrc,
     _mission = data.ourMission || data.sectionsData?.ourMission || data.mission;
     _videoSrc = data.videoSrc || data.videoSection?.src;
     _buttons = data.buttons;
+  }
+  // Fallback: if no buttons provided, use static Donate and Sponsor a Girl
+  if (!_buttons || !Array.isArray(_buttons) || _buttons.length === 0) {
+    _buttons = [
+      { label: 'Donate', link: 'https://www.adekiberafoundation.org/donate' },
+      { label: 'Sponsor a Girl', link: '/sponsor-a-girl' }
+    ];
   }
 
   return (
@@ -73,42 +81,65 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroTitle, mission, videoSrc,
             >
               <h1 style={{ fontSize: '2.1rem', fontWeight: 800, margin: 0, marginBottom: '0.7rem', letterSpacing: '-1px', textShadow: '2px 2px 8px rgba(0,0,0,0.18)' }}>ADE Community Foundation</h1>
               <div style={{ fontSize: '1.05rem', fontWeight: 400, margin: 0, textShadow: '2px 2px 8px rgba(0,0,0,0.10)' }}>changing girls lives one goal at a time</div>
-              {Array.isArray(_buttons) && _buttons.length > 0 && (
-                <div className="hero-buttons-row" style={{ marginTop: '1.5rem', display: 'flex', gap: '2rem', justifyContent: 'center', width: '100%' }}>
-                  {_buttons.map((btn: any, idx: number) => (
-                    <a
-                      href={btn.link}
-                      key={idx}
-                      style={{
-                        padding: '0.5rem 3.5rem',
-                        fontSize: '1.15rem',
-                        background: '#d32f2f',
-                        color: '#fff',
-                        border: 'none',
-                        borderRadius: '12px',
-                        cursor: 'pointer',
-                        fontWeight: 700,
-                        letterSpacing: '1px',
-                        textDecoration: 'none',
-                        boxShadow: '0 4px 16px rgba(0,0,0,0.25)',
-                        transition: 'background 0.3s ease',
-                        minWidth: '220px',
-                        height: '52px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        whiteSpace: 'nowrap',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                      }}
-                      target={btn.link.startsWith('http') ? '_blank' : undefined}
-                      rel={btn.link.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    >
-                      {btn.label || btn.text || 'Button'}
-                    </a>
-                  ))}
-                </div>
-              )}
+              {/* Fallback: Always show two static buttons */}
+              <div className="hero-buttons-row" style={{ marginTop: '1.5rem', display: 'flex', gap: '2rem', justifyContent: 'center', width: '100%' }}>
+                <a
+                  href="https://www.adekiberafoundation.org/donate"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    padding: '0.5rem 3.5rem',
+                    fontSize: '1.15rem',
+                    background: '#d32f2f',
+                    color: '#fff',
+                    border: 'none',
+                    borderRadius: '12px',
+                    cursor: 'pointer',
+                    fontWeight: 700,
+                    letterSpacing: '1px',
+                    textDecoration: 'none',
+                    boxShadow: '0 4px 16px rgba(0,0,0,0.25)',
+                    transition: 'background 0.3s ease',
+                    minWidth: '220px',
+                    height: '52px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
+                >
+                  Donate
+                </a>
+                <Link
+                  to="/sponsor-a-girl"
+                  style={{
+                    padding: '0.5rem 3.5rem',
+                    fontSize: '1.15rem',
+                    background: '#388e3c',
+                    color: '#fff',
+                    border: 'none',
+                    borderRadius: '12px',
+                    cursor: 'pointer',
+                    fontWeight: 700,
+                    letterSpacing: '1px',
+                    textDecoration: 'none',
+                    boxShadow: '0 4px 16px rgba(0,0,0,0.25)',
+                    transition: 'background 0.3s ease',
+                    minWidth: '220px',
+                    height: '52px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
+                >
+                  Sponsor a Girl
+                </Link>
+              </div>
             </div>
           </div>
       </div>
