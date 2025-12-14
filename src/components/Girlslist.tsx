@@ -11,15 +11,31 @@ interface Girl {
   image?: number;
 }
 
-const GirlsList: React.FC = () => {
-  // Use hardcoded girlsData for production stability
-  const data = girlsData;
+import { API_BASE_URL } from '../config';
 
+const GirlsList: React.FC = () => {
+  const [data, setData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    axios.get(`${API_BASE_URL}/api/girls`)
+      .then(res => {
+        setData(res.data);
+        setLoading(false);
+      })
+      .catch(() => {
+        setData(girlsData); // fallback to hardcoded
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) return <div style={{textAlign:'center',margin:'2rem'}}>Loading...</div>;
   if (!data || !Array.isArray(data.girls) || data.girls.length === 0) return <div>No girls found.</div>;
 
   return (
     <div style={{ display: 'grid', gap: '2rem', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
-      {data.girls.map((girl, idx) => (
+      {data.girls.map((girl: any, idx: number) => (
         <div
           key={idx}
           style={{
