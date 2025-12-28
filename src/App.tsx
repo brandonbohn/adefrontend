@@ -9,7 +9,7 @@ import SponsoredGirls from './pages/SponsoredGirls';
 import MeetTheTeams from './pages/MeetTheTeams';
 import Foundersection from './components/FoundersSection';
 
-function App() {
+function App() { 
   return (
 
 

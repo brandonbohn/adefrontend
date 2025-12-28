@@ -31,9 +31,9 @@ const Donate: React.FC = () => {
 
   // Fallbacks for missing backend data
   const paymentMethods = content.paymentMethods || [
-    { key: 'paypal', label: 'PayPal' },
-    { key: 'flutterwave', label: 'Flutterwave' },
-    { key: 'mpesa', label: 'M-Pesa' }
+    { key: 'paypal', label: 'PayPal', link: 'https://www.paypal.com/donate' },
+    { key: 'flutterwave', label: 'Flutterwave', link: 'https://flutterwave.com/donate' },
+    { key: 'mpesa', label: 'M-Pesa', link: 'https://www.safaricom.co.ke/mpesa' }
   ];
   const heroTitle = content.heroTitle || 'Give a Girl in Kibera a Fighting Chance';
   const heroSubtitle = content.heroSubtitle || 'Education • Nutrition • Opportunity';
@@ -111,49 +111,48 @@ const Donate: React.FC = () => {
       {/* Three-Column Call to Action (below hero) */}
       {/* Three-Column Call to Action (white background) */}
       <section
+        className="cta-boxes-section"
         style={{
-          width: '100%',
-          maxWidth: 1100,
+          width: '95%',
+          maxWidth: 1400,
           margin: '2.5rem auto 0',
           display: 'flex',
           flexWrap: 'wrap',
           gap: '2rem',
           justifyContent: 'center',
           alignItems: 'stretch',
-          background: '#111',
-          borderRadius: 18,
-          boxShadow: '0 2px 12px rgba(0,0,0,0.18)',
+          padding: '0 1rem',
         }}
       >
         {/* Donate */}
-        <div style={{ flex: '1 1 320px', minWidth: 320, background: '#111', borderRadius: 16, boxShadow: '0 2px 12px rgba(0,0,0,0.18)', padding: '2.5rem 2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid #222' }}>
+        <div className="cta-box" style={{ flex: '1 1 350px', minWidth: 300, background: '#111', borderRadius: 16, boxShadow: '0 2px 12px rgba(0,0,0,0.18)', padding: '2.5rem 2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid #222', minHeight: '320px' }}>
           <span style={{ fontSize: '2.5rem', marginBottom: '0.5rem', color: '#d32f2f' }}>💰</span>
           <h3 style={{ color: '#d32f2f', marginBottom: '0.5rem', fontWeight: 700, fontSize: '1.35rem' }}>DONATE</h3>
-          <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.05rem' }}>{donateCta}</p>
+          <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.05rem', flex: '1' }}>{donateCta}</p>
           {donateButton.visible && (
-            <a href={donateButton.link} style={{ textDecoration: 'none', marginTop: 'auto', width: '100%' }}>
+            <a href={donateButton.link} style={{ textDecoration: 'none', width: '100%' }}>
               <button style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: '1.05rem', width: '100%' }}>{donateButton.label}</button>
             </a>
           )}
         </div>
         {/* Volunteer */}
-        <div style={{ flex: '1 1 320px', minWidth: 320, background: '#111', borderRadius: 16, boxShadow: '0 2px 12px rgba(0,0,0,0.18)', padding: '2.5rem 2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid #222' }}>
+        <div className="cta-box" style={{ flex: '1 1 350px', minWidth: 300, background: '#111', borderRadius: 16, boxShadow: '0 2px 12px rgba(0,0,0,0.18)', padding: '2.5rem 2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid #222', minHeight: '320px' }}>
           <span style={{ fontSize: '2.5rem', marginBottom: '0.5rem', color: '#388e3c' }}>👥</span>
           <h3 style={{ color: '#388e3c', marginBottom: '0.5rem', fontWeight: 700, fontSize: '1.35rem' }}>VOLUNTEER</h3>
-          <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.05rem' }}>{volunteerCta}</p>
+          <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.05rem', flex: '1' }}>{volunteerCta}</p>
           {volunteerButton.visible && (
-            <a href={volunteerButton.link} style={{ textDecoration: 'none', marginTop: 'auto', width: '100%' }}>
+            <a href={volunteerButton.link} style={{ textDecoration: 'none', width: '100%' }}>
               <button style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: '1.05rem', width: '100%' }}>{volunteerButton.label}</button>
             </a>
           )}
         </div>
         {/* Sponsor */}
-        <div style={{ flex: '1 1 320px', minWidth: 320, background: '#111', borderRadius: 16, boxShadow: '0 2px 12px rgba(0,0,0,0.18)', padding: '2.5rem 2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid #222' }}>
+        <div className="cta-box" style={{ flex: '1 1 350px', minWidth: 300, background: '#111', borderRadius: 16, boxShadow: '0 2px 12px rgba(0,0,0,0.18)', padding: '2.5rem 2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid #222', minHeight: '320px' }}>
           <span style={{ fontSize: '2.5rem', marginBottom: '0.5rem', color: '#e91e63' }}>💝</span>
           <h3 style={{ color: '#e91e63', marginBottom: '0.5rem', fontWeight: 700, fontSize: '1.35rem' }}>SPONSOR</h3>
-          <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.05rem' }}>{sponsorCta}</p>
+          <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.05rem', flex: '1' }}>{sponsorCta}</p>
           {sponsorButton.visible && (
-            <a href={sponsorButton.link} style={{ textDecoration: 'none', marginTop: 'auto', width: '100%' }}>
+            <a href={sponsorButton.link} style={{ textDecoration: 'none', width: '100%' }}>
               <button style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: '1.05rem', width: '100%' }}>{sponsorButton.label}</button>
             </a>
           )}
@@ -167,24 +166,33 @@ const Donate: React.FC = () => {
   {/* Removed duplicate Trust & Transparency section. Only side-by-side layout remains. */}
 
       {/* Side-by-side Trust & Reality Sections */}
-      <section style={{ width: '100%', maxWidth: 700, margin: '2.5rem auto', display: 'flex', flexDirection: 'column', gap: '2.5rem', alignItems: 'center' }}>
-        {/* Trust & Transparency Layout: 2 images, card, 2 images */}
-        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'stretch', width: '100%' }}>
-          {/* Left images */}
-          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', marginRight: '1rem', width: 180, minWidth: 120 }}>
-            {[1,2].map(id => (
-              <img
-                key={id}
-                src={getImagePath(id)}
-                alt={getImageById(id)?.alt || 'ADEFC'}
-                style={{ width: '100%', height: 'calc(50% - 6px)', objectFit: 'cover', borderRadius: 16, marginBottom: id === 1 ? '12px' : 0 }}
-              />
-            ))}
-          </div>
+      <section style={{ width: '95%', maxWidth: 1400, margin: '2.5rem auto', display: 'flex', flexDirection: 'column', gap: '2.5rem', alignItems: 'center', padding: '0 1rem' }}>
+        {/* Trust & Transparency Section */}
+        <div className="trust-section" style={{ width: '100%' }}>
           {/* Card */}
-          <div style={{ background: '#23272a', borderRadius: 12, boxShadow: '0 1px 8px rgba(0,0,0,0.18)', padding: '2rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%', maxWidth: 700, minHeight: 340 }}>
-            {/* Image inside card */}
-            <img src={getImagePath(3)} alt={getImageById(3)?.alt || 'ADEFC'} style={{ width: 120, height: 80, objectFit: 'cover', borderRadius: 8, marginBottom: '1rem' }} />
+          <div style={{ background: '#23272a', borderRadius: 12, boxShadow: '0 1px 8px rgba(0,0,0,0.18)', padding: '2rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%', minHeight: 420 }}>
+            {/* Image Grid - 4 images in a row on desktop, 2x2 on mobile */}
+            <div className="donate-image-grid" style={{ 
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(4, 1fr)', 
+              gap: '1rem', 
+              width: '100%',
+              marginBottom: '1.5rem'
+            }}>
+              {[1, 2, 3, 4].map(id => (
+                <img
+                  key={id}
+                  src={getImagePath(id)}
+                  alt={getImageById(id)?.alt || 'ADEFC'}
+                  style={{ 
+                    width: '100%', 
+                    height: '120px', 
+                    objectFit: 'cover', 
+                    borderRadius: 8
+                  }}
+                />
+              ))}
+            </div>
             <h2 style={{ color: '#fff', textAlign: 'center', fontWeight: 800, fontSize: '2rem', marginBottom: '1.5rem' }}>Your Money Goes Directly to the Girls</h2>
             <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.1rem' }}><em>Our Commitment:</em></p>
             <ul style={{ marginBottom: '1.5rem', color: '#fff', fontSize: '1rem', lineHeight: 1.7, listStyle: 'disc', paddingLeft: 24, textAlign: 'left' }}>
@@ -198,35 +206,34 @@ const Donate: React.FC = () => {
               </a>
             </div>
           </div>
-          {/* Right images */}
-          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', marginLeft: '1rem', width: 180, minWidth: 120 }}>
-            {[4,5].map(id => (
-              <img
-                key={id}
-                src={getImagePath(id)}
-                alt={getImageById(id)?.alt || 'ADEFC'}
-                style={{ width: '100%', height: 'calc(50% - 6px)', objectFit: 'cover', borderRadius: 16, marginBottom: id === 4 ? '12px' : 0 }}
-              />
-            ))}
-          </div>
         </div>
-        {/* Reality Check Layout: 2 images, card, 2 images */}
-        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'stretch', width: '100%' }}>
-          {/* Left images */}
-          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', marginRight: '1rem', width: 180, minWidth: 120 }}>
-            {[6,7].map(id => (
-              <img
-                key={id}
-                src={getImagePath(id)}
-                alt={getImageById(id)?.alt || 'ADEFC'}
-                style={{ width: '100%', height: 'calc(50% - 6px)', objectFit: 'cover', borderRadius: 16, marginBottom: id === 6 ? '12px' : 0 }}
-              />
-            ))}
-          </div>
+        
+        {/* Reality Check Section */}
+        <div className="reality-section" style={{ width: '100%' }}>
           {/* Card */}
-          <div style={{ background: '#23272a', borderRadius: 12, boxShadow: '0 1px 8px rgba(0,0,0,0.18)', padding: '2rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '1000px', maxWidth: 1500, minHeight: 340 }}>
-            {/* Image inside card */}
-            <img src={getImagePath(8)} alt={getImageById(8)?.alt || 'ADEFC'} style={{ width: 120, height: 80, objectFit: 'cover', borderRadius: 8, marginBottom: '1rem' }} />
+          <div style={{ background: '#23272a', borderRadius: 12, boxShadow: '0 1px 8px rgba(0,0,0,0.18)', padding: '2rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%', minHeight: 420 }}>
+            {/* Image Grid - 4 images in a row on desktop, 2x2 on mobile */}
+            <div className="donate-image-grid" style={{ 
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(4, 1fr)', 
+              gap: '1rem', 
+              width: '100%',
+              marginBottom: '1.5rem'
+            }}>
+              {[6, 7, 8, 9].map(id => (
+                <img
+                  key={id}
+                  src={getImagePath(id)}
+                  alt={getImageById(id)?.alt || 'ADEFC'}
+                  style={{ 
+                    width: '100%', 
+                    height: '120px', 
+                    objectFit: 'cover', 
+                    borderRadius: 8
+                  }}
+                />
+              ))}
+            </div>
             <h2 style={{ color: '#fff', textAlign: 'center', fontWeight: 800, fontSize: '2rem', marginBottom: '1.5rem' }}>The Reality in Kibera</h2>
             <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.1rem' }}><em>Without support, these girls face:</em></p>
             <ul style={{ marginBottom: '1.5rem', color: '#fff', fontSize: '1rem', lineHeight: 1.7, listStyle: 'disc', paddingLeft: 24, textAlign: 'left' }}>
@@ -238,20 +245,34 @@ const Donate: React.FC = () => {
               Football brings them together. Your support keeps them in school, fed, and dreaming of a better future.
             </p>
           </div>
-          {/* Right images */}
-          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', marginLeft: '1rem', width: 180, minWidth: 120 }}>
-            {[9,10].map(id => (
-              <img
-                key={id}
-                src={getImagePath(id)}
-                alt={getImageById(id)?.alt || 'ADEFC'}
-                style={{ width: '100%', height: 'calc(50% - 6px)', objectFit: 'cover', borderRadius: 16, marginBottom: id === 9 ? '12px' : 0 }}
-              />
-            ))}
-          </div>
         </div>
       </section>
-  <section style={{ width: '100%', maxWidth: 700, margin: '2.5rem auto', background: '#fff', borderRadius: 18, boxShadow: '0 2px 16px rgba(0,0,0,0.10)', padding: '2.5rem 1.5rem', border: '1px solid #f5f5f5' }}>
+      
+      {/* Responsive styles for image grid */}
+      <style>{`
+        @media (max-width: 768px) {
+          .donate-image-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 1rem !important;
+          }
+          .donate-image-grid img {
+            height: 180px !important;
+          }
+          .volunteer-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+        }
+        
+        @media (min-width: 769px) and (max-width: 1024px) {
+          .donate-image-grid img {
+            height: 220px !important;
+          }
+          .volunteer-grid {
+            grid-template-columns: repeat(3, 1fr) !important;
+          }
+        }
+      `}</style>
+  <section style={{ width: '95%', maxWidth: 1400, margin: '2.5rem auto', background: '#fff', borderRadius: 18, boxShadow: '0 2px 16px rgba(0,0,0,0.10)', padding: '2.5rem 1.5rem', border: '1px solid #f5f5f5' }}>
   <h2 style={{ color: '#d32f2f', textAlign: 'center', fontWeight: 800, fontSize: '2rem', marginBottom: '1.5rem' }}>Make a Donation 💰</h2>
   <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#23272a', fontSize: '1.1rem' }}>
           <em>{donationIntro}</em><br />
@@ -316,18 +337,45 @@ const Donate: React.FC = () => {
             <div key={idx}><strong>{ex.amount}</strong> = {ex.desc}</div>
           ))}
         </div>
+        
+        {/* Donate Buttons */}
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
+          <a 
+            href={paymentMethods.find((m: any) => m.key === selectedPayment)?.link || '#'} 
+            style={{ textDecoration: 'none' }}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <button style={{ 
+              background: '#d32f2f', 
+              color: '#fff', 
+              padding: '1rem 3rem', 
+              borderRadius: 12, 
+              border: 'none', 
+              fontWeight: 700, 
+              fontSize: '1.2rem',
+              cursor: 'pointer',
+              boxShadow: '0 4px 12px rgba(211,47,47,0.3)',
+              transition: 'all 0.3s ease',
+              minWidth: '250px'
+            }}>
+              Donate Now
+            </button>
+          </a>
+        </div>
+        
         <p style={{ textAlign: 'center', color: '#23272a', fontWeight: 500, fontSize: '1.1rem' }}>
           {donationOutro}
         </p>
       </section>
       {/* Volunteer Section */}
-  <section style={{ width: '100%', maxWidth: 900, margin: '2.5rem auto', background: '#fff', borderRadius: 18, boxShadow: '0 2px 16px rgba(0,0,0,0.08)', padding: '2.5rem 1.5rem' }}>
+  <section style={{ width: '95%', maxWidth: 1400, margin: '2.5rem auto', background: '#fff', borderRadius: 18, boxShadow: '0 2px 16px rgba(0,0,0,0.08)', padding: '2.5rem 1.5rem' }}>
   <h2 style={{ color: '#d32f2f', textAlign: 'center', fontWeight: 800, fontSize: '2rem', marginBottom: '1.5rem' }}>Volunteer Your Time & Skills 👥</h2>
   <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#d32f2f', fontSize: '1.1rem' }}>
           <em>Help us reach more girls in Kibera:</em>
         </p>
         {/* Opportunities Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
+        <div className="volunteer-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginBottom: '2rem' }}>
           <div style={{ background: '#23272a', borderRadius: 12, padding: '1.25rem', textAlign: 'center', boxShadow: '0 1px 8px rgba(0,0,0,0.18)' }}>
             <span style={{ fontSize: '2rem', color: '#fff' }}>🏃</span><br />
             <strong style={{ color: '#fff' }}>Coaching</strong><br /><span style={{ color: '#fff' }}>Lead football training</span>
@@ -355,17 +403,17 @@ const Donate: React.FC = () => {
         </div> 
       
         {/* Volunteer Interest Form */}
-        <form style={{ background: '#fff', borderRadius: 12, padding: '2rem', boxShadow: '0 1px 8px rgba(0,0,0,0.04)', maxWidth: 600, margin: '0 auto' }}>
-          <h3 style={{ color: '#1976d2', marginBottom: '1rem', textAlign: 'center' }}>Volunteer Interest Form:</h3>
+        <form style={{ background: '#23272a', borderRadius: 12, padding: '2rem', boxShadow: '0 1px 8px rgba(0,0,0,0.18)', maxWidth: 600, margin: '0 auto' }}>
+          <h3 style={{ color: '#d32f2f', marginBottom: '1rem', textAlign: 'center' }}>Volunteer Interest Form:</h3>
           <div style={{ marginBottom: '1rem' }}>
-            <input type="text" placeholder="Name" style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #b3c6e6', marginBottom: '0.5rem' }} />
-            <input type="email" placeholder="Email" style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #b3c6e6', marginBottom: '0.5rem' }} />
-            <input type="text" placeholder="Phone" style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #b3c6e6', marginBottom: '0.5rem' }} />
-            <input type="text" placeholder="Location" style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #b3c6e6' }} />
+            <input type="text" placeholder="Name" style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', marginBottom: '0.5rem', background: '#111', color: '#fff' }} />
+            <input type="email" placeholder="Email" style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', marginBottom: '0.5rem', background: '#111', color: '#fff' }} />
+            <input type="text" placeholder="Phone" style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', marginBottom: '0.5rem', background: '#111', color: '#fff' }} />
+            <input type="text" placeholder="Location" style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff' }} />
           </div>
           <div style={{ marginBottom: '1rem' }}>
-            <label style={{ fontWeight: 500 }}>I can help with:</label><br />
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
+            <label style={{ fontWeight: 500, color: '#fff' }}>I can help with:</label><br />
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', color: '#fff' }}>
               <label><input type="checkbox" /> Football coaching</label>
               <label><input type="checkbox" /> Academic tutoring</label>
               <label><input type="checkbox" /> Mentorship/life skills</label>
@@ -373,17 +421,17 @@ const Donate: React.FC = () => {
               <label><input type="checkbox" /> Marketing/storytelling</label>
               <label><input type="checkbox" /> Operations/admin</label>
               <label><input type="checkbox" /> Fundraising</label>
-              <label>Other: <input type="text" style={{ borderRadius: 6, border: '1px solid #b3c6e6', padding: '0.3rem', width: 100 }} /></label>
+              <label>Other: <input type="text" style={{ borderRadius: 6, border: '1px solid #444', padding: '0.3rem', width: 100, background: '#111', color: '#fff' }} /></label>
             </div>
           </div>
           <div style={{ marginBottom: '1rem' }}>
-            <label style={{ fontWeight: 500 }}>I'm based in:</label><br />
-            <label style={{ marginRight: 16 }}><input type="radio" name="location" /> Nairobi/Kenya</label>
-            <label><input type="radio" name="location" /> Remote/International</label>
+            <label style={{ fontWeight: 500, color: '#fff' }}>I'm based in:</label><br />
+            <label style={{ marginRight: 16, color: '#fff' }}><input type="radio" name="location" /> Nairobi/Kenya</label>
+            <label style={{ color: '#fff' }}><input type="radio" name="location" /> Remote/International</label>
           </div>
           <div style={{ marginBottom: '1rem' }}>
-            <label style={{ fontWeight: 500 }}>Availability:</label><br />
-            <input type="text" placeholder="e.g. weekends, evenings" style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #b3c6e6' }} />
+            <label style={{ fontWeight: 500, color: '#fff' }}>Availability:</label><br />
+            <input type="text" placeholder="e.g. weekends, evenings" style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff' }} />
           </div>
           <div style={{ textAlign: 'center' }}>
             <button type="submit" style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 10, border: 'none', fontWeight: 700, fontSize: '1.1rem' }}>Submit</button>

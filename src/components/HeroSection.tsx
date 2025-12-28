@@ -65,12 +65,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroTitle, mission, videoSrc,
                 transform: 'translateX(-50%)',
                 background: '#000',
                 color: '#fff',
-                padding: '0.8rem 1.5rem',
+                padding: '1.5rem 2rem',
                 borderRadius: '14px',
                 boxShadow: '0 4px 24px rgba(0,0,0,0.18)',
                 textAlign: 'center',
                 width: '60%',
                 maxWidth: '700px',
+                minHeight: '220px',
                 zIndex: 21,
                 display: 'flex',
                 flexDirection: 'column',
@@ -80,19 +81,21 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroTitle, mission, videoSrc,
               }}
             >
               <h1 style={{ fontSize: '2.1rem', fontWeight: 800, margin: 0, marginBottom: '0.7rem', letterSpacing: '-1px', textShadow: '2px 2px 8px rgba(0,0,0,0.18)' }}>ADE Community Foundation</h1>
-              <div style={{ fontSize: '1.05rem', fontWeight: 400, margin: 0, textShadow: '2px 2px 8px rgba(0,0,0,0.10)' }}>changing girls lives one goal at a time</div>
+              <div style={{ fontSize: '1.05rem', fontWeight: 400, margin: 0, marginBottom: '1.2rem', textShadow: '2px 2px 8px rgba(0,0,0,0.10)' }}>changing girls lives one goal at a time</div>
               {/* Fallback: Always show two static buttons */}
-              <div className="hero-buttons-row" style={{ marginTop: '1.5rem', display: 'flex', gap: '2rem', justifyContent: 'center', width: '100%' }}>
+              <div className="hero-buttons-row" style={{ marginTop: '0.5rem', display: 'flex', gap: '1.5rem', justifyContent: 'center', width: '100%', flexWrap: 'wrap' }}>
                 <Link
                   to="/donate"
                   style={{
                     textDecoration: 'none',
+                    flex: '0 1 auto',
                   }}
                 >
                   <button
+                    className="hero-button"
                     style={{
-                      padding: '0.5rem 3.5rem',
-                      fontSize: '1.15rem',
+                      padding: '0.75rem 2.5rem',
+                      fontSize: '1.1rem',
                       background: '#d32f2f',
                       color: '#fff',
                       border: 'none',
@@ -101,15 +104,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroTitle, mission, videoSrc,
                       fontWeight: 700,
                       letterSpacing: '1px',
                       boxShadow: '0 4px 16px rgba(0,0,0,0.25)',
-                      transition: 'background 0.3s ease',
-                      minWidth: '220px',
-                      height: '52px',
+                      transition: 'all 0.3s ease',
+                      minWidth: '200px',
+                      height: '56px',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       whiteSpace: 'nowrap',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
                     }}
                   >
                     Donate
@@ -119,12 +120,14 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroTitle, mission, videoSrc,
                   to="/sponsor-a-girl"
                   style={{
                     textDecoration: 'none',
+                    flex: '0 1 auto',
                   }}
                 >
                   <button
+                    className="hero-button"
                     style={{
-                      padding: '0.5rem 3.5rem',
-                      fontSize: '1.15rem',
+                      padding: '0.75rem 2.5rem',
+                      fontSize: '1.1rem',
                       background: '#d32f2f',
                       color: '#fff',
                       border: 'none',
@@ -133,15 +136,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroTitle, mission, videoSrc,
                       fontWeight: 700,
                       letterSpacing: '1px',
                       boxShadow: '0 4px 16px rgba(0,0,0,0.25)',
-                      transition: 'background 0.3s ease',
-                      minWidth: '220px',
-                      height: '52px',
+                      transition: 'all 0.3s ease',
+                      minWidth: '200px',
+                      height: '56px',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       whiteSpace: 'nowrap',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
                     }}
                   >
                     Sponsor a Girl
@@ -153,7 +154,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroTitle, mission, videoSrc,
       </div>
       {/* Media query for stacking hero buttons on mobile */}
       <style>{`
-        @media (max-width: 600px) {
+        .hero-button:hover {
+          background: #b71c1c !important;
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(0,0,0,0.3) !important;
+        }
+        
+        @media (max-width: 768px) {
           .hero-flex-stack {
             position: static !important;
             display: flex !important;
@@ -166,27 +173,57 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroTitle, mission, videoSrc,
             left: 50% !important;
             bottom: 0 !important;
             transform: translateX(-50%) !important;
-            width: 98vw !important;
-            max-width: 98vw !important;
+            width: 95vw !important;
+            max-width: 95vw !important;
             border-radius: 14px !important;
             background: #000 !important;
             opacity: 1 !important;
             z-index: 21 !important;
-            padding-left: 0.5rem !important;
-            padding-right: 0.5rem !important;
+            padding: 1.2rem 1rem !important;
+            min-height: auto !important;
+          }
+          .hero-title-bottom h1 {
+            font-size: 1.5rem !important;
+          }
+          .hero-title-bottom > div {
+            font-size: 0.95rem !important;
           }
           .hero-buttons-row {
             flex-direction: column !important;
             gap: 1rem !important;
-            align-items: stretch !important;
+            align-items: center !important;
+            margin-top: 1rem !important;
           }
           .hero-buttons-row a {
-            min-width: 0 !important;
             width: 100% !important;
+            max-width: 280px !important;
+          }
+          .hero-button {
+            width: 100% !important;
+            min-width: auto !important;
             font-size: 1rem !important;
           }
         }
-        @media (min-width: 601px) {
+        
+        @media (min-width: 769px) and (max-width: 1024px) {
+          .hero-title-bottom {
+            top: calc(50% - 280px) !important;
+            bottom: auto !important;
+            transform: translate(-50%, -50%) !important;
+            width: 70% !important;
+            max-width: 650px !important;
+            padding: 1.3rem 1.8rem !important;
+          }
+          .hero-buttons-row {
+            gap: 1.2rem !important;
+          }
+          .hero-button {
+            min-width: 180px !important;
+            padding: 0.7rem 2rem !important;
+          }
+        }
+        
+        @media (min-width: 1025px) {
           .hero-title-bottom {
             top: calc(50% - 300px) !important;
             bottom: auto !important;
