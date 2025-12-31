@@ -65,6 +65,7 @@ const GirlsList: React.FC = () => {
                 src={getImagePath(girl.image)} 
                 alt={girl.name}
                 style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 8 }}
+                loading="lazy"
               />
             ) : (
               'Photo Coming Soon'

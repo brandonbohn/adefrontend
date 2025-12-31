@@ -1,6 +1,7 @@
 import React from 'react';
 import '../home.css';
 import { getImagePath, getImageById } from '../imageRegistry';
+import LazyImage from './LazyImage';
 
 interface ImageComponentProps {
     id: number;
@@ -54,10 +55,12 @@ function ImageComponent(props: ImageComponentProps) {
             }}
             data-image-id={id}
         >
-            <img 
+            <LazyImage 
                 src={imageSrc} 
                 alt={imageAlt}
                 style={mergedStyle}
+                width={width}
+                height={height}
             />
         </div>
     );

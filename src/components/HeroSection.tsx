@@ -4,6 +4,7 @@ import '../home.css';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../home.css';
+import LazyVideo from './LazyVideo';
 
 
 interface MissionBox {
@@ -45,13 +46,14 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroTitle, mission, videoSrc,
     <>
       <div style={{ width: '98vw', margin: '0 auto', padding: 0, position: 'relative' }}>
         {_videoSrc && (
-          <video
+          <LazyVideo
             src={_videoSrc}
             width="100%"
             height="700"
             controls
             autoPlay
             muted
+            preload="none"
             style={{ display: 'block', width: '100%', height: '700px', marginTop: 0, padding: 0, background: 'none', border: 'none', objectFit: 'cover', borderRadius: '0' }}
           />
         )}
