@@ -65,8 +65,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroTitle, mission, videoSrc,
               style={{
                 position: 'absolute',
                 bottom: 0,
-
-
+                left: '50%',
                 transform: 'translateX(-50%)',
                 background: '#000',
                 color: '#fff',
