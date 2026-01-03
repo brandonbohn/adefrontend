@@ -22,6 +22,8 @@ interface HeroSectionProps {
   data?: any;
 }
 
+let width = 1;
+
 const HeroSection: React.FC<HeroSectionProps> = ({ heroTitle, mission, videoSrc, buttons, data }) => {
   // Backward compatibility: if data prop is provided, extract values from it
   let _heroTitle = heroTitle;
@@ -63,7 +65,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroTitle, mission, videoSrc,
               style={{
                 position: 'absolute',
                 bottom: 0,
-                left: '50%',
+
+
                 transform: 'translateX(-50%)',
                 background: '#000',
                 color: '#fff',
