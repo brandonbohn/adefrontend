@@ -42,7 +42,7 @@ const Donate: React.FC = () => {
   const volunteerCta = content.volunteerCta || 'Share your time, skills, or expertise';
   const sponsorCta = content.sponsorCta || "Change one girl's entire future";
   // Button configs (labels, links, visibility)
-  const donateButton = content.donateButton || { label: 'Give Now', link: 'https://www.adekiberafoundation.org/donate', visible: true };
+  const donateButton = content.donateButton || { label: 'Give Now', link: '#donate', visible: true };
   const volunteerButton = content.volunteerButton || { label: 'Get Involved', link: '#volunteer', visible: true };
   const sponsorButton = content.sponsorButton || { label: 'Sponsor', link: '/sponsor-a-girl', visible: true };
   // Main donation action buttons (e.g., Donate Now, Pay with M-Pesa)
@@ -272,63 +272,71 @@ const Donate: React.FC = () => {
           }
         }
       `}</style>
-  <section style={{ width: '95%', maxWidth: 1400, margin: '2.5rem auto', background: '#fff', borderRadius: 18, boxShadow: '0 2px 16px rgba(0,0,0,0.10)', padding: '2.5rem 1.5rem', border: '1px solid #f5f5f5' }}>
+  <section id="donate" style={{ width: '95%', maxWidth: 1400, margin: '2.5rem auto', background: '#fff', borderRadius: 18, boxShadow: '0 2px 16px rgba(0,0,0,0.10)', padding: '2.5rem 1.5rem', border: '1px solid #f5f5f5' }}>
   <h2 style={{ color: '#d32f2f', textAlign: 'center', fontWeight: 800, fontSize: '2rem', marginBottom: '1.5rem' }}>Make a Donation 💰</h2>
-  <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#23272a', fontSize: '1.1rem' }}>
-          <em>{donationIntro}</em><br />
-          Your donation provides:
-        </p>
-  <ul style={{ marginBottom: '1.5rem', color: '#23272a', fontSize: '1rem', lineHeight: 1.7, listStyle: 'disc', paddingLeft: 24 }}>
-    {donationProvides.map((item: string, idx: number) => (
-      <li key={idx} style={{ color: '#d32f2f', fontWeight: 'bold' }}>{item}</li>
-    ))}
-  </ul>
-        {/* Currency Selector */}
-        <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
-          <label htmlFor="currency" style={{ fontWeight: 500, marginRight: 8 }}>Currency:</label>
-          <select id="currency" style={{ padding: '0.5rem', borderRadius: 6, border: '1px solid #ffd6c2', width: 100 }}>
-            <option value="USD">USD ($)</option>
-            <option value="KES">KES (KSh)</option>
-          </select>
-        </div>
-        {/* Payment Method Selector */}
-        <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
-          <div style={{ fontWeight: 600, marginBottom: 8, color: '#d32f2f' }}>Choose Payment Method:</div>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem' }}>
-            {paymentMethods.map((method: any) => (
-              <button
-                key={method.key}
-                type="button"
-                onClick={() => setSelectedPayment(method.key)}
-                style={{
-                  background: selectedPayment === method.key ? '#d32f2f' : '#fff',
-                  color: selectedPayment === method.key ? '#fff' : '#d32f2f',
-                  border: selectedPayment === method.key ? '2px solid #d32f2f' : '1px solid #ffd6c2',
-                  fontWeight: 700,
-                  borderRadius: 8,
-                  padding: '0.7rem 1.5rem',
-                  boxShadow: selectedPayment === method.key ? '0 2px 8px rgba(211,47,47,0.15)' : 'none',
-                  cursor: 'pointer',
-                  fontSize: '1rem'
-                }}
-              >
-                {method.label}
-              </button>
+  
+        {/* Main Black Box - Contains all donation content */}
+        <div style={{ background: '#111', borderRadius: 12, padding: '2.5rem 2rem', boxShadow: '0 1px 8px rgba(0,0,0,0.18)', border: '1px solid #222', marginBottom: '1.5rem' }}>
+          <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.1rem' }}>
+            <em>{donationIntro}</em><br />
+            Your donation provides:
+          </p>
+          <ul style={{ marginBottom: '1.5rem', color: '#fff', fontSize: '1rem', lineHeight: 1.7, listStyle: 'disc', paddingLeft: 24 }}>
+            {donationProvides.map((item: string, idx: number) => (
+              <li key={idx} style={{ color: '#d32f2f', fontWeight: 'bold' }}>{item}</li>
             ))}
+          </ul>
+          
+          {/* Currency Selector */}
+          <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+            <label htmlFor="currency" style={{ fontWeight: 500, marginRight: 8, color: '#fff' }}>Currency:</label>
+            <select id="currency" style={{ padding: '0.5rem', borderRadius: 6, border: '1px solid #444', width: 100, background: '#222', color: '#fff' }}>
+              <option value="USD">USD ($)</option>
+              <option value="KES">KES (KSh)</option>
+            </select>
           </div>
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2rem', marginBottom: '1.5rem' }}>
-          <div style={{ background: '#111', borderRadius: 12, padding: '2rem', boxShadow: '0 1px 8px rgba(0,0,0,0.18)', border: '1px solid #222', width: '100%', maxWidth: 500 }}>
-            <h3 style={{ color: '#d32f2f', marginBottom: '1rem', textAlign: 'center' }}>Make an Impact:</h3>
-            <p style={{ color: '#fff', textAlign: 'center', fontSize: '1.1rem', marginBottom: 0 }}>
-              Your donation helps provide school fees, meals, and essentials for girls in Kibera.
-            </p>
+          
+          {/* Payment Method Selector */}
+          <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+            <div style={{ fontWeight: 600, marginBottom: 12, color: '#fff' }}>Choose Payment Method:</div>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+              {paymentMethods.map((method: any) => (
+                <button
+                  key={method.key}
+                  type="button"
+                  onClick={() => setSelectedPayment(method.key)}
+                  style={{
+                    background: selectedPayment === method.key ? '#d32f2f' : '#fff',
+                    color: selectedPayment === method.key ? '#fff' : '#d32f2f',
+                    border: selectedPayment === method.key ? '2px solid #d32f2f' : '1px solid #ffd6c2',
+                    fontWeight: 700,
+                    borderRadius: 8,
+                    padding: '0.7rem 1.5rem',
+                    boxShadow: selectedPayment === method.key ? '0 2px 8px rgba(211,47,47,0.15)' : 'none',
+                    cursor: 'pointer',
+                    fontSize: '1rem'
+                  }}
+                >
+                  {method.label}
+                </button>
+              ))}
+            </div>
           </div>
-          <div style={{ background: '#111', borderRadius: 12, padding: '2rem', boxShadow: '0 1px 8px rgba(0,0,0,0.18)', border: '1px solid #222', width: '100%', maxWidth: 500 }}>
-            <h3 style={{ color: '#d32f2f', marginBottom: '1rem', textAlign: 'center' }}>Why Your Support Matters</h3>
-            <p style={{ color: '#fff', textAlign: 'center', fontSize: '1.1rem', marginBottom: 0 }}>
-              Every contribution gives a girl the chance to stay in school, play football, and dream big.
-            </p>
+          
+          {/* Impact Messages */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2rem' }}>
+            <div style={{ width: '100%', maxWidth: 600 }}>
+              <h3 style={{ color: '#d32f2f', marginBottom: '1rem', textAlign: 'center' }}>Make an Impact:</h3>
+              <p style={{ color: '#fff', textAlign: 'center', fontSize: '1.1rem', marginBottom: 0 }}>
+                Your donation helps provide school fees, meals, and essentials for girls in Kibera.
+              </p>
+            </div>
+            <div style={{ width: '100%', maxWidth: 600 }}>
+              <h3 style={{ color: '#d32f2f', marginBottom: '1rem', textAlign: 'center' }}>Why Your Support Matters</h3>
+              <p style={{ color: '#fff', textAlign: 'center', fontSize: '1.1rem', marginBottom: 0 }}>
+                Every contribution gives a girl the chance to stay in school, play football, and dream big.
+              </p>
+            </div>
           </div>
         </div>
         {/* Impact Examples */}
@@ -369,7 +377,7 @@ const Donate: React.FC = () => {
         </p>
       </section>
       {/* Volunteer Section */}
-  <section style={{ width: '95%', maxWidth: 1400, margin: '2.5rem auto', background: '#fff', borderRadius: 18, boxShadow: '0 2px 16px rgba(0,0,0,0.08)', padding: '2.5rem 1.5rem' }}>
+  <section id="volunteer" style={{ width: '95%', maxWidth: 1400, margin: '2.5rem auto', background: '#fff', borderRadius: 18, boxShadow: '0 2px 16px rgba(0,0,0,0.08)', padding: '2.5rem 1.5rem' }}>
   <h2 style={{ color: '#d32f2f', textAlign: 'center', fontWeight: 800, fontSize: '2rem', marginBottom: '1.5rem' }}>Volunteer Your Time & Skills 👥</h2>
   <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#d32f2f', fontSize: '1.1rem' }}>
           <em>Help us reach more girls in Kibera:</em>
