@@ -372,9 +372,10 @@ const Donate: React.FC = () => {
           </a>
         </div>
         
-        <p style={{ textAlign: 'center', color: '#23272a', fontWeight: 500, fontSize: '1.1rem' }}>
+        <p style={{ textAlign: 'center', color: '#fff', fontWeight: 500, fontSize: '1.1rem' }}>
           {donationOutro}
         </p>
+        </div>
       </section>
       {/* Volunteer Section */}
   <section id="volunteer" style={{ width: '95%', maxWidth: 1400, margin: '2.5rem auto', background: '#fff', borderRadius: 18, boxShadow: '0 2px 16px rgba(0,0,0,0.08)', padding: '2.5rem 1.5rem' }}>
