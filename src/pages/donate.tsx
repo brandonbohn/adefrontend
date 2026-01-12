@@ -338,8 +338,8 @@ const Donate: React.FC = () => {
               </p>
             </div>
           </div>
-        </div>
-        {/* Impact Examples */}
+          
+          {/* Impact Examples */}
         <div style={{ marginBottom: '1.5rem', color: '#d32f2f', fontSize: '1rem', textAlign: 'center', fontWeight: 700 }}>
           {impactExamples.map((ex: any, idx: number) => (
             <div key={idx}><strong>{ex.amount}</strong> = {ex.desc}</div>
@@ -375,7 +375,7 @@ const Donate: React.FC = () => {
         <p style={{ textAlign: 'center', color: '#fff', fontWeight: 500, fontSize: '1.1rem' }}>
           {donationOutro}
         </p>
-        </div>
+      </div>
       </section>
       {/* Volunteer Section */}
   <section id="volunteer" style={{ width: '95%', maxWidth: 1400, margin: '2.5rem auto', background: '#fff', borderRadius: 18, boxShadow: '0 2px 16px rgba(0,0,0,0.08)', padding: '2.5rem 1.5rem' }}>
