@@ -50,6 +50,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroTitle, mission, videoSrc,
         {_videoSrc && (
           <LazyVideo
             src={_videoSrc}
+            poster="/onthefield.jpeg"
             width="100%"
             height="700"
             controls
