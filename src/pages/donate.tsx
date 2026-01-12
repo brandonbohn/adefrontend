@@ -10,8 +10,19 @@ const heroBg = '/onthefield.jpeg'; // Example image from public folder
 const Donate: React.FC = () => {
   const [content, setContent] = useState<any>(null);
   const [selectedPayment, setSelectedPayment] = useState('paypal');
+  const [selectedCurrency, setSelectedCurrency] = useState('USD');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  
+  // Exchange rate: 1 USD = 130 KES (approximate)
+  const USD_TO_KES = 130;
+  
+  const formatAmount = (amount: number) => {
+    if (selectedCurrency === 'KES') {
+      return `KSh ${Math.round(amount * USD_TO_KES).toLocaleString()}`;
+    }
+    return `$${amount}`;
+  };
 
   useEffect(() => {
     axios.get(`${API_BASE_URL}/api/content/section/donateSection`)
@@ -281,16 +292,21 @@ const Donate: React.FC = () => {
             <em>{donationIntro}</em><br />
             Your donation provides:
           </p>
-          <ul style={{ marginBottom: '1.5rem', color: '#fff', fontSize: '1rem', lineHeight: 1.7, listStyle: 'disc', paddingLeft: 24 }}>
+          <ul style={{ marginBottom: '1.5rem', color: '#fff', fontSize: '1.2rem', lineHeight: 1.8, listStyle: 'none', paddingLeft: 0, textAlign: 'center', maxWidth: 800, margin: '0 auto 1.5rem' }}>
             {donationProvides.map((item: string, idx: number) => (
-              <li key={idx} style={{ color: '#d32f2f', fontWeight: 'bold' }}>{item}</li>
+              <li key={idx} style={{ color: '#d32f2f', fontWeight: 'bold', marginBottom: '0.5rem' }}>• {item}</li>
             ))}
           </ul>
           
           {/* Currency Selector */}
           <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
             <label htmlFor="currency" style={{ fontWeight: 500, marginRight: 8, color: '#fff' }}>Currency:</label>
-            <select id="currency" style={{ padding: '0.5rem', borderRadius: 6, border: '1px solid #444', width: 100, background: '#222', color: '#fff' }}>
+            <select 
+              id="currency" 
+              value={selectedCurrency}
+              onChange={(e) => setSelectedCurrency(e.target.value)}
+              style={{ padding: '0.5rem', borderRadius: 6, border: '1px solid #444', width: 100, background: '#222', color: '#fff' }}
+            >
               <option value="USD">USD ($)</option>
               <option value="KES">KES (KSh)</option>
             </select>
@@ -340,11 +356,11 @@ const Donate: React.FC = () => {
           </div>
           
           {/* Impact Examples */}
-        <div style={{ marginBottom: '1.5rem', color: '#d32f2f', fontSize: '1rem', textAlign: 'center', fontWeight: 700 }}>
-          {impactExamples.map((ex: any, idx: number) => (
-            <div key={idx}><strong>{ex.amount}</strong> = {ex.desc}</div>
-          ))}
-        </div>
+          <div style={{ marginBottom: '1.5rem', color: '#fff', fontSize: '1.3rem', textAlign: 'center', fontWeight: 700, width: '100%', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            {impactExamples.map((ex: any, idx: number) => (
+              <div key={idx} style={{ width: '100%' }}><strong style={{ color: '#d32f2f', fontSize: '1.4rem' }}>{formatAmount(ex.amount)}</strong> = {ex.desc}</div>
+            ))}
+          </div>
         
         {/* Donate Buttons */}
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
