@@ -21,9 +21,9 @@ export const imageRegistry: ImageRegistryItem[] = [
     },
     {
         id: 3,
-        filename: "playingtime.jpeg",
-        alt: "Soccer Photo",
-        description: "Soccer game in progress"
+        filename: "donationsandreality.jpeg",
+        alt: "kibera conditions",
+        description: "kibera conditions"
     },
     {
         id: 4,
@@ -71,8 +71,15 @@ export const imageRegistry: ImageRegistryItem[] = [
     { id: 22, filename: "trophyceremony.jpeg", alt: "Trophy Ceremony", description: "Trophy ceremony photo" },
     { id: 23, filename: "twogirls.jpeg", alt: "Two Girls", description: "Two girls photo" },
     { id: 24, filename: "whiteteam.jpeg", alt: "White Team", description: "White team group photo" },
-    { id: 31, filename: "placeholder.jpg", alt: "Founder Placeholder", description: "Placeholder for founder image" },
-    { id: 32, filename: "placeholder.jpg", alt: "Founder Placeholder", description: "Placeholder for founder image" },
+    { id: 31, filename: "daniel.jpg", alt: "Founder Placeholder", description: "Placeholder for founder image" },
+    { id: 32, filename: "adriano.jpg", alt: "Founder Placeholder", description: "Placeholder for founder image" },
+    
+    // Girls photos
+    { id: 33, filename: "talia.jpeg", alt: "Talia", description: "Talia - Sponsored Girl" },
+    { id: 34, filename: "vivian.jpeg", alt: "Vivian", description: "Vivian - Sponsored Girl" },
+    { id: 35, filename: "patience.jpeg", alt: "Patience", description: "Patience - Sponsored Girl" },
+    { id: 36, filename: "cindy.jpeg", alt: "Cindy", description: "Cindy - Sponsored Girl" },
+    { id: 37, filename: "Cynthia.jpeg", alt: "Cynthia", description: "Cynthia - Sponsored Girl" },
 
     
     // Add more images here as needed
@@ -93,4 +100,42 @@ export const getImageById = (id: number): ImageRegistryItem | undefined => {
 export const getImagePath = (id: number): string => {
     const image = getImageById(id);
     return image ? `/${image.filename}` : `/placeholder.jpg`;
+};
+
+// Name-based image mapping for girls
+const girlNameToImageId: Record<string, number> = {
+    'talia': 33,
+    'vivian': 34,
+    'vivian atieno': 34,
+    'patience': 35,
+    'mithcell atieno': 35,
+    'cindy': 36,
+    'cindy adhiambo': 36,
+    'cynthia': 37,
+    'cynthia anyaugo': 37,
+};
+
+/**
+ * Get image ID for a girl by her name
+ * Performs case-insensitive matching with fallback to first name
+ */
+export const getImageIdByName = (name: string): number | undefined => {
+    const normalizedName = name.toLowerCase().trim();
+    
+    // Try exact match first
+    if (girlNameToImageId[normalizedName]) {
+        return girlNameToImageId[normalizedName];
+    }
+    
+    // Try matching just the first name
+    const firstName = normalizedName.split(' ')[0];
+    return girlNameToImageId[firstName];
+};
+
+/**
+ * Get image path for a girl by her name
+ */
+export const getImagePathByName = (name: string): string => {
+    const imageId = getImageIdByName(name);
+    return imageId ? getImagePath(imageId) : `/placeholder.jpg`;
 };
