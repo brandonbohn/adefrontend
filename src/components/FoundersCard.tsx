@@ -4,12 +4,12 @@ const founders = [
   {
     name: 'Adriano Situma',
     role: 'Visionary leader & co-founder',
-    image: '/adriano.jpg',
+    image: '/adriano.jpeg',
   },
   {
     name: 'Daniel Ogweno',
     role: 'Community mentor & co-founder',
-    image: '/daniel.jpg',
+    image: '/Daniel.jpeg',
   },
 ];
 
