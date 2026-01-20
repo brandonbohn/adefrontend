@@ -1,15 +1,16 @@
 import React from 'react';
+import { getImagePath } from '../imageRegistry';
 
 const founders = [
   {
     name: 'Adriano Situma',
-    role: 'Visionary leader & co-founder',
-    image: '/adriano.jpeg',
+    role: 'Visionary leader & Founder',
+    imageId: 32,
   },
   {
     name: 'Daniel Ogweno',
     role: 'Community mentor & co-founder',
-    image: '/Daniel.jpeg',
+    imageId: 31,
   },
 ];
 
@@ -26,7 +27,7 @@ const FoundersCard: React.FC = () => (
       }}>
         {founders.map((founder) => (
           <div key={founder.name} style={{ textAlign: 'center' }}>
-            <img src={founder.image} alt={founder.name} style={{ width: 180, height: 180, borderRadius: '50%', objectFit: 'cover', boxShadow: '0 4px 16px rgba(0,0,0,0.18)', marginBottom: '1rem' }} loading="lazy" />
+            <img src={getImagePath(founder.imageId)} alt={founder.name} style={{ width: 180, height: 180, borderRadius: '50%', objectFit: 'cover', boxShadow: '0 4px 16px rgba(0,0,0,0.18)', marginBottom: '1rem' }} loading="lazy" />
             <div style={{ color: '#fff', fontWeight: 700, fontSize: '1.2rem' }}>{founder.name}</div>
             <div style={{ color: '#ccc', fontSize: '1rem' }}>{founder.role}</div>
           </div>

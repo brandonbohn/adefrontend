@@ -1,5 +1,6 @@
 import React from 'react';
 import '../home.css';
+import { getImagePath } from '../imageRegistry';
 
 interface Founder {
   image?: string | number;
@@ -28,10 +29,16 @@ const Foundersection: React.FC<FoundersectionProps> = ({ data, customStyle = {} 
         boxSizing: 'border-box'
       }}>
         <div className="founders-grid">
-          {data.founders.map((founder, idx) => (
+          {data.founders.map((founder, idx) => {
+            // Use image registry for number IDs, string paths as-is
+            const imageSrc = typeof founder.image === 'number' 
+              ? getImagePath(founder.image) 
+              : founder.image || '';
+            
+            return (
             <div key={idx} className="founder-card">
-              {founder.image ? (
-                <img src={`/${founder.image}.jpeg`} alt={founder.name} className="founder-img" />
+              {imageSrc ? (
+                <img src={imageSrc} alt={founder.name} className="founder-img" />
               ) : (
                 <div className="founder-img" style={{ background: '#222', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>No Photo</div>
               )}
@@ -39,7 +46,8 @@ const Foundersection: React.FC<FoundersectionProps> = ({ data, customStyle = {} 
               <div style={{ color: '#ccc', fontSize: '1rem', marginBottom: 8 }}>{founder.role}</div>
               <div style={{ fontSize: '1rem', color: '#eee' }}>{founder.bio}</div>
             </div>
-          ))}
+            );
+          })}
         </div>
       </section>
       <style>{`

@@ -71,8 +71,8 @@ export const imageRegistry: ImageRegistryItem[] = [
     { id: 22, filename: "trophyceremony.jpeg", alt: "Trophy Ceremony", description: "Trophy ceremony photo" },
     { id: 23, filename: "twogirls.jpeg", alt: "Two Girls", description: "Two girls photo" },
     { id: 24, filename: "whiteteam.jpeg", alt: "White Team", description: "White team group photo" },
-    { id: 31, filename: "Daniel.jpeg", alt: "Daniel", description: "Co-founder Daniel Ogweno" },
-    { id: 32, filename: "adriano.jpeg", alt: "Adriano", description: "Co-founder Adriano Situma" },
+    { id: 31, filename: "adriano.jpeg", alt: "Daniel", description: "Co-founder Daniel Ogweno" },
+    { id: 32, filename: "Daniel.jpeg", alt: "Adriano", description: "Founder Adriano Situma" },
     
     // Girls photos
     { id: 33, filename: "talia.jpeg", alt: "Talia", description: "Talia - Sponsored Girl" },
