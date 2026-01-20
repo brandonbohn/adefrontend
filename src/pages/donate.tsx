@@ -11,6 +11,7 @@ const Donate: React.FC = () => {
   const [content, setContent] = useState<any>(null);
   const [selectedPayment, setSelectedPayment] = useState('paypal');
   const [selectedCurrency, setSelectedCurrency] = useState('USD');
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   
   // Exchange rate: 1 USD = 130 KES (approximate)
@@ -27,17 +28,18 @@ const Donate: React.FC = () => {
     axios.get(`${API_BASE_URL}/api/content/section/donateSection`)
       .then(res => {
         setContent(res.data);
+        setLoading(false);
       })
       .catch(() => {
         setError('Unable to load donation content. Please try again later.');
+        setLoading(false);
       });
   }, []);
 
 
   if (error) return <div style={{textAlign:'center',margin:'2rem',color:'#f8f3f3'}}>{error}</div>;
-  if (!content) return null;
 
-  // Fallbacks for missing backend data
+  // Fallbacks for missing backend data (used during loading or if backend is unavailable)
   const paymentMethods = content.paymentMethods || [
     { key: 'paypal', label: 'PayPal', link: 'https://www.paypal.com/donate' },
     { key: 'flutterwave', label: 'Flutterwave', link: 'https://flutterwave.com/donate' },

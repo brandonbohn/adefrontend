@@ -15,7 +15,8 @@ interface Girl {
 import { API_BASE_URL } from '../config';
 
 const GirlsList: React.FC = () => {
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<any>(girlsData);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -24,10 +25,12 @@ const GirlsList: React.FC = () => {
         console.log('Backend girls data:', res.data);
         console.log('First girl data:', res.data.girls?.[0]);
         setData(res.data);
+        setLoading(false);
       })
       .catch((err) => {
         console.log('Failed to load from backend, using fallback:', err.message);
         setData(girlsData); // fallback to hardcoded
+        setLoading(false);
       });
   }, []);
 
