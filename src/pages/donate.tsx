@@ -11,7 +11,6 @@ const Donate: React.FC = () => {
   const [content, setContent] = useState<any>(null);
   const [selectedPayment, setSelectedPayment] = useState('paypal');
   const [selectedCurrency, setSelectedCurrency] = useState('USD');
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   
   // Exchange rate: 1 USD = 130 KES (approximate)
@@ -28,16 +27,14 @@ const Donate: React.FC = () => {
     axios.get(`${API_BASE_URL}/api/content/section/donateSection`)
       .then(res => {
         setContent(res.data);
-        setLoading(false);
       })
       .catch(() => {
         setError('Unable to load donation content. Please try again later.');
-        setLoading(false);
       });
   }, []);
 
-  if (loading) return <div style={{textAlign:'center',margin:'2rem'}}>Loading...</div>;
-  if (error) return <div style={{textAlign:'center',margin:'2rem',color:'#d32f2f'}}>{error}</div>;
+
+  if (error) return <div style={{textAlign:'center',margin:'2rem',color:'#f8f3f3'}}>{error}</div>;
   if (!content) return null;
 
   // Fallbacks for missing backend data
@@ -111,12 +108,14 @@ const Donate: React.FC = () => {
           boxShadow: '0 6px 24px rgba(0,0,0,0.15)',
         }}
       >
-        <h1 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem', textAlign: 'center', letterSpacing: '-1px', color: '#d32f2f', textShadow: '0 2px 12px rgba(255,255,255,0.25)' }}>
-          {heroTitle}
-        </h1>
-        <h2 style={{ fontSize: '1.35rem', fontWeight: 500, textAlign: 'center', marginBottom: 0, color: '#d32f2f', textShadow: '0 1px 8px rgba(255,255,255,0.18)' }}>
-          {heroSubtitle}
-        </h2>
+        <div style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)', padding: '2rem 3rem', borderRadius: '12px', textAlign: 'center' }}>
+          <h1 style={{ fontSize: '3.5rem', fontWeight: 800, marginBottom: '1rem', textAlign: 'center', letterSpacing: '-1px', color: '#ffffff', margin: 0 }}>
+            {heroTitle}
+          </h1>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 500, textAlign: 'center', marginBottom: 0, color: '#ffffff', marginTop: '1rem' }}>
+            {heroSubtitle}
+          </h2>
+        </div>
       </section>
 
       {/* Three-Column Call to Action (below hero) */}

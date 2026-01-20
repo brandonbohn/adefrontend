@@ -8,7 +8,6 @@ interface ImpactBoardProps {
 
 const ImpactBoard: React.FC<ImpactBoardProps> = ({ data: propData }) => {
     const [data, setData] = useState<any>(propData || null);
-    const [loading, setLoading] = useState(!propData);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
@@ -17,15 +16,12 @@ const ImpactBoard: React.FC<ImpactBoardProps> = ({ data: propData }) => {
             .then(res => {
                 const data = res.data as { sectionsData?: { impactBoard?: any } };
                 setData(data.sectionsData?.impactBoard || null);
-                setLoading(false);
             })
             .catch(() => {
                 setError('Unable to load impact board. Please try again later.');
-                setLoading(false);
             });
     }, [propData]);
 
-    if (loading) return <div style={{textAlign:'center',margin:'2rem'}}>Loading...</div>;
     if (error) return <div style={{textAlign:'center',margin:'2rem',color:'#d32f2f'}}>{error}</div>;
     if (!data) return <div>No impact board found.</div>;
 
