@@ -20,9 +20,8 @@ const ServicesSection: React.FC = () => {
 			});
 	}, []);
 
-	if (loading) return <div style={{textAlign:'center',margin:'2rem'}}>Loading...</div>;
 	if (error) return <div style={{textAlign:'center',margin:'2rem',color:'#d32f2f'}}>{error}</div>;
-	if (!data) return null;
+	if (!data) return <div></div>;
 
 	return (
 		<section className="box" style={{

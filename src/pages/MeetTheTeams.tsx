@@ -34,7 +34,7 @@ const MeetTheTeams: React.FC<MeetTheTeamsProps> = ({ data: propData }) => {
       });
   }, [propData]);
 
-  if (loading) return <div style={{textAlign:'center',margin:'2rem'}}>Loading Teams...</div>;
+
   if (error) return <div style={{textAlign:'center',margin:'2rem',color:'#d32f2f'}}>{error}</div>;
   if (!teamGallery || teamGallery.length === 0) return <div>No team photos found.</div>;
 

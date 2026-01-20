@@ -20,9 +20,7 @@ const Privacy: React.FC = () => {
       });
   }, []);
 
-  if (loading) return <div style={{textAlign:'center',margin:'2rem'}}>Loading...</div>;
   if (error) return <div style={{textAlign:'center',margin:'2rem',color:'#d32f2f'}}>{error}</div>;
-  if (!content) return null;
 
   const privacy = content.privacy || {
     title: 'Privacy Policy',
