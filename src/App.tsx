@@ -13,7 +13,7 @@ function App() {
   return (
 
 
-    <div>
+    <div style={{ minHeight: '100vh', backgroundColor: '#0b0b0b' }}>
       <div style={{ paddingTop: '20px' }}>
         <Routes>
           <Route path="/" element={<Home />} />
