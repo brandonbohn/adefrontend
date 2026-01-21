@@ -273,6 +273,12 @@ const Donate: React.FC = () => {
           .volunteer-grid {
             grid-template-columns: repeat(2, 1fr) !important;
           }
+          .volunteer-checkbox-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .volunteer-form {
+            padding: 1.5rem !important;
+          }
         }
         
         @media (min-width: 769px) and (max-width: 1024px) {
@@ -429,38 +435,40 @@ const Donate: React.FC = () => {
         </div> 
       
         {/* Volunteer Interest Form */}
-        <form style={{ background: '#23272a', borderRadius: 12, padding: '2rem', boxShadow: '0 1px 8px rgba(0,0,0,0.18)', maxWidth: 600, margin: '0 auto' }}>
+        <form className="volunteer-form" style={{ background: '#23272a', borderRadius: 12, padding: '2rem', boxShadow: '0 1px 8px rgba(0,0,0,0.18)', maxWidth: 800, margin: '0 auto', width: '100%' }}>
           <h3 style={{ color: '#d32f2f', marginBottom: '1rem', textAlign: 'center' }}>Volunteer Interest Form:</h3>
           <div style={{ marginBottom: '1rem' }}>
-            <input type="text" placeholder="Name" style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', marginBottom: '0.5rem', background: '#111', color: '#fff' }} />
-            <input type="email" placeholder="Email" style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', marginBottom: '0.5rem', background: '#111', color: '#fff' }} />
-            <input type="text" placeholder="Phone" style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', marginBottom: '0.5rem', background: '#111', color: '#fff' }} />
-            <input type="text" placeholder="Location" style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff' }} />
+            <input type="text" placeholder="Name" style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', marginBottom: '0.5rem', background: '#111', color: '#fff', boxSizing: 'border-box' }} />
+            <input type="email" placeholder="Email" style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', marginBottom: '0.5rem', background: '#111', color: '#fff', boxSizing: 'border-box' }} />
+            <input type="text" placeholder="Phone" style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', marginBottom: '0.5rem', background: '#111', color: '#fff', boxSizing: 'border-box' }} />
+            <input type="text" placeholder="Location" style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff', boxSizing: 'border-box' }} />
           </div>
           <div style={{ marginBottom: '1rem' }}>
-            <label style={{ fontWeight: 500, color: '#fff' }}>I can help with:</label><br />
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', color: '#fff' }}>
-              <label><input type="checkbox" /> Football coaching</label>
-              <label><input type="checkbox" /> Academic tutoring</label>
-              <label><input type="checkbox" /> Mentorship/life skills</label>
-              <label><input type="checkbox" /> Nutrition/meal programs</label>
-              <label><input type="checkbox" /> Marketing/storytelling</label>
-              <label><input type="checkbox" /> Operations/admin</label>
-              <label><input type="checkbox" /> Fundraising</label>
-              <label>Other: <input type="text" style={{ borderRadius: 6, border: '1px solid #444', padding: '0.3rem', width: 100, background: '#111', color: '#fff' }} /></label>
+            <label style={{ fontWeight: 500, color: '#fff', display: 'block', marginBottom: '0.5rem' }}>I can help with:</label>
+            <div className="volunteer-checkbox-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', color: '#fff' }}>
+              <label style={{ display: 'flex', alignItems: 'center' }}><input type="checkbox" style={{ marginRight: '0.5rem' }} /> Football coaching</label>
+              <label style={{ display: 'flex', alignItems: 'center' }}><input type="checkbox" style={{ marginRight: '0.5rem' }} /> Academic tutoring</label>
+              <label style={{ display: 'flex', alignItems: 'center' }}><input type="checkbox" style={{ marginRight: '0.5rem' }} /> Mentorship/life skills</label>
+              <label style={{ display: 'flex', alignItems: 'center' }}><input type="checkbox" style={{ marginRight: '0.5rem' }} /> Nutrition/meal programs</label>
+              <label style={{ display: 'flex', alignItems: 'center' }}><input type="checkbox" style={{ marginRight: '0.5rem' }} /> Marketing/storytelling</label>
+              <label style={{ display: 'flex', alignItems: 'center' }}><input type="checkbox" style={{ marginRight: '0.5rem' }} /> Operations/admin</label>
+              <label style={{ display: 'flex', alignItems: 'center' }}><input type="checkbox" style={{ marginRight: '0.5rem' }} /> Fundraising</label>
+              <label style={{ display: 'flex', alignItems: 'center' }}>Other: <input type="text" style={{ borderRadius: 6, border: '1px solid #444', padding: '0.3rem', marginLeft: '0.5rem', flex: 1, background: '#111', color: '#fff' }} /></label>
             </div>
           </div>
           <div style={{ marginBottom: '1rem' }}>
-            <label style={{ fontWeight: 500, color: '#fff' }}>I'm based in:</label><br />
-            <label style={{ marginRight: 16, color: '#fff' }}><input type="radio" name="location" /> Nairobi/Kenya</label>
-            <label style={{ color: '#fff' }}><input type="radio" name="location" /> Remote/International</label>
+            <label style={{ fontWeight: 500, color: '#fff', display: 'block', marginBottom: '0.5rem' }}>I'm based in:</label>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+              <label style={{ color: '#fff', display: 'flex', alignItems: 'center' }}><input type="radio" name="location" style={{ marginRight: '0.5rem' }} /> Nairobi/Kenya</label>
+              <label style={{ color: '#fff', display: 'flex', alignItems: 'center' }}><input type="radio" name="location" style={{ marginRight: '0.5rem' }} /> Remote/International</label>
+            </div>
           </div>
           <div style={{ marginBottom: '1rem' }}>
-            <label style={{ fontWeight: 500, color: '#fff' }}>Availability:</label><br />
-            <input type="text" placeholder="e.g. weekends, evenings" style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff' }} />
+            <label style={{ fontWeight: 500, color: '#fff', display: 'block', marginBottom: '0.5rem' }}>Availability:</label>
+            <input type="text" placeholder="e.g. weekends, evenings" style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff', boxSizing: 'border-box' }} />
           </div>
           <div style={{ textAlign: 'center' }}>
-            <button type="submit" style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 10, border: 'none', fontWeight: 700, fontSize: '1.1rem' }}>Submit</button>
+            <button type="submit" style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 10, border: 'none', fontWeight: 700, fontSize: '1.1rem', cursor: 'pointer', width: '100%', maxWidth: '300px' }}>Submit</button>
           </div>
         </form>
       </section>
