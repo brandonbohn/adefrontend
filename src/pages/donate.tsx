@@ -40,33 +40,33 @@ const Donate: React.FC = () => {
   if (error) return <div style={{textAlign:'center',margin:'2rem',color:'#f8f3f3'}}>{error}</div>;
 
   // Fallbacks for missing backend data (used during loading or if backend is unavailable)
-  const paymentMethods = content.paymentMethods || [
+  const paymentMethods = content?.paymentMethods || [
     { key: 'paypal', label: 'PayPal', link: 'https://www.paypal.com/donate' },
     { key: 'flutterwave', label: 'Flutterwave', link: 'https://flutterwave.com/donate' },
     { key: 'mpesa', label: 'M-Pesa', link: 'https://www.safaricom.co.ke/mpesa' }
   ];
-  const heroTitle = content.heroTitle || 'Give a Girl in Kibera a Fighting Chance';
-  const heroSubtitle = content.heroSubtitle || 'Education • Nutrition • Opportunity';
+  const heroTitle = content?.heroTitle || 'Give a Girl in Kibera a Fighting Chance';
+  const heroSubtitle = content?.heroSubtitle || 'Education • Nutrition • Opportunity';
   // Button/CTA configs from backend, fallback to defaults
-  const donateCta = content.donateCta || 'Help provide school fees, food, and essentials';
-  const volunteerCta = content.volunteerCta || 'Share your time, skills, or expertise';
-  const sponsorCta = content.sponsorCta || "Change one girl's entire future";
+  const donateCta = content?.donateCta || 'Help provide school fees, food, and essentials';
+  const volunteerCta = content?.volunteerCta || 'Share your time, skills, or expertise';
+  const sponsorCta = content?.sponsorCta || "Change one girl's entire future";
   // Button configs (labels, links, visibility)
-  const donateButton = content.donateButton || { label: 'Give Now', link: '#donate', visible: true };
-  const volunteerButton = content.volunteerButton || { label: 'Get Involved', link: '#volunteer', visible: true };
-  const sponsorButton = content.sponsorButton || { label: 'Sponsor', link: '/sponsor-a-girl', visible: true };
+  const donateButton = content?.donateButton || { label: 'Give Now', link: '#donate', visible: true };
+  const volunteerButton = content?.volunteerButton || { label: 'Get Involved', link: '#volunteer', visible: true };
+  const sponsorButton = content?.sponsorButton || { label: 'Sponsor', link: '/sponsor-a-girl', visible: true };
   // Main donation action buttons (e.g., Donate Now, Pay with M-Pesa)
-  const mainDonateButtons = content.mainDonateButtons || [
+  const mainDonateButtons = content?.mainDonateButtons || [
     { label: 'Donate Now', link: '#', visible: true },
     { label: 'Pay with M-Pesa', link: '#', visible: true }
   ];
-  const impactExamples = content.impactExamples || [
+  const impactExamples = content?.impactExamples || [
     { amount: 25, desc: 'School uniform for one girl' },
     { amount: 50, desc: 'One month of meals' },
     { amount: 100, desc: 'Term’s school fees' },
     { amount: 250, desc: 'Full term of school + nutrition' }
   ];
-  const donationProvides = content.donationProvides || [
+  const donationProvides = content?.donationProvides || [
     'School fees and uniforms',
     'Daily meals and nutrition',
     'Sanitary products and dignity',
@@ -74,22 +74,22 @@ const Donate: React.FC = () => {
     'Safe transportation',
     'Football training and mentorship'
   ];
-  const trustBullets = content.trustBullets || [
+  const trustBullets = content?.trustBullets || [
     '100% of sponsorships fund girl support',
     'Transparent reporting on all spending',
     'Tax-deductible receipts (if applicable)',
     'Secure payment processing',
     'Cancel anytime'
   ];
-  const realityBullets = content.realityBullets || [
+  const realityBullets = content?.realityBullets || [
     'Dropping out of school permanently',
     'Child marriage',
     'Exploitation and abuse',
     'Chronic malnutrition',
     'No path out of extreme poverty'
   ];
-  const donationIntro = content.donationIntro || 'In Kibera, girls face impossible choices.';
-  const donationOutro = content.donationOutro || 'Football is how we reach them. Education and nutrition are how we change their lives.';
+  const donationIntro = content?.donationIntro || 'In Kibera, girls face impossible choices.';
+  const donationOutro = content?.donationOutro || 'Football is how we reach them. Education and nutrition are how we change their lives.';
 
   return (
     <>
