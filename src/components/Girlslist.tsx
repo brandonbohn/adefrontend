@@ -10,6 +10,7 @@ interface Girl {
   sentenceInTheirWords?: string;
   situation: string;
   image?: number;
+  status?: string;
 }
 
 import { API_BASE_URL } from '../config';
@@ -135,20 +136,25 @@ const GirlsList: React.FC = () => {
               </p>
             </div>
             
-            <div style={{
-              background: '#a31515',
-              color: '#fff',
-              padding: '1rem',
-              borderRadius: 6,
-              textAlign: 'center',
-              fontSize: '1rem',
-              fontWeight: 600,
-              marginTop: 'auto'
-            }}>
-              {typeof girl.situation === 'string' && girl.situation.toLowerCase().includes('sponsor')
-                ? '✓ Fully Sponsored'
-                : 'Waiting for Sponsor'}
-            </div>
+            <a href="/sponsor-a-girl" style={{ textDecoration: 'none' }}>
+              <div style={{
+                background: '#a31515',
+                color: '#fff',
+                padding: '1rem',
+                borderRadius: 6,
+                textAlign: 'center',
+                fontSize: '1rem',
+                fontWeight: 600,
+                marginTop: 'auto',
+                cursor: 'pointer',
+                transition: 'background 0.3s ease'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.background = '#8a1212'}
+              onMouseLeave={(e) => e.currentTarget.style.background = '#a31515'}
+              >
+                {girl.status || 'Available for Sponsorship'}
+              </div>
+            </a>
           </div>
           );
         })}
@@ -250,20 +256,25 @@ const GirlsList: React.FC = () => {
                 </p>
               </div>
               
-              <div style={{
-                background: '#a31515',
-                color: '#fff',
-                padding: '1rem',
-                borderRadius: 6,
-                textAlign: 'center',
-                fontSize: '1rem',
-                fontWeight: 600,
-                marginTop: 'auto'
-              }}>
-                {typeof girl.situation === 'string' && girl.situation.toLowerCase().includes('sponsor')
-                  ? '✓ Fully Sponsored'
-                  : 'Waiting for Sponsor'}
-              </div>
+              <a href="/sponsor-a-girl" style={{ textDecoration: 'none' }}>
+                <div style={{
+                  background: '#a31515',
+                  color: '#fff',
+                  padding: '1rem',
+                  borderRadius: 6,
+                  textAlign: 'center',
+                  fontSize: '1rem',
+                  fontWeight: 600,
+                  marginTop: 'auto',
+                  cursor: 'pointer',
+                  transition: 'background 0.3s ease'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.background = '#8a1212'}
+                onMouseLeave={(e) => e.currentTarget.style.background = '#a31515'}
+                >
+                  {girl.status || 'Available for Sponsorship'}
+                </div>
+              </a>
             </div>
             );
           })}
@@ -274,7 +285,7 @@ const GirlsList: React.FC = () => {
 };
 
 export const girlsData = {
-  title: 'Sponsored Girls',
+  title: 'Girls Available for Sponsorship',
   girls: [
     {
       name: 'Mithcell Atieno',
@@ -282,7 +293,8 @@ export const girlsData = {
       dream: 'become a nurse',
       description: 'She loves english and is attending Toi Junior school in grade ten',
       sentenceInTheirWords: "I'll appreciate any support for ade",
-      situation: 'Her mother can barely feed her and she sometimes gets sent home from school for lack of tuition and school fees'
+      situation: 'Her mother can barely feed her and she sometimes gets sent home from school for lack of tuition and school fees',
+      status: 'Available for Sponsorship'
     },
     {
       name: 'Vivian Atieno',
@@ -290,7 +302,8 @@ export const girlsData = {
       dream: 'Become a nurse',
       description: 'she loves english and lives with her mother and is attending Kojongo High School form three',
       sentenceInTheirWords: 'When I grow up I want to help vulnerable girls',
-      situation: 'she lost her father and lives with her mother and they live on less than a dollar a day and cant afford three meals a day'
+      situation: 'she lost her father and lives with her mother and they live on less than a dollar a day and cant afford three meals a day',
+      status: 'Available for Sponsorship'
     },
     {
       name: 'Cynthia Anyaugo',
@@ -298,7 +311,8 @@ export const girlsData = {
       dream: 'to become a pro footballer',
       description: 'her favorite subject is math and she goes to new hope initiative kibera living with her Mother',
       sentenceInTheirWords: 'I wish to play internationally',
-      situation: 'Lost a parent; sponsorship ensures continued education.'
+      situation: 'Lost a parent; sponsorship ensures continued education.',
+      status: 'Available for Sponsorship'
     },
     {
       name: 'Cindy Adhiambo',
@@ -306,7 +320,8 @@ export const girlsData = {
       dream: 'Become a Doctor',
       description: 'Loves playing football and tries to help her grandma who supports her the best she can',
       sentenceInTheirWords: 'ADE CBO has helped us in to many ways',
-      situation: 'Lives with her grandma who cant afford to do a serious job to feed the family'
+      situation: 'Lives with her grandma who cant afford to do a serious job to feed the family',
+      status: 'Available for Sponsorship'
     }
   ]
 };
