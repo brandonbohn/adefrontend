@@ -14,6 +14,7 @@ const Contact = () => {
   const [submitLoading, setSubmitLoading] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState('');
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
 
   useEffect(() => {
     axios.get(`${API_BASE_URL}/api/content`)
@@ -77,6 +78,33 @@ const Contact = () => {
     setSubmitLoading(true);
     setSubmitSuccess(false);
     setSubmitError('');
+    setFormErrors({});
+
+    // Basic validation: require name, email, message (if present)
+    const requiredIds = ['name', 'email', 'message'];
+    const presentRequired = contactFormFields
+      .filter((f: any) => requiredIds.includes(f.id))
+      .map((f: any) => f.id);
+    const nextErrors: Record<string, string> = {};
+    presentRequired.forEach((id: string) => {
+      const val = (formData[id] || '').trim();
+      if (!val) {
+        nextErrors[id] = 'This field is required';
+      }
+    });
+    if (presentRequired.includes('email')) {
+      const email = (formData['email'] || '').trim();
+      const emailOk = /.+@.+\..+/.test(email);
+      if (email && !emailOk) {
+        nextErrors['email'] = 'Please enter a valid email';
+      }
+    }
+    if (Object.keys(nextErrors).length > 0) {
+      setFormErrors(nextErrors);
+      setSubmitLoading(false);
+      setSubmitError('Please fix the errors below.');
+      return;
+    }
     try {
       await axios.post(`${API_BASE_URL}/api/contact`, {
         ...formData,
@@ -121,15 +149,18 @@ const Contact = () => {
             <div key={field.id} style={{ marginBottom: '1rem' }}>
               <label htmlFor={field.id} style={{ display: 'block', marginBottom: 4, color: 'var(--text-on-dark)' }}>{field.label}</label>
               {field.type === 'select' ? (
-                <select id={field.id} name={field.id} value={formData[field.id] ?? ''} onChange={(e) => handleFieldChange(field.id, e.target.value)} style={{ width: '100%', padding: 8, borderRadius: 4, border: '1px solid #232323', background: '#232323', color: '#fff', fontWeight: 600 }}>
+                <select id={field.id} name={field.id} value={formData[field.id] ?? ''} onChange={(e) => handleFieldChange(field.id, e.target.value)} aria-invalid={!!formErrors[field.id]} style={{ width: '100%', padding: 8, borderRadius: 4, border: '1px solid #232323', background: '#232323', color: '#fff', fontWeight: 600 }}>
                   {field.options.map((opt: any) => (
                     <option key={opt.value} value={opt.value}>{opt.label}</option>
                   ))}
                 </select>
               ) : field.type === 'textarea' ? (
-                <textarea id={field.id} name={field.id} rows={4} value={formData[field.id] ?? ''} onChange={(e) => handleFieldChange(field.id, e.target.value)} style={{ width: '100%', padding: 8, borderRadius: 4, border: '1px solid #232323', background: '#232323', color: '#fff', fontWeight: 600 }} />
+                <textarea id={field.id} name={field.id} rows={4} value={formData[field.id] ?? ''} onChange={(e) => handleFieldChange(field.id, e.target.value)} aria-invalid={!!formErrors[field.id]} style={{ width: '100%', padding: 8, borderRadius: 4, border: '1px solid #232323', background: '#232323', color: '#fff', fontWeight: 600 }} />
               ) : (
-                <input id={field.id} name={field.id} type={field.type} value={formData[field.id] ?? ''} onChange={(e) => handleFieldChange(field.id, e.target.value)} style={{ width: '100%', padding: 8, borderRadius: 4, border: '1px solid #232323', background: '#232323', color: '#fff', fontWeight: 600 }} />
+                <input id={field.id} name={field.id} type={field.type} value={formData[field.id] ?? ''} onChange={(e) => handleFieldChange(field.id, e.target.value)} aria-invalid={!!formErrors[field.id]} style={{ width: '100%', padding: 8, borderRadius: 4, border: '1px solid #232323', background: '#232323', color: '#fff', fontWeight: 600 }} />
+              )}
+              {formErrors[field.id] && (
+                <div style={{ marginTop: 6, color: '#ffdddd', fontSize: '0.9rem' }}>{formErrors[field.id]}</div>
               )}
             </div>
           ))}
