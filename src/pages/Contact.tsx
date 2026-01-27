@@ -26,18 +26,18 @@ const Contact = () => {
   if (error) return <div style={{textAlign:'center',margin:'2rem',color:'#d32f2f'}}>{error}</div>;
 
   // Fallbacks for missing backend data
-  const leftImages = content.contactLeftImages || [
+  const leftImages = content?.contactLeftImages || [
     { id: 14, alt: 'Green Team' },
     { id: 18, alt: 'Team and Coaches' },
     { id: 23, alt: 'Two Girls' }
   ];
-  const rightImages = content.contactRightImages || [
+  const rightImages = content?.contactRightImages || [
     { id: 21, alt: 'Team Photo on Field' },
     { id: 24, alt: 'White Team' },
     { id: 17, alt: 'Success Story' }
   ];
-  const contactTitle = content.contactTitle || 'Contact Us';
-  const contactFormFields = content.contactFormFields || [
+  const contactTitle = content?.contactTitle || 'Contact Us';
+  const contactFormFields = content?.contactFormFields || [
     { id: 'name', label: 'Name', type: 'text' },
     { id: 'organization', label: 'Organization/Company', type: 'text' },
     { id: 'email', label: 'Email', type: 'email' },
