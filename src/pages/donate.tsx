@@ -422,217 +422,165 @@ const Donate: React.FC = () => {
                     cursor: 'pointer',
                     fontSize: '1rem'
                   }}
-                >- DYNAMIC */}
-  <section id="volunteer" style={{ width: '95%', maxWidth: 1400, margin: '2.5rem auto', background: '#fff', borderRadius: 18, boxShadow: '0 2px 16px rgba(0,0,0,0.08)', padding: '2.5rem 1.5rem' }}>
-  <h2 style={{ color: '#d32f2f', textAlign: 'center', fontWeight: 800, fontSize: '2rem', marginBottom: '1.5rem' }}>
-    {volunteerData?.sectionTitle || 'Volunteer Your Time & Skills 👥'}
-  </h2>
-  <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#d32f2f', fontSize: '1.1rem' }}>
-    <em>{volunteerData?.sectionSubtitle || 'Help us reach more girls in Kibera:'}</em>
-  </p>
-  
-  {/* Opportunities Grid - DYNAMIC */}
-  <div className="volunteer-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginBottom: '2rem' }}>
-    {volunteerOpportunities.map((opportunity: any, idx: number) => (
-      <div key={idx} style={{ background: '#23272a', borderRadius: 12, padding: '1.25rem', textAlign: 'center', boxShadow: '0 1px 8px rgba(0,0,0,0.18)' }}>
-        <span style={{ fontSize: '2rem', color: '#fff' }}>{opportunity.icon}</span><br />
-        <strong style={{ color: '#fff' }}>{opportunity.title}</strong><br />
-        <span style={{ color: '#fff' }}>{opportunity.description}</span>
-      </div>
-    ))}
-  </div> 
-  
-  {/* Volunteer Interest Form - DYNAMIC with Backend Submission */}
-  <form onSubmit={handleVolunteerSubmit} className="volunteer-form" style={{ background: '#23272a', borderRadius: 12, padding: '2rem', boxShadow: '0 1px 8px rgba(0,0,0,0.18)', maxWidth: 800, margin: '0 auto', width: '100%' }}>
-    <h3 style={{ color: '#d32f2f', marginBottom: '1rem', textAlign: 'center' }}>Volunteer Interest Form:</h3>
-    
-    {submitSuccess && (
-      <div style={{ background: '#4caf50', color: '#fff', padding: '1rem', borderRadius: 8, marginBottom: '1rem', textAlign: 'center' }}>
-        Thank you! We'll be in touch soon.
-      </div>
-    )}
-    
-    {submitError && (
-      <div style={{ background: '#f44336', color: '#fff', padding: '1rem', borderRadius: 8, marginBottom: '1rem', textAlign: 'center' }}>
-        {submitError}
-      </div>
-    )}
-    
-    <div style={{ marginBottom: '1rem' }}>
-      <input 
-        type="text" 
-        placeholder="Name" 
-        value={volunteerForm.name}
-        onChange={(e) => setVolunteerForm({...volunteerForm, name: e.target.value})}
-        required
-        style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', marginBottom: '0.5rem', background: '#111', color: '#fff', boxSizing: 'border-box' }} 
-      />
-      <input 
-        type="email" 
-        placeholder="Email" 
-        value={volunteerForm.email}
-        onChange={(e) => setVolunteerForm({...volunteerForm, email: e.target.value})}
-        required
-        style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', marginBottom: '0.5rem', background: '#111', color: '#fff', boxSizing: 'border-box' }} 
-      />
-      <input 
-        type="text" 
-        placeholder="Phone" 
-        value={volunteerForm.phone}
-        onChange={(e) => setVolunteerForm({...volunteerForm, phone: e.target.value})}
-        style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', marginBottom: '0.5rem', background: '#111', color: '#fff', boxSizing: 'border-box' }} 
-      />
-      <input 
-        type="text" 
-        placeholder="Location" 
-        value={volunteerForm.location}
-        onChange={(e) => setVolunteerForm({...volunteerForm, location: e.target.value})}
-        style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff', boxSizing: 'border-box' }} 
-      />
-    </div>
-    
-    <div style={{ marginBottom: '1rem' }}>
-      <label style={{ fontWeight: 500, color: '#fff', display: 'block', marginBottom: '0.5rem' }}>I can help with:</label>
-      <div className="volunteer-checkbox-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', color: '#fff' }}>
-        {volunteerInterestOptions.map((option: string, idx: number) => (
-          <label key={idx} style={{ display: 'flex', alignItems: 'center' }}>
-            <input 
-              type="checkbox" 
-              checked={volunteerForm.interests.includes(option)}
-              onChange={() => handleCheckboxChange(option)}
-              style={{ marginRight: '0.5rem' }} 
-            /> {option}
-          </label>
-        ))}
-        <label style={{ display: 'flex', alignItems: 'center' }}>
-          Other: 
-          <input 
-            type="text" 
-            value={volunteerForm.otherInterest}
-            onChange={(e) => setVolunteerForm({...volunteerForm, otherInterest: e.target.value})}
-            style={{ borderRadius: 6, border: '1px solid #444', padding: '0.3rem', marginLeft: '0.5rem', flex: 1, background: '#111', color: '#fff' }} 
-          />
-        </label>
-      </div>
-    </div>
+                >
+                  {method.label}
+                </button>
+              ))}
+            </div>
+          </div>
 
-    <div style={{ marginBottom: '1rem' }}>
-      <label style={{ fontWeight: 500, color: '#fff', display: 'block', marginBottom: '0.5rem' }}>I'm based in:</label>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
-        {locationOptions.map((location: string, idx: number) => (
-          <label key={idx} style={{ color: '#fff', display: 'flex', alignItems: 'center' }}>
-            <input 
-              type="radio" 
-              name="basedIn" 
-              value={location}
-              checked={volunteerForm.basedIn === location}
-              onChange={(e) => setVolunteerForm({...volunteerForm, basedIn: e.target.value})}
-              style={{ marginRight: '0.5rem' }} 
-            /> {location}
-          </label>
-        ))}
-      </div>
-    </div>
-    
-    <div style={{ marginBottom: '1rem' }}>
-      <label style={{ fontWeight: 500, color: '#fff', display: 'block', marginBottom: '0.5rem' }}>Availability:</label>
-      <input 
-        type="text" 
-        placeholder="e.g. weekends, evenings" 
-        value={volunteerForm.availability}
-        onChange={(e) => setVolunteerForm({...volunteerForm, availability: e.target.value})}
-        style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff', boxSizing: 'border-box' }} 
-      />
-    </div>
-    
-    <div style={{ textAlign: 'center' }}>
-      <button type="submit" style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 10, border: 'none', fontWeight: 700, fontSize: '1.1rem', cursor: 'pointer', width: '100%', maxWidth: '300px' }}>
-        Submit
-      </button>
-    </div>
-  </form>
-    </div>
-          <div style={{ background: '#23272a', borderRadius: 12, padding: '1.25rem', textAlign: 'center', boxShadow: '0 1px 8px rgba(0,0,0,0.18)' }}>
-            <span style={{ fontSize: '2rem', color: '#fff' }}>📚</span><br />
-            <strong style={{ color: '#fff' }}>Tutoring</strong><br /><span style={{ color: '#fff' }}>Academic support</span>
-          </div>
-          <div style={{ background: '#23272a', borderRadius: 12, padding: '1.25rem', textAlign: 'center', boxShadow: '0 1px 8px rgba(0,0,0,0.18)' }}>
-            <span style={{ fontSize: '2rem', color: '#fff' }}>🤝</span><br />
-            <strong style={{ color: '#fff' }}>Mentorship</strong><br /><span style={{ color: '#fff' }}>Life skills & guidance</span>
-          </div>
-          <div style={{ background: '#23272a', borderRadius: 12, padding: '1.25rem', textAlign: 'center', boxShadow: '0 1px 8px rgba(0,0,0,0.18)' }}>
-            <span style={{ fontSize: '2rem', color: '#fff' }}>🍲</span><br />
-            <strong style={{ color: '#fff' }}>Nutrition</strong><br /><span style={{ color: '#fff' }}>Help with meal programs</span>
-          </div>
-          <div style={{ background: '#23272a', borderRadius: 12, padding: '1.25rem', textAlign: 'center', boxShadow: '0 1px 8px rgba(0,0,0,0.18)' }}>
-            <span style={{ fontSize: '2rem', color: '#fff' }}>🎨</span><br />
-            <strong style={{ color: '#fff' }}>Marketing</strong><br /><span style={{ color: '#fff' }}>Tell our story</span>
-          </div>
-          <div style={{ background: '#23272a', borderRadius: 12, padding: '1.25rem', textAlign: 'center', boxShadow: '0 1px 8px rgba(0,0,0,0.18)' }}>
-            <span style={{ fontSize: '2rem', color: '#fff' }}>📊</span><br />
-            <strong style={{ color: '#fff' }}>Operations</strong><br /><span style={{ color: '#fff' }}>Admin support</span>
-          </div>
+          {/* Payment Instructions */}
+          {selectedPayment && (
+            <div style={{ background: '#fff', borderRadius: 8, padding: '1.5rem', boxShadow: '0 1px 6px rgba(0,0,0,0.10)', marginTop: '1.5rem' }}>
+              <p style={{ textAlign: 'center', fontSize: '1rem', color: '#333' }}>
+                Click below to complete your donation via {paymentMethods.find((m: any) => m.key === selectedPayment)?.label}:
+              </p>
+              <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+                <a 
+                  href={paymentMethods.find((m: any) => m.key === selectedPayment)?.link} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  style={{ textDecoration: 'none' }}
+                >
+                  <button style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2.5rem', borderRadius: 10, border: 'none', fontWeight: 700, fontSize: '1.1rem', cursor: 'pointer' }}>
+                    Donate Now
+                  </button>
+                </a>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* VOLUNTEER SECTION - DYNAMIC */}
+      <section id="volunteer" style={{ width: '95%', maxWidth: 1400, margin: '2.5rem auto', background: '#fff', borderRadius: 18, boxShadow: '0 2px 16px rgba(0,0,0,0.08)', padding: '2.5rem 1.5rem' }}>
+        <h2 style={{ color: '#d32f2f', textAlign: 'center', fontWeight: 800, fontSize: '2rem', marginBottom: '1.5rem' }}>
+          {volunteerData?.sectionTitle || 'Volunteer Your Time & Skills 👥'}
+        </h2>
+        <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#d32f2f', fontSize: '1.1rem' }}>
+          <em>{volunteerData?.sectionSubtitle || 'Help us reach more girls in Kibera:'}</em>
+        </p>
+        
+        {/* Opportunities Grid - DYNAMIC */}
+        <div className="volunteer-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginBottom: '2rem' }}>
+          {volunteerOpportunities.map((opportunity: any, idx: number) => (
+            <div key={idx} style={{ background: '#23272a', borderRadius: 12, padding: '1.25rem', textAlign: 'center', boxShadow: '0 1px 8px rgba(0,0,0,0.18)' }}>
+              <span style={{ fontSize: '2rem', color: '#fff' }}>{opportunity.icon}</span><br />
+              <strong style={{ color: '#fff' }}>{opportunity.title}</strong><br />
+              <span style={{ color: '#fff' }}>{opportunity.description}</span>
+            </div>
+          ))}
         </div> 
-      
-        {/* Volunteer Interest Form */}
-        <form className="volunteer-form" style={{ background: '#23272a', borderRadius: 12, padding: '2rem', boxShadow: '0 1px 8px rgba(0,0,0,0.18)', maxWidth: 800, margin: '0 auto', width: '100%' }}>
+        
+        {/* Volunteer Interest Form - DYNAMIC with Backend Submission */}
+        <form onSubmit={handleVolunteerSubmit} className="volunteer-form" style={{ background: '#23272a', borderRadius: 12, padding: '2rem', boxShadow: '0 1px 8px rgba(0,0,0,0.18)', maxWidth: 800, margin: '0 auto', width: '100%' }}>
           <h3 style={{ color: '#d32f2f', marginBottom: '1rem', textAlign: 'center' }}>Volunteer Interest Form:</h3>
+          
+          {submitSuccess && (
+            <div style={{ background: '#4caf50', color: '#fff', padding: '1rem', borderRadius: 8, marginBottom: '1rem', textAlign: 'center' }}>
+              Thank you! We'll be in touch soon.
+            </div>
+          )}
+          
+          {submitError && (
+            <div style={{ background: '#f44336', color: '#fff', padding: '1rem', borderRadius: 8, marginBottom: '1rem', textAlign: 'center' }}>
+              {submitError}
+            </div>
+          )}
+          
           <div style={{ marginBottom: '1rem' }}>
-            <input type="text" placeholder="Name" style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', marginBottom: '0.5rem', background: '#111', color: '#fff', boxSizing: 'border-box' }} />
-            <input type="email" placeholder="Email" style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', marginBottom: '0.5rem', background: '#111', color: '#fff', boxSizing: 'border-box' }} />
-            <input type="text" placeholder="Phone" style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', marginBottom: '0.5rem', background: '#111', color: '#fff', boxSizing: 'border-box' }} />
-            <input type="text" placeholder="Location" style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff', boxSizing: 'border-box' }} />
+            <input 
+              type="text" 
+              placeholder="Name" 
+              value={volunteerForm.name}
+              onChange={(e) => setVolunteerForm({...volunteerForm, name: e.target.value})}
+              required
+              style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', marginBottom: '0.5rem', background: '#111', color: '#fff', boxSizing: 'border-box' }} 
+            />
+            <input 
+              type="email" 
+              placeholder="Email" 
+              value={volunteerForm.email}
+              onChange={(e) => setVolunteerForm({...volunteerForm, email: e.target.value})}
+              required
+              style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', marginBottom: '0.5rem', background: '#111', color: '#fff', boxSizing: 'border-box' }} 
+            />
+            <input 
+              type="text" 
+              placeholder="Phone" 
+              value={volunteerForm.phone}
+              onChange={(e) => setVolunteerForm({...volunteerForm, phone: e.target.value})}
+              style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', marginBottom: '0.5rem', background: '#111', color: '#fff', boxSizing: 'border-box' }} 
+            />
+            <input 
+              type="text" 
+              placeholder="Location" 
+              value={volunteerForm.location}
+              onChange={(e) => setVolunteerForm({...volunteerForm, location: e.target.value})}
+              style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff', boxSizing: 'border-box' }} 
+            />
           </div>
+          
           <div style={{ marginBottom: '1rem' }}>
             <label style={{ fontWeight: 500, color: '#fff', display: 'block', marginBottom: '0.5rem' }}>I can help with:</label>
             <div className="volunteer-checkbox-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', color: '#fff' }}>
-              <label style={{ display: 'flex', alignItems: 'center' }}><input type="checkbox" style={{ marginRight: '0.5rem' }} /> Football coaching</label>
-              <label style={{ display: 'flex', alignItems: 'center' }}><input type="checkbox" style={{ marginRight: '0.5rem' }} /> Academic tutoring</label>
-              <label style={{ display: 'flex', alignItems: 'center' }}><input type="checkbox" style={{ marginRight: '0.5rem' }} /> Mentorship/life skills</label>
-              <label style={{ display: 'flex', alignItems: 'center' }}><input type="checkbox" style={{ marginRight: '0.5rem' }} /> Nutrition/meal programs</label>
-              <label style={{ display: 'flex', alignItems: 'center' }}><input type="checkbox" style={{ marginRight: '0.5rem' }} /> Marketing/storytelling</label>
-              <label style={{ display: 'flex', alignItems: 'center' }}><input type="checkbox" style={{ marginRight: '0.5rem' }} /> Operations/admin</label>
-              <label style={{ display: 'flex', alignItems: 'center' }}><input type="checkbox" style={{ marginRight: '0.5rem' }} /> Fundraising</label>
-              <label style={{ display: 'flex', alignItems: 'center' }}>Other: <input type="text" style={{ borderRadius: 6, border: '1px solid #444', padding: '0.3rem', marginLeft: '0.5rem', flex: 1, background: '#111', color: '#fff' }} /></label>
+              {volunteerInterestOptions.map((option: string, idx: number) => (
+                <label key={idx} style={{ display: 'flex', alignItems: 'center' }}>
+                  <input 
+                    type="checkbox" 
+                    checked={volunteerForm.interests.includes(option)}
+                    onChange={() => handleCheckboxChange(option)}
+                    style={{ marginRight: '0.5rem' }} 
+                  /> {option}
+                </label>
+              ))}
+              <label style={{ display: 'flex', alignItems: 'center' }}>
+                Other: 
+                <input 
+                  type="text" 
+                  value={volunteerForm.otherInterest}
+                  onChange={(e) => setVolunteerForm({...volunteerForm, otherInterest: e.target.value})}
+                  style={{ borderRadius: 6, border: '1px solid #444', padding: '0.3rem', marginLeft: '0.5rem', flex: 1, background: '#111', color: '#fff' }} 
+                />
+              </label>
             </div>
           </div>
 
           <div style={{ marginBottom: '1rem' }}>
             <label style={{ fontWeight: 500, color: '#fff', display: 'block', marginBottom: '0.5rem' }}>I'm based in:</label>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
-              <label style={{ color: '#fff', display: 'flex', alignItems: 'center' }}><input type="radio" name="location" style={{ marginRight: '0.5rem' }} /> Nairobi/Kenya</label>
-              <label style={{ color: '#fff', display: 'flex', alignItems: 'center' }}><input type="radio" name="location" style={{ marginRight: '0.5rem' }} /> Remote/International</label>
+              {locationOptions.map((location: string, idx: number) => (
+                <label key={idx} style={{ color: '#fff', display: 'flex', alignItems: 'center' }}>
+                  <input 
+                    type="radio" 
+                    name="basedIn" 
+                    value={location}
+                    checked={volunteerForm.basedIn === location}
+                    onChange={(e) => setVolunteerForm({...volunteerForm, basedIn: e.target.value})}
+                    style={{ marginRight: '0.5rem' }} 
+                  /> {location}
+                </label>
+              ))}
             </div>
           </div>
+          
           <div style={{ marginBottom: '1rem' }}>
             <label style={{ fontWeight: 500, color: '#fff', display: 'block', marginBottom: '0.5rem' }}>Availability:</label>
-            <input type="text" placeholder="e.g. weekends, evenings" style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff', boxSizing: 'border-box' }} />
+            <input 
+              type="text" 
+              placeholder="e.g. weekends, evenings" 
+              value={volunteerForm.availability}
+              onChange={(e) => setVolunteerForm({...volunteerForm, availability: e.target.value})}
+              style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff', boxSizing: 'border-box' }} 
+            />
           </div>
+          
           <div style={{ textAlign: 'center' }}>
-            <button type="submit" style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 10, border: 'none', fontWeight: 700, fontSize: '1.1rem', cursor: 'pointer', width: '100%', maxWidth: '300px' }}>Submit</button>
+            <button type="submit" style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 10, border: 'none', fontWeight: 700, fontSize: '1.1rem', cursor: 'pointer', width: '100%', maxWidth: '300px' }}>
+              Submit
+            </button>
           </div>
         </form>
-      </section>
-
-
-      {/* Donation Section */}
- 
-
-      {/* Three-Column Call to Action */}
-      <section
-        style={{
-          width: '100%',
-          maxWidth: 1100,
-          margin: '2.5rem auto',
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: '2rem',
-          justifyContent: 'center',
-          alignItems: 'stretch',
-        }}
-      >
-      
-       
       </section>
     </>
   );
