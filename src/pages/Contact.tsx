@@ -106,7 +106,7 @@ const Contact = () => {
       return;
     }
     try {
-      await axios.post('https://adebackend.onrender.com/api/contacts', {
+      await axios.post('https://adebackend.onrender.com/api/contact', {
         ...formData,
       });
       setSubmitSuccess(true);
