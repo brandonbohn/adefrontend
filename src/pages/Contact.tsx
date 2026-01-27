@@ -10,6 +10,10 @@ const Contact = () => {
   const [content, setContent] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [formData, setFormData] = useState<Record<string, string>>({});
+  const [submitLoading, setSubmitLoading] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   useEffect(() => {
     axios.get(`${API_BASE_URL}/api/content`)
@@ -54,6 +58,43 @@ const Contact = () => {
     { id: 'message', label: 'Message', type: 'textarea' }
   ];
 
+  // Initialize dynamic form state whenever backend fields change
+  useEffect(() => {
+    const next: Record<string, string> = {};
+    contactFormFields.forEach((f: any) => {
+      next[f.id] = formData[f.id] ?? '';
+    });
+    setFormData(next);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [content]);
+
+  const handleFieldChange = (id: string, value: string) => {
+    setFormData(prev => ({ ...prev, [id]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitLoading(true);
+    setSubmitSuccess(false);
+    setSubmitError('');
+    try {
+      await axios.post(`${API_BASE_URL}/api/contact`, {
+        ...formData,
+      });
+      setSubmitSuccess(true);
+      setSubmitLoading(false);
+      // clear only non-selects by default
+      const cleared: Record<string, string> = {};
+      contactFormFields.forEach((f: any) => {
+        cleared[f.id] = f.type === 'select' ? formData[f.id] ?? '' : '';
+      });
+      setFormData(cleared);
+    } catch (err: any) {
+      setSubmitLoading(false);
+      setSubmitError('Failed to send message. Please try again.');
+    }
+  };
+
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', gap: '2rem', margin: '3rem auto', maxWidth: 1100 }}>
       {/* Left images */}
@@ -65,24 +106,34 @@ const Contact = () => {
       {/* Contact form */}
       <div className="dark-card" style={{ flex: 1, minWidth: 320, borderRadius: 12, boxShadow: '0 2px 12px rgba(0,0,0,0.08)', padding: '2rem', background: '#a31515' }}>
         <h2 style={{ color: 'var(--text-on-dark)', marginBottom: '1rem' }}>{contactTitle}</h2>
-        <form>
+        {submitSuccess && (
+          <div style={{ background: '#4caf50', color: '#fff', padding: '0.75rem 1rem', borderRadius: 8, marginBottom: '1rem' }}>
+            Thank you! We will get back to you soon.
+          </div>
+        )}
+        {submitError && (
+          <div style={{ background: '#f44336', color: '#fff', padding: '0.75rem 1rem', borderRadius: 8, marginBottom: '1rem' }}>
+            {submitError}
+          </div>
+        )}
+        <form onSubmit={handleSubmit} noValidate>
           {contactFormFields.map((field: any, idx: number) => (
             <div key={field.id} style={{ marginBottom: '1rem' }}>
               <label htmlFor={field.id} style={{ display: 'block', marginBottom: 4, color: 'var(--text-on-dark)' }}>{field.label}</label>
               {field.type === 'select' ? (
-                <select id={field.id} name={field.id} style={{ width: '100%', padding: 8, borderRadius: 4, border: '1px solid #232323', background: '#232323', color: '#fff', fontWeight: 600 }}>
+                <select id={field.id} name={field.id} value={formData[field.id] ?? ''} onChange={(e) => handleFieldChange(field.id, e.target.value)} style={{ width: '100%', padding: 8, borderRadius: 4, border: '1px solid #232323', background: '#232323', color: '#fff', fontWeight: 600 }}>
                   {field.options.map((opt: any) => (
                     <option key={opt.value} value={opt.value}>{opt.label}</option>
                   ))}
                 </select>
               ) : field.type === 'textarea' ? (
-                <textarea id={field.id} name={field.id} rows={4} style={{ width: '100%', padding: 8, borderRadius: 4, border: '1px solid #232323', background: '#232323', color: '#fff', fontWeight: 600 }} />
+                <textarea id={field.id} name={field.id} rows={4} value={formData[field.id] ?? ''} onChange={(e) => handleFieldChange(field.id, e.target.value)} style={{ width: '100%', padding: 8, borderRadius: 4, border: '1px solid #232323', background: '#232323', color: '#fff', fontWeight: 600 }} />
               ) : (
-                <input id={field.id} name={field.id} type={field.type} style={{ width: '100%', padding: 8, borderRadius: 4, border: '1px solid #232323', background: '#232323', color: '#fff', fontWeight: 600 }} />
+                <input id={field.id} name={field.id} type={field.type} value={formData[field.id] ?? ''} onChange={(e) => handleFieldChange(field.id, e.target.value)} style={{ width: '100%', padding: 8, borderRadius: 4, border: '1px solid #232323', background: '#232323', color: '#fff', fontWeight: 600 }} />
               )}
             </div>
           ))}
-          <button type="submit" style={{ background: '#d32f2f', color: '#fff', border: 'none', borderRadius: 4, padding: '0.75rem 1.5rem', fontWeight: 600, cursor: 'pointer' }}>Send</button>
+          <button type="submit" disabled={submitLoading} style={{ background: '#d32f2f', color: '#fff', border: 'none', borderRadius: 4, padding: '0.75rem 1.5rem', fontWeight: 600, cursor: submitLoading ? 'not-allowed' : 'pointer', opacity: submitLoading ? 0.8 : 1 }}>{submitLoading ? 'Sending…' : 'Send'}</button>
         </form>
       </div>
       {/* Right images */}
