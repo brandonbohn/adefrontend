@@ -119,6 +119,8 @@ const Contact = () => {
       setFormData(cleared);
     } catch (err: any) {
       setSubmitLoading(false);
+      console.error('Backend error:', err.response?.data);
+      console.error('Data sent:', formData);
       setSubmitError('Failed to send message. Please try again.');
     }
   };
