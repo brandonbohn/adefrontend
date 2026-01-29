@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface LazyVideoProps {
   src: string;
@@ -11,6 +11,9 @@ interface LazyVideoProps {
   loop?: boolean;
   style?: React.CSSProperties;
   className?: string;
+  preload?: 'none' | 'metadata' | 'auto';
+  lazy?: boolean;
+  rootMargin?: string;
 }
 
 const LazyVideo: React.FC<LazyVideoProps> = ({
@@ -22,15 +25,44 @@ const LazyVideo: React.FC<LazyVideoProps> = ({
   autoPlay = false,
   muted = true,
   loop = false,
+  preload = 'metadata',
+  lazy = true,
+  rootMargin = '200px 0px',
   style,
   className = ''
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [canLoad, setCanLoad] = useState(!lazy);
+
+  useEffect(() => {
+    if (!lazy) return;
+
+    const el = videoRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') {
+      setCanLoad(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setCanLoad(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { rootMargin }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [lazy, rootMargin]);
 
   return (
     <video
       ref={videoRef}
-      src={src}
+      src={canLoad ? src : undefined}
       poster={poster}
       width={width}
       height={height}
@@ -38,7 +70,7 @@ const LazyVideo: React.FC<LazyVideoProps> = ({
       autoPlay={autoPlay}
       muted={muted}
       loop={loop}
-      preload="auto"
+      preload={canLoad ? preload : 'none'}
       style={style}
       className={className}
       playsInline

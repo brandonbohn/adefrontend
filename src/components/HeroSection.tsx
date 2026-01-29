@@ -56,7 +56,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroTitle, mission, videoSrc,
             controls
             autoPlay
             muted
-            preload="none"
+            preload="metadata"
+            lazy
             style={{ display: 'block', width: '100%', height: '700px', marginTop: 0, padding: 0, background: 'none', border: 'none', objectFit: 'cover', borderRadius: '0' }}
           />
         )}
