@@ -210,7 +210,10 @@ const Donate: React.FC = () => {
         source: 'website'
       });
 
-      const paymentLink = paymentMethods.find((m: any) => m.key === selectedPayment)?.link;
+      const backendRedirect =
+        response.data?.redirectUrl || response.data?.paymentLink || response.data?.redirectURL;
+      const fallbackLink = paymentMethods.find((m: any) => m.key === selectedPayment)?.link;
+      const paymentLink = backendRedirect || fallbackLink;
       const shouldRedirect =
         response.data === true ||
         response.data?.success === true ||
