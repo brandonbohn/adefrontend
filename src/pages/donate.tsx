@@ -216,10 +216,23 @@ const Donate: React.FC = () => {
         response.data?.success === true ||
         response.data?.ok === true ||
         response.data?.redirect === true ||
-        response.data?.status === 'success';
+        response.data?.status === 'success' ||
+        (response.status >= 200 && response.status < 300);
 
       if (shouldRedirect && paymentLink) {
-        window.location.href = paymentLink;
+        setDonationSubmitSuccess(true);
+        setLastDonationSummary({ name, amount: donationForm.amount, currency: selectedCurrency });
+        setDonationSubmitLoading(false);
+        setDonationForm({
+          name: '',
+          email: '',
+          phone: '',
+          amount: '',
+          message: ''
+        });
+        setTimeout(() => {
+          window.location.href = paymentLink;
+        }, 400);
         return;
       }
 
