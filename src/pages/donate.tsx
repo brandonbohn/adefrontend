@@ -454,21 +454,19 @@ const Donate: React.FC = () => {
   <section id="donate" style={{ width: '95%', maxWidth: 1400, margin: '2.5rem auto', background: '#fff', borderRadius: 18, boxShadow: '0 2px 16px rgba(0,0,0,0.10)', padding: '2.5rem 1.5rem', border: '1px solid #f5f5f5' }}>
   <h2 style={{ color: '#d32f2f', textAlign: 'center', fontWeight: 800, fontSize: '2rem', marginBottom: '1.5rem' }}>Make a Donation 💰</h2>
   
-        {/* Main Black Box - Contains all donation content */}
-        <div style={{ background: '#111', borderRadius: 12, padding: '2.5rem 2rem', boxShadow: '0 1px 8px rgba(0,0,0,0.18)', border: '1px solid #222', marginBottom: '1.5rem' }}>
-          <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.1rem' }}>
-            <em>{donationIntro}</em><br />
-            Your donation provides:
-          </p>
-          <ul style={{ marginBottom: '1.5rem', color: '#fff', fontSize: '1.2rem', lineHeight: 1.8, listStyle: 'none', paddingLeft: 0, textAlign: 'center', maxWidth: 800, margin: '0 auto 1.5rem' }}>
-            {donationProvides.map((item: string, idx: number) => (
-              <li key={idx} style={{ color: '#d32f2f', fontWeight: 'bold', marginBottom: '0.5rem' }}>• {item}</li>
-            ))}
-          </ul>
+        <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#d32f2f', fontSize: '1.1rem' }}>
+          <em>{donationIntro}</em><br />
+          Your donation provides:
+        </p>
+        <ul style={{ marginBottom: '1.5rem', color: '#d32f2f', fontSize: '1.2rem', lineHeight: 1.8, listStyle: 'none', paddingLeft: 0, textAlign: 'center', maxWidth: 800, margin: '0 auto 1.5rem' }}>
+          {donationProvides.map((item: string, idx: number) => (
+            <li key={idx} style={{ color: '#d32f2f', fontWeight: 'bold', marginBottom: '0.5rem' }}>• {item}</li>
+          ))}
+        </ul>
 
           {/* Donation Form */}
-          <form onSubmit={handleDonationSubmit} style={{ maxWidth: 700, margin: '0 auto 2rem', background: '#23272a', borderRadius: 12, padding: '1.75rem', boxShadow: '0 1px 8px rgba(0,0,0,0.18)' }}>
-            <h3 style={{ color: '#fff', textAlign: 'center', marginBottom: '1rem' }}>Donation Details</h3>
+        <form onSubmit={handleDonationSubmit} style={{ maxWidth: 860, margin: '0 auto 2.5rem', background: '#23272a', borderRadius: 12, padding: '2.25rem', boxShadow: '0 1px 8px rgba(0,0,0,0.18)', border: '2px solid #fff' }}>
+          <h3 style={{ color: '#d32f2f', textAlign: 'center', marginBottom: '1rem', fontSize: '1.4rem' }}>Donation Details</h3>
 
             {donationSubmitSuccess && (
               <div style={{ background: '#4caf50', color: '#fff', padding: '0.75rem 1rem', borderRadius: 8, marginBottom: '1rem', textAlign: 'center' }}>
@@ -484,12 +482,12 @@ const Donate: React.FC = () => {
 
             <div style={{ display: 'grid', gap: '0.75rem' }}>
               <div>
-                <label style={{ color: '#fff', display: 'block', marginBottom: 6 }}>Full Name</label>
+                <label style={{ color: '#fff', display: 'block', marginBottom: 6, fontSize: '1.1rem' }}>Full Name</label>
                 <input
                   type="text"
                   value={donationForm.name}
                   onChange={(e) => setDonationForm({ ...donationForm, name: e.target.value })}
-                  style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff', boxSizing: 'border-box' }}
+                  style={{ width: '100%', padding: '0.85rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff', boxSizing: 'border-box', fontSize: '1.05rem' }}
                 />
                 {donationFormErrors.name && (
                   <div style={{ marginTop: 6, color: '#ffdddd', fontSize: '0.9rem' }}>{donationFormErrors.name}</div>
@@ -497,12 +495,12 @@ const Donate: React.FC = () => {
               </div>
 
               <div>
-                <label style={{ color: '#fff', display: 'block', marginBottom: 6 }}>Email</label>
+                <label style={{ color: '#fff', display: 'block', marginBottom: 6, fontSize: '1.1rem' }}>Email</label>
                 <input
                   type="email"
                   value={donationForm.email}
                   onChange={(e) => setDonationForm({ ...donationForm, email: e.target.value })}
-                  style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff', boxSizing: 'border-box' }}
+                  style={{ width: '100%', padding: '0.85rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff', boxSizing: 'border-box', fontSize: '1.05rem' }}
                 />
                 {donationFormErrors.email && (
                   <div style={{ marginTop: 6, color: '#ffdddd', fontSize: '0.9rem' }}>{donationFormErrors.email}</div>
@@ -510,42 +508,91 @@ const Donate: React.FC = () => {
               </div>
 
               <div>
-                <label style={{ color: '#fff', display: 'block', marginBottom: 6 }}>Phone (optional)</label>
+                <label style={{ color: '#fff', display: 'block', marginBottom: 6, fontSize: '1.1rem' }}>Phone (optional)</label>
                 <input
                   type="tel"
                   value={donationForm.phone}
                   onChange={(e) => setDonationForm({ ...donationForm, phone: e.target.value })}
-                  style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff', boxSizing: 'border-box' }}
+                  style={{ width: '100%', padding: '0.85rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff', boxSizing: 'border-box', fontSize: '1.05rem' }}
                 />
               </div>
 
               <div>
-                <label style={{ color: '#fff', display: 'block', marginBottom: 6 }}>Donation Amount</label>
-                <input
-                  type="number"
-                  min="1"
-                  step="1"
-                  value={donationForm.amount}
-                  onChange={(e) => setDonationForm({ ...donationForm, amount: e.target.value })}
-                  style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff', boxSizing: 'border-box' }}
-                />
+                <label style={{ color: '#fff', display: 'block', marginBottom: 6, fontSize: '1.1rem' }}>
+                  Donation Amount ({selectedCurrency})
+                </label>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <span style={{ color: '#fff', fontWeight: 600, fontSize: '1.1rem' }}>
+                    {selectedCurrency === 'KES' ? 'KSh' : '$'}
+                  </span>
+                  <input
+                    type="number"
+                    min="1"
+                    step="1"
+                    value={donationForm.amount}
+                    onChange={(e) => setDonationForm({ ...donationForm, amount: e.target.value })}
+                    placeholder={selectedCurrency === 'KES' ? 'e.g. 1000' : 'e.g. 25'}
+                    style={{ flex: 1, padding: '0.85rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff', boxSizing: 'border-box', fontSize: '1.05rem' }}
+                  />
+                </div>
                 {donationFormErrors.amount && (
                   <div style={{ marginTop: 6, color: '#ffdddd', fontSize: '0.9rem' }}>{donationFormErrors.amount}</div>
                 )}
               </div>
 
               <div>
-                <label style={{ color: '#fff', display: 'block', marginBottom: 6 }}>Message (optional)</label>
+                <label style={{ color: '#fff', display: 'block', marginBottom: 6, fontSize: '1.1rem' }}>Message (optional)</label>
                 <textarea
                   rows={3}
                   value={donationForm.message}
                   onChange={(e) => setDonationForm({ ...donationForm, message: e.target.value })}
-                  style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff', boxSizing: 'border-box' }}
+                  style={{ width: '100%', padding: '0.85rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff', boxSizing: 'border-box', fontSize: '1.05rem' }}
                 />
               </div>
             </div>
 
-            <div style={{ marginTop: '1rem', textAlign: 'center', color: '#fff', fontSize: '0.95rem' }}>
+            {/* Currency Selector */}
+            <div style={{ textAlign: 'center', marginTop: '1.5rem' }}>
+              <label htmlFor="currency" style={{ fontWeight: 500, marginRight: 8, color: '#fff', fontSize: '1.1rem' }}>Currency:</label>
+              <select 
+                id="currency" 
+                value={selectedCurrency}
+                onChange={(e) => setSelectedCurrency(e.target.value)}
+                style={{ padding: '0.6rem', borderRadius: 6, border: '1px solid #444', width: 140, background: '#111', color: '#fff', fontSize: '1.05rem' }}
+              >
+                <option value="USD">USD ($)</option>
+                <option value="KES">KES (KSh)</option>
+              </select>
+            </div>
+            
+            {/* Payment Method Selector */}
+            <div style={{ textAlign: 'center', marginTop: '1.5rem' }}>
+              <div style={{ fontWeight: 600, marginBottom: 12, color: '#fff', fontSize: '1.1rem' }}>Choose Payment Method:</div>
+              <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+                {paymentMethods.map((method: any) => (
+                  <button
+                    key={method.key}
+                    type="button"
+                    onClick={() => setSelectedPayment(method.key)}
+                    style={{
+                      background: selectedPayment === method.key ? '#d32f2f' : '#fff',
+                      color: selectedPayment === method.key ? '#fff' : '#d32f2f',
+                      border: selectedPayment === method.key ? '2px solid #d32f2f' : '1px solid #ffd6c2',
+                      fontWeight: 700,
+                      borderRadius: 8,
+                      padding: '0.85rem 1.6rem',
+                      boxShadow: selectedPayment === method.key ? '0 2px 8px rgba(211,47,47,0.15)' : 'none',
+                      cursor: 'pointer',
+                      fontSize: '1.05rem'
+                    }}
+                  >
+                    {method.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div style={{ marginTop: '1rem', textAlign: 'center', color: '#fff', fontSize: '1.05rem' }}>
               Selected payment method: <strong>{paymentMethods.find((m: any) => m.key === selectedPayment)?.label || '—'}</strong>
             </div>
 
@@ -559,69 +606,6 @@ const Donate: React.FC = () => {
               </button>
             </div>
           </form>
-          
-          {/* Currency Selector */}
-          <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-            <label htmlFor="currency" style={{ fontWeight: 500, marginRight: 8, color: '#fff' }}>Currency:</label>
-            <select 
-              id="currency" 
-              value={selectedCurrency}
-              onChange={(e) => setSelectedCurrency(e.target.value)}
-              style={{ padding: '0.5rem', borderRadius: 6, border: '1px solid #444', width: 100, background: '#222', color: '#fff' }}
-            >
-              <option value="USD">USD ($)</option>
-              <option value="KES">KES (KSh)</option>
-            </select>
-          </div>
-          
-          {/* Payment Method Selector */}
-          <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-            <div style={{ fontWeight: 600, marginBottom: 12, color: '#fff' }}>Choose Payment Method:</div>
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-              {paymentMethods.map((method: any) => (
-                <button
-                  key={method.key}
-                  type="button"
-                  onClick={() => setSelectedPayment(method.key)}
-                  style={{
-                    background: selectedPayment === method.key ? '#d32f2f' : '#fff',
-                    color: selectedPayment === method.key ? '#fff' : '#d32f2f',
-                    border: selectedPayment === method.key ? '2px solid #d32f2f' : '1px solid #ffd6c2',
-                    fontWeight: 700,
-                    borderRadius: 8,
-                    padding: '0.7rem 1.5rem',
-                    boxShadow: selectedPayment === method.key ? '0 2px 8px rgba(211,47,47,0.15)' : 'none',
-                    cursor: 'pointer',
-                    fontSize: '1rem'
-                  }}
-                >
-                  {method.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Payment Instructions */}
-          {selectedPayment && (
-            <div style={{ background: '#fff', borderRadius: 8, padding: '1.5rem', boxShadow: '0 1px 6px rgba(0,0,0,0.10)', marginTop: '1.5rem' }}>
-              <p style={{ textAlign: 'center', fontSize: '1rem', color: '#333' }}>
-                Click below to complete your donation via {paymentMethods.find((m: any) => m.key === selectedPayment)?.label}:
-              </p>
-              <div style={{ textAlign: 'center', marginTop: '1rem' }}>
-                <a 
-                  href={paymentMethods.find((m: any) => m.key === selectedPayment)?.link} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  style={{ textDecoration: 'none' }}
-                >
-                  <button style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2.5rem', borderRadius: 10, border: 'none', fontWeight: 700, fontSize: '1.1rem', cursor: 'pointer' }}>
-                    Donate Now
-                  </button>
-                </a>
-              </div>
-            </div>
-          )}
-        </div>
       </section>
 
       {/* VOLUNTEER SECTION - DYNAMIC */}
@@ -645,8 +629,8 @@ const Donate: React.FC = () => {
         </div> 
         
         {/* Volunteer Interest Form - DYNAMIC with Backend Submission */}
-        <form onSubmit={handleVolunteerSubmit} className="volunteer-form" style={{ background: '#23272a', borderRadius: 12, padding: '2rem', boxShadow: '0 1px 8px rgba(0,0,0,0.18)', maxWidth: 800, margin: '0 auto', width: '100%' }}>
-          <h3 style={{ color: '#d32f2f', marginBottom: '1rem', textAlign: 'center' }}>Volunteer Interest Form:</h3>
+        <form onSubmit={handleVolunteerSubmit} className="volunteer-form" style={{ background: '#23272a', borderRadius: 12, padding: '2.25rem', boxShadow: '0 1px 8px rgba(0,0,0,0.18)', maxWidth: 860, margin: '0 auto', width: '100%', border: '2px solid #fff' }}>
+          <h3 style={{ color: '#d32f2f', marginBottom: '1rem', textAlign: 'center', fontSize: '1.4rem' }}>Volunteer Interest Form:</h3>
           
           {submitSuccess && (
             <div style={{ background: '#4caf50', color: '#fff', padding: '1rem', borderRadius: 8, marginBottom: '1rem', textAlign: 'center' }}>
@@ -667,7 +651,7 @@ const Donate: React.FC = () => {
               value={volunteerForm.name}
               onChange={(e) => setVolunteerForm({...volunteerForm, name: e.target.value})}
               required
-              style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', marginBottom: '0.5rem', background: '#111', color: '#fff', boxSizing: 'border-box' }} 
+              style={{ width: '100%', padding: '0.85rem', borderRadius: 8, border: '1px solid #444', marginBottom: '0.75rem', background: '#111', color: '#fff', boxSizing: 'border-box', fontSize: '1.05rem' }} 
             />
             <input 
               type="email" 
@@ -675,26 +659,26 @@ const Donate: React.FC = () => {
               value={volunteerForm.email}
               onChange={(e) => setVolunteerForm({...volunteerForm, email: e.target.value})}
               required
-              style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', marginBottom: '0.5rem', background: '#111', color: '#fff', boxSizing: 'border-box' }} 
+              style={{ width: '100%', padding: '0.85rem', borderRadius: 8, border: '1px solid #444', marginBottom: '0.75rem', background: '#111', color: '#fff', boxSizing: 'border-box', fontSize: '1.05rem' }} 
             />
             <input 
               type="text" 
               placeholder="Phone" 
               value={volunteerForm.phone}
               onChange={(e) => setVolunteerForm({...volunteerForm, phone: e.target.value})}
-              style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', marginBottom: '0.5rem', background: '#111', color: '#fff', boxSizing: 'border-box' }} 
+              style={{ width: '100%', padding: '0.85rem', borderRadius: 8, border: '1px solid #444', marginBottom: '0.75rem', background: '#111', color: '#fff', boxSizing: 'border-box', fontSize: '1.05rem' }} 
             />
             <input 
               type="text" 
               placeholder="Location" 
               value={volunteerForm.location}
               onChange={(e) => setVolunteerForm({...volunteerForm, location: e.target.value})}
-              style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff', boxSizing: 'border-box' }} 
+              style={{ width: '100%', padding: '0.85rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff', boxSizing: 'border-box', fontSize: '1.05rem' }} 
             />
           </div>
           
           <div style={{ marginBottom: '1rem' }}>
-            <label style={{ fontWeight: 500, color: '#fff', display: 'block', marginBottom: '0.5rem' }}>I can help with:</label>
+            <label style={{ fontWeight: 600, color: '#fff', display: 'block', marginBottom: '0.5rem', fontSize: '1.1rem' }}>I can help with:</label>
             <div className="volunteer-checkbox-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', color: '#fff' }}>
               {volunteerInterestOptions.map((option: string, idx: number) => (
                 <label key={idx} style={{ display: 'flex', alignItems: 'center' }}>
@@ -702,7 +686,7 @@ const Donate: React.FC = () => {
                     type="checkbox" 
                     checked={volunteerForm.interests.includes(option)}
                     onChange={() => handleCheckboxChange(option)}
-                    style={{ marginRight: '0.5rem' }} 
+                    style={{ marginRight: '0.5rem', width: 18, height: 18 }} 
                   /> {option}
                 </label>
               ))}
@@ -712,14 +696,14 @@ const Donate: React.FC = () => {
                   type="text" 
                   value={volunteerForm.otherInterest}
                   onChange={(e) => setVolunteerForm({...volunteerForm, otherInterest: e.target.value})}
-                  style={{ borderRadius: 6, border: '1px solid #444', padding: '0.3rem', marginLeft: '0.5rem', flex: 1, background: '#111', color: '#fff' }} 
+                  style={{ borderRadius: 6, border: '1px solid #444', padding: '0.5rem', marginLeft: '0.5rem', flex: 1, background: '#111', color: '#fff', fontSize: '1.05rem' }} 
                 />
               </label>
             </div>
           </div>
 
           <div style={{ marginBottom: '1rem' }}>
-            <label style={{ fontWeight: 500, color: '#fff', display: 'block', marginBottom: '0.5rem' }}>I'm based in:</label>
+            <label style={{ fontWeight: 600, color: '#fff', display: 'block', marginBottom: '0.5rem', fontSize: '1.1rem' }}>I'm based in:</label>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
               {locationOptions.map((location: string, idx: number) => (
                 <label key={idx} style={{ color: '#fff', display: 'flex', alignItems: 'center' }}>
@@ -729,7 +713,7 @@ const Donate: React.FC = () => {
                     value={location}
                     checked={volunteerForm.basedIn === location}
                     onChange={(e) => setVolunteerForm({...volunteerForm, basedIn: e.target.value})}
-                    style={{ marginRight: '0.5rem' }} 
+                    style={{ marginRight: '0.5rem', width: 18, height: 18 }} 
                   /> {location}
                 </label>
               ))}
@@ -737,18 +721,18 @@ const Donate: React.FC = () => {
           </div>
           
           <div style={{ marginBottom: '1rem' }}>
-            <label style={{ fontWeight: 500, color: '#fff', display: 'block', marginBottom: '0.5rem' }}>Availability:</label>
+            <label style={{ fontWeight: 600, color: '#fff', display: 'block', marginBottom: '0.5rem', fontSize: '1.1rem' }}>Availability:</label>
             <input 
               type="text" 
               placeholder="e.g. weekends, evenings" 
               value={volunteerForm.availability}
               onChange={(e) => setVolunteerForm({...volunteerForm, availability: e.target.value})}
-              style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff', boxSizing: 'border-box' }} 
+              style={{ width: '100%', padding: '0.85rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff', boxSizing: 'border-box', fontSize: '1.05rem' }} 
             />
           </div>
           
           <div style={{ textAlign: 'center' }}>
-            <button type="submit" style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 10, border: 'none', fontWeight: 700, fontSize: '1.1rem', cursor: 'pointer', width: '100%', maxWidth: '300px' }}>
+            <button type="submit" style={{ background: '#d32f2f', color: '#fff', padding: '1rem 2.25rem', borderRadius: 10, border: 'none', fontWeight: 700, fontSize: '1.15rem', cursor: 'pointer', width: '100%', maxWidth: '340px' }}>
               Submit
             </button>
           </div>
