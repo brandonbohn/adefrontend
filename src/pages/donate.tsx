@@ -225,6 +225,11 @@ const Donate: React.FC = () => {
         response.data?.status === 'success' ||
         (response.status >= 200 && response.status < 300);
 
+      if (backendRedirect) {
+        window.location.assign(backendRedirect);
+        return;
+      }
+
       if (shouldRedirect && paymentLink) {
         setDonationSubmitSuccess(true);
         setLastDonationSummary({ name, amount: donationForm.amount, currency: selectedCurrency });
