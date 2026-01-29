@@ -210,13 +210,13 @@ const Donate: React.FC = () => {
         source: 'website'
       });
 
-      const backendRedirect =
+      const paymentUrl =
         response.data?.paymentUrl ||
         response.data?.redirectUrl ||
         response.data?.paymentLink ||
         response.data?.redirectURL;
       const fallbackLink = paymentMethods.find((m: any) => m.key === selectedPayment)?.link;
-      const paymentLink = backendRedirect || fallbackLink;
+      const paymentLink = paymentUrl || fallbackLink;
       const shouldRedirect =
         response.data === true ||
         response.data?.success === true ||
@@ -224,11 +224,6 @@ const Donate: React.FC = () => {
         response.data?.redirect === true ||
         response.data?.status === 'success' ||
         (response.status >= 200 && response.status < 300);
-
-      if (backendRedirect) {
-        window.location.assign(backendRedirect);
-        return;
-      }
 
       if (shouldRedirect && paymentLink) {
         setDonationSubmitSuccess(true);
@@ -242,8 +237,8 @@ const Donate: React.FC = () => {
           message: ''
         });
         setTimeout(() => {
-          window.location.href = paymentLink;
-        }, 400);
+          window.location.replace(paymentLink);
+        }, 300);
         return;
       }
 
