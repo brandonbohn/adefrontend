@@ -199,7 +199,7 @@ const Donate: React.FC = () => {
     }
 
     try {
-      await axios.post(`${API_BASE_URL}/api/donors`, {
+      const response = await axios.post(`${API_BASE_URL}/api/donors`, {
         name,
         email,
         phone: donationForm.phone.trim(),
@@ -209,6 +209,19 @@ const Donate: React.FC = () => {
         message: donationForm.message.trim(),
         source: 'website'
       });
+
+      const paymentLink = paymentMethods.find((m: any) => m.key === selectedPayment)?.link;
+      const shouldRedirect =
+        response.data === true ||
+        response.data?.success === true ||
+        response.data?.ok === true ||
+        response.data?.redirect === true ||
+        response.data?.status === 'success';
+
+      if (shouldRedirect && paymentLink) {
+        window.location.href = paymentLink;
+        return;
+      }
 
       setDonationSubmitSuccess(true);
       setLastDonationSummary({ name, amount: donationForm.amount, currency: selectedCurrency });
