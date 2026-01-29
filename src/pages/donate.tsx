@@ -13,6 +13,18 @@ const Donate: React.FC = () => {
   const [selectedCurrency, setSelectedCurrency] = useState('USD');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [donationForm, setDonationForm] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    amount: '',
+    message: ''
+  });
+  const [donationSubmitLoading, setDonationSubmitLoading] = useState(false);
+  const [donationSubmitSuccess, setDonationSubmitSuccess] = useState(false);
+  const [donationSubmitError, setDonationSubmitError] = useState('');
+  const [donationFormErrors, setDonationFormErrors] = useState<Record<string, string>>({});
+  const [lastDonationSummary, setLastDonationSummary] = useState<{ name: string; amount: string; currency: string } | null>(null);
   const [volunteerData, setVolunteerData] = useState<any>(null);
   const [volunteerForm, setVolunteerForm] = useState({
     name: '',
@@ -49,7 +61,7 @@ const Donate: React.FC = () => {
       });
     
     // Fetch volunteer opportunities
-    axios.get('https://adebackend.onrender.com/volunteers')
+    axios.get('https://adebackend.onrender.com/api/volunteers')
       .then(res => {
         setVolunteerData(res.data);
       })
@@ -135,7 +147,7 @@ const Donate: React.FC = () => {
     setSubmitSuccess(false);
     
     try {
-      await axios.post('https://adebackend.onrender.com/volunteers', {
+      await axios.post('https://adebackend.onrender.com/api/volunteers', {
         ...volunteerForm,
         interests: [...volunteerForm.interests, volunteerForm.otherInterest].filter(Boolean)
       });
@@ -153,6 +165,64 @@ const Donate: React.FC = () => {
       });
     } catch (err) {
       setSubmitError('Failed to submit form. Please try again.');
+    }
+  };
+
+  const handleDonationSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setDonationSubmitLoading(true);
+    setDonationSubmitSuccess(false);
+    setDonationSubmitError('');
+    setDonationFormErrors({});
+    setLastDonationSummary(null);
+
+    const nextErrors: Record<string, string> = {};
+    const name = donationForm.name.trim();
+    const email = donationForm.email.trim();
+    const amountValue = parseFloat(donationForm.amount);
+
+    if (!name) nextErrors.name = 'Name is required.';
+    if (!email) {
+      nextErrors.email = 'Email is required.';
+    } else if (!/.+@.+\..+/.test(email)) {
+      nextErrors.email = 'Please enter a valid email.';
+    }
+    if (!donationForm.amount.trim() || Number.isNaN(amountValue) || amountValue <= 0) {
+      nextErrors.amount = 'Please enter a valid amount.';
+    }
+
+    if (Object.keys(nextErrors).length > 0) {
+      setDonationFormErrors(nextErrors);
+      setDonationSubmitLoading(false);
+      setDonationSubmitError('Please fix the errors below.');
+      return;
+    }
+
+    try {
+      await axios.post(`${API_BASE_URL}/api/donors`, {
+        name,
+        email,
+        phone: donationForm.phone.trim(),
+        amount: amountValue,
+        currency: selectedCurrency,
+        paymentMethod: selectedPayment,
+        message: donationForm.message.trim(),
+        source: 'website'
+      });
+
+      setDonationSubmitSuccess(true);
+      setLastDonationSummary({ name, amount: donationForm.amount, currency: selectedCurrency });
+      setDonationSubmitLoading(false);
+      setDonationForm({
+        name: '',
+        email: '',
+        phone: '',
+        amount: '',
+        message: ''
+      });
+    } catch (err) {
+      setDonationSubmitLoading(false);
+      setDonationSubmitError('Failed to submit donation. Please try again.');
     }
   };
   
@@ -279,6 +349,10 @@ const Donate: React.FC = () => {
                   key={id}
                   src={getImagePath(id)}
                   alt={getImageById(id)?.alt || 'ADEFC'}
+                  loading="lazy"
+                  decoding="async"
+                  width={400}
+                  height={120}
                   style={{ 
                     width: '100%', 
                     height: '120px', 
@@ -320,6 +394,10 @@ const Donate: React.FC = () => {
                   key={id}
                   src={getImagePath(id)}
                   alt={getImageById(id)?.alt || 'ADEFC'}
+                  loading="lazy"
+                  decoding="async"
+                  width={400}
+                  height={120}
                   style={{ 
                     width: '100%', 
                     height: '120px', 
@@ -387,6 +465,100 @@ const Donate: React.FC = () => {
               <li key={idx} style={{ color: '#d32f2f', fontWeight: 'bold', marginBottom: '0.5rem' }}>• {item}</li>
             ))}
           </ul>
+
+          {/* Donation Form */}
+          <form onSubmit={handleDonationSubmit} style={{ maxWidth: 700, margin: '0 auto 2rem', background: '#23272a', borderRadius: 12, padding: '1.75rem', boxShadow: '0 1px 8px rgba(0,0,0,0.18)' }}>
+            <h3 style={{ color: '#fff', textAlign: 'center', marginBottom: '1rem' }}>Donation Details</h3>
+
+            {donationSubmitSuccess && (
+              <div style={{ background: '#4caf50', color: '#fff', padding: '0.75rem 1rem', borderRadius: 8, marginBottom: '1rem', textAlign: 'center' }}>
+                Thank you{lastDonationSummary?.name ? `, ${lastDonationSummary.name}` : ''}! We’ve recorded your {lastDonationSummary?.currency} {lastDonationSummary?.amount} gift. Please complete payment below.
+              </div>
+            )}
+
+            {donationSubmitError && (
+              <div style={{ background: '#f44336', color: '#fff', padding: '0.75rem 1rem', borderRadius: 8, marginBottom: '1rem', textAlign: 'center' }}>
+                {donationSubmitError}
+              </div>
+            )}
+
+            <div style={{ display: 'grid', gap: '0.75rem' }}>
+              <div>
+                <label style={{ color: '#fff', display: 'block', marginBottom: 6 }}>Full Name</label>
+                <input
+                  type="text"
+                  value={donationForm.name}
+                  onChange={(e) => setDonationForm({ ...donationForm, name: e.target.value })}
+                  style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff', boxSizing: 'border-box' }}
+                />
+                {donationFormErrors.name && (
+                  <div style={{ marginTop: 6, color: '#ffdddd', fontSize: '0.9rem' }}>{donationFormErrors.name}</div>
+                )}
+              </div>
+
+              <div>
+                <label style={{ color: '#fff', display: 'block', marginBottom: 6 }}>Email</label>
+                <input
+                  type="email"
+                  value={donationForm.email}
+                  onChange={(e) => setDonationForm({ ...donationForm, email: e.target.value })}
+                  style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff', boxSizing: 'border-box' }}
+                />
+                {donationFormErrors.email && (
+                  <div style={{ marginTop: 6, color: '#ffdddd', fontSize: '0.9rem' }}>{donationFormErrors.email}</div>
+                )}
+              </div>
+
+              <div>
+                <label style={{ color: '#fff', display: 'block', marginBottom: 6 }}>Phone (optional)</label>
+                <input
+                  type="tel"
+                  value={donationForm.phone}
+                  onChange={(e) => setDonationForm({ ...donationForm, phone: e.target.value })}
+                  style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff', boxSizing: 'border-box' }}
+                />
+              </div>
+
+              <div>
+                <label style={{ color: '#fff', display: 'block', marginBottom: 6 }}>Donation Amount</label>
+                <input
+                  type="number"
+                  min="1"
+                  step="1"
+                  value={donationForm.amount}
+                  onChange={(e) => setDonationForm({ ...donationForm, amount: e.target.value })}
+                  style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff', boxSizing: 'border-box' }}
+                />
+                {donationFormErrors.amount && (
+                  <div style={{ marginTop: 6, color: '#ffdddd', fontSize: '0.9rem' }}>{donationFormErrors.amount}</div>
+                )}
+              </div>
+
+              <div>
+                <label style={{ color: '#fff', display: 'block', marginBottom: 6 }}>Message (optional)</label>
+                <textarea
+                  rows={3}
+                  value={donationForm.message}
+                  onChange={(e) => setDonationForm({ ...donationForm, message: e.target.value })}
+                  style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff', boxSizing: 'border-box' }}
+                />
+              </div>
+            </div>
+
+            <div style={{ marginTop: '1rem', textAlign: 'center', color: '#fff', fontSize: '0.95rem' }}>
+              Selected payment method: <strong>{paymentMethods.find((m: any) => m.key === selectedPayment)?.label || '—'}</strong>
+            </div>
+
+            <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+              <button
+                type="submit"
+                disabled={donationSubmitLoading}
+                style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 10, border: 'none', fontWeight: 700, fontSize: '1.05rem', cursor: donationSubmitLoading ? 'not-allowed' : 'pointer', width: '100%', maxWidth: 320 }}
+              >
+                {donationSubmitLoading ? 'Submitting…' : 'Submit Donation'}
+              </button>
+            </div>
+          </form>
           
           {/* Currency Selector */}
           <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
