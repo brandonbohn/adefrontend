@@ -266,15 +266,18 @@ const Donate: React.FC = () => {
         : [...prev.interests, interest]
     }));
   };
-  const realityBullets = content?.realityBullets || [
-    'Dropping out of school permanently',
-    'Child marriage',
-    'Exploitation and abuse',
-    'Chronic malnutrition',
-    'No path out of extreme poverty'
+  
+  // Volunteer section
+  const volunteerTitle = content?.volunteer?.title || 'Volunteer Your Time & Skills 👥';
+  const volunteerSubtitle = content?.volunteer?.subtitle || 'Help us reach more girls in Kibera:';
+  const volunteerOpportunitiesFromBackend = content?.volunteer?.opportunities || volunteerOpportunities;
+  
+  // Payment methods - not in donateSection, keep as is for now
+  const paymentMethods = [
+    { key: 'paypal', label: 'PayPal', link: 'https://www.paypal.com/donate' },
+    { key: 'flutterwave', label: 'Flutterwave', link: 'https://flutterwave.com/donate' },
+    { key: 'mpesa', label: 'M-Pesa', link: 'https://www.safaricom.co.ke/mpesa' }
   ];
-  const donationIntro = content?.donationIntro || 'In Kibera, girls face impossible choices.';
-  const donationOutro = content?.donationOutro || 'Football is how we reach them. Education and nutrition are how we change their lives.';
 
   return (
     <>
@@ -323,36 +326,30 @@ const Donate: React.FC = () => {
       >
         {/* Donate */}
         <div className="cta-box" style={{ flex: '1 1 350px', minWidth: 300, background: '#111', borderRadius: 16, boxShadow: '0 2px 12px rgba(0,0,0,0.18)', padding: '2.5rem 2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid #222', minHeight: '320px' }}>
-          <span style={{ fontSize: '2.5rem', marginBottom: '0.5rem', color: '#d32f2f' }}>💰</span>
-          <h3 style={{ color: '#d32f2f', marginBottom: '0.5rem', fontWeight: 700, fontSize: '1.35rem' }}>DONATE</h3>
-          <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.05rem', flex: '1' }}>{donateCta}</p>
-          {donateButton.visible && (
-            <a href={donateButton.link} style={{ textDecoration: 'none', width: '100%' }}>
-              <button style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: '1.05rem', width: '100%' }}>{donateButton.label}</button>
-            </a>
-          )}
+          <span style={{ fontSize: '2.5rem', marginBottom: '0.5rem', color: '#d32f2f' }}>{ctaItems[0]?.icon || '💰'}</span>
+          <h3 style={{ color: '#d32f2f', marginBottom: '0.5rem', fontWeight: 700, fontSize: '1.35rem' }}>{ctaItems[0]?.title || 'DONATE'}</h3>
+          <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.05rem', flex: '1' }}>{ctaItems[0]?.description || 'Help provide school fees, food, and essentials'}</p>
+          <a href="#donate" style={{ textDecoration: 'none', width: '100%' }}>
+            <button style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: '1.05rem', width: '100%' }}>{ctaItems[0]?.button || 'Give Now'}</button>
+          </a>
         </div>
         {/* Volunteer */}
         <div className="cta-box" style={{ flex: '1 1 350px', minWidth: 300, background: '#111', borderRadius: 16, boxShadow: '0 2px 12px rgba(0,0,0,0.18)', padding: '2.5rem 2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid #222', minHeight: '320px' }}>
-          <span style={{ fontSize: '2.5rem', marginBottom: '0.5rem', color: '#388e3c' }}>👥</span>
-          <h3 style={{ color: '#388e3c', marginBottom: '0.5rem', fontWeight: 700, fontSize: '1.35rem' }}>VOLUNTEER</h3>
-          <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.05rem', flex: '1' }}>{volunteerCta}</p>
-          {volunteerButton.visible && (
-            <a href={volunteerButton.link} style={{ textDecoration: 'none', width: '100%' }}>
-              <button style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: '1.05rem', width: '100%' }}>{volunteerButton.label}</button>
-            </a>
-          )}
+          <span style={{ fontSize: '2.5rem', marginBottom: '0.5rem', color: '#388e3c' }}>{ctaItems[1]?.icon || '👥'}</span>
+          <h3 style={{ color: '#388e3c', marginBottom: '0.5rem', fontWeight: 700, fontSize: '1.35rem' }}>{ctaItems[1]?.title || 'VOLUNTEER'}</h3>
+          <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.05rem', flex: '1' }}>{ctaItems[1]?.description || 'Share your time, skills, or expertise'}</p>
+          <a href="#volunteer" style={{ textDecoration: 'none', width: '100%' }}>
+            <button style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: '1.05rem', width: '100%' }}>{ctaItems[1]?.button || 'Get Involved'}</button>
+          </a>
         </div>
         {/* Sponsor */}
         <div className="cta-box" style={{ flex: '1 1 350px', minWidth: 300, background: '#111', borderRadius: 16, boxShadow: '0 2px 12px rgba(0,0,0,0.18)', padding: '2.5rem 2rem', display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid #222', minHeight: '320px' }}>
-          <span style={{ fontSize: '2.5rem', marginBottom: '0.5rem', color: '#e91e63' }}>💝</span>
-          <h3 style={{ color: '#e91e63', marginBottom: '0.5rem', fontWeight: 700, fontSize: '1.35rem' }}>SPONSOR</h3>
-          <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.05rem', flex: '1' }}>{sponsorCta}</p>
-          {sponsorButton.visible && (
-            <a href={sponsorButton.link} style={{ textDecoration: 'none', width: '100%' }}>
-              <button style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: '1.05rem', width: '100%' }}>{sponsorButton.label}</button>
-            </a>
-          )}
+          <span style={{ fontSize: '2.5rem', marginBottom: '0.5rem', color: '#e91e63' }}>{ctaItems[2]?.icon || '💝'}</span>
+          <h3 style={{ color: '#e91e63', marginBottom: '0.5rem', fontWeight: 700, fontSize: '1.35rem' }}>{ctaItems[2]?.title || 'SPONSOR'}</h3>
+          <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.05rem', flex: '1' }}>{ctaItems[2]?.description || 'Change one girl\'s entire future'}</p>
+          <a href={ctaItems[2]?.link || '/sponsor-a-girl'} style={{ textDecoration: 'none', width: '100%' }}>
+            <button style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: '1.05rem', width: '100%' }}>{ctaItems[2]?.button || 'Sponsor'}</button>
+          </a>
         </div>
       </section>
 
@@ -394,16 +391,16 @@ const Donate: React.FC = () => {
                 />
               ))}
             </div>
-            <h2 style={{ color: '#fff', textAlign: 'center', fontWeight: 800, fontSize: '2rem', marginBottom: '1.5rem' }}>Your Money Goes Directly to the Girls</h2>
-            <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.1rem' }}><em>Our Commitment:</em></p>
+            <h2 style={{ color: '#fff', textAlign: 'center', fontWeight: 800, fontSize: '2rem', marginBottom: '1.5rem' }}>{trustTitle}</h2>
+            <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.1rem' }}><em>{trustCommitment}</em></p>
             <ul style={{ marginBottom: '1.5rem', color: '#fff', fontSize: '1rem', lineHeight: 1.7, listStyle: 'disc', paddingLeft: 24, textAlign: 'left' }}>
               {trustBullets.map((item: string, idx: number) => (
                 <li key={idx} style={{ color: '#d32f2f', fontWeight: 'bold' }}><span style={{ color: '#d32f2f', fontWeight: 'bold' }}>✓</span> {item}</li>
               ))}
             </ul>
             <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
-              <a href="/contact" style={{ textDecoration: 'none' }}>
-                <button style={{ background: '#fff', color: '#23272a', padding: '0.85rem 2rem', borderRadius: 10, border: 'none', fontWeight: 700, fontSize: '1.1rem' }}>Contact Us</button>
+              <a href={content?.trust?.contactLink || '/contact'} style={{ textDecoration: 'none' }}>
+                <button style={{ background: '#fff', color: '#23272a', padding: '0.85rem 2rem', borderRadius: 10, border: 'none', fontWeight: 700, fontSize: '1.1rem' }}>{content?.trust?.contactButton || 'Contact Us'}</button>
               </a>
             </div>
           </div>
@@ -439,15 +436,15 @@ const Donate: React.FC = () => {
                 />
               ))}
             </div>
-            <h2 style={{ color: '#fff', textAlign: 'center', fontWeight: 800, fontSize: '2rem', marginBottom: '1.5rem' }}>The Reality in Kibera</h2>
-            <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.1rem' }}><em>Without support, these girls face:</em></p>
+            <h2 style={{ color: '#fff', textAlign: 'center', fontWeight: 800, fontSize: '2rem', marginBottom: '1.5rem' }}>{realityTitle}</h2>
+            <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.1rem' }}><em>{realitySubtitle}</em></p>
             <ul style={{ marginBottom: '1.5rem', color: '#fff', fontSize: '1rem', lineHeight: 1.7, listStyle: 'disc', paddingLeft: 24, textAlign: 'left' }}>
               {realityBullets.map((item: string, idx: number) => (
                 <li key={idx} style={{ color: '#d32f2f', fontWeight: 'bold' }}>{item}</li>
               ))}
             </ul>
             <p style={{ textAlign: 'center', color: '#fff', fontWeight: 500, fontSize: '1.1rem' }}>
-              Football brings them together. Your support keeps them in school, fed, and dreaming of a better future.
+              {realityFooter}
             </p>
           </div>
         </div>
@@ -484,11 +481,11 @@ const Donate: React.FC = () => {
         }
       `}</style>
   <section id="donate" style={{ width: '95%', maxWidth: 1400, margin: '2.5rem auto', background: '#fff', borderRadius: 18, boxShadow: '0 2px 16px rgba(0,0,0,0.10)', padding: '2.5rem 1.5rem', border: '1px solid #f5f5f5' }}>
-  <h2 style={{ color: '#d32f2f', textAlign: 'center', fontWeight: 800, fontSize: '2rem', marginBottom: '1.5rem' }}>Make a Donation 💰</h2>
+  <h2 style={{ color: '#d32f2f', textAlign: 'center', fontWeight: 800, fontSize: '2rem', marginBottom: '1.5rem' }}>{donationTitle}</h2>
   
         <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#d32f2f', fontSize: '1.1rem' }}>
-          <em>{donationIntro}</em><br />
-          Your donation provides:
+          <em>{donationSubtitle}</em><br />
+          {donationDescription}
         </p>
         <ul style={{ marginBottom: '1.5rem', color: '#d32f2f', fontSize: '1.2rem', lineHeight: 1.8, listStyle: 'none', paddingLeft: 0, textAlign: 'center', maxWidth: 800, margin: '0 auto 1.5rem' }}>
           {donationProvides.map((item: string, idx: number) => (
@@ -643,15 +640,15 @@ const Donate: React.FC = () => {
       {/* VOLUNTEER SECTION - DYNAMIC */}
       <section id="volunteer" style={{ width: '95%', maxWidth: 1400, margin: '2.5rem auto', background: '#fff', borderRadius: 18, boxShadow: '0 2px 16px rgba(0,0,0,0.08)', padding: '2.5rem 1.5rem' }}>
         <h2 style={{ color: '#d32f2f', textAlign: 'center', fontWeight: 800, fontSize: '2rem', marginBottom: '1.5rem' }}>
-          {volunteerData?.sectionTitle || 'Volunteer Your Time & Skills 👥'}
+          {volunteerTitle}
         </h2>
         <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#d32f2f', fontSize: '1.1rem' }}>
-          <em>{volunteerData?.sectionSubtitle || 'Help us reach more girls in Kibera:'}</em>
+          <em>{volunteerSubtitle}</em>
         </p>
         
         {/* Opportunities Grid - DYNAMIC */}
         <div className="volunteer-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginBottom: '2rem' }}>
-          {volunteerOpportunities.map((opportunity: any, idx: number) => (
+          {volunteerOpportunitiesFromBackend.map((opportunity: any, idx: number) => (
             <div key={idx} style={{ background: '#23272a', borderRadius: 12, padding: '1.25rem', textAlign: 'center', boxShadow: '0 1px 8px rgba(0,0,0,0.18)' }}>
               <span style={{ fontSize: '2rem', color: '#fff' }}>{opportunity.icon}</span><br />
               <strong style={{ color: '#fff' }}>{opportunity.title}</strong><br />
