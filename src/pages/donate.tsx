@@ -33,7 +33,7 @@ const Donate: React.FC = () => {
     location: '',
     interests: [] as string[],
     otherInterest: '',
-    basedIn: '',
+    basedIn: 'Nairobi/Kenya', // Default to first option
     availability: ''
   });
   const [submitSuccess, setSubmitSuccess] = useState(false);
@@ -167,7 +167,7 @@ const Donate: React.FC = () => {
         location: '',
         interests: [],
         otherInterest: '',
-        basedIn: '',
+        basedIn: 'Nairobi/Kenya', // Reset to default
         availability: ''
       });
     } catch (err: any) {
