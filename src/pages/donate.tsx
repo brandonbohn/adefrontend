@@ -61,7 +61,7 @@ const Donate: React.FC = () => {
       });
     
     // Fetch volunteer opportunities
-    axios.get('https://adebackend.onrender.com/api/volunteers')
+    axios.get(`${API_BASE_URL}/api/volunteers`)
       .then(res => {
         setVolunteerData(res.data);
       })
@@ -147,7 +147,7 @@ const Donate: React.FC = () => {
     setSubmitSuccess(false);
     
     try {
-      await axios.post('https://adebackend.onrender.com/api/volunteers', {
+      await axios.post(`${API_BASE_URL}/api/volunteers`, {
         ...volunteerForm,
         interests: [...volunteerForm.interests, volunteerForm.otherInterest].filter(Boolean)
       });
