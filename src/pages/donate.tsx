@@ -163,8 +163,11 @@ const Donate: React.FC = () => {
         basedIn: '',
         availability: ''
       });
-    } catch (err) {
-      setSubmitError('Failed to submit form. Please try again.');
+    } catch (err: any) {
+      console.error('Volunteer submission error:', err);
+      console.error('Error response:', err.response?.data);
+      const errorMsg = err.response?.data?.error?.message || err.message || 'Failed to submit form. Please try again.';
+      setSubmitError(errorMsg);
     }
   };
 
