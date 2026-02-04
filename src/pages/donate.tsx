@@ -147,8 +147,15 @@ const Donate: React.FC = () => {
     setSubmitSuccess(false);
     
     try {
+      // Map frontend display values to backend enum values
+      const basedInMap: Record<string, string> = {
+        'Nairobi/Kenya': 'nairobi',
+        'Remote/International': 'remote'
+      };
+      
       await axios.post(`${API_BASE_URL}/api/volunteers`, {
         ...volunteerForm,
+        basedIn: basedInMap[volunteerForm.basedIn] || volunteerForm.basedIn.toLowerCase(),
         interests: [...volunteerForm.interests, volunteerForm.otherInterest].filter(Boolean)
       });
       
