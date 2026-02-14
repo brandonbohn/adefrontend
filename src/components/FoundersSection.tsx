@@ -1,6 +1,7 @@
 import React from 'react';
 import '../home.css';
 import { getImagePath } from '../imageRegistry';
+import LazyImage from './LazyImage';
 
 interface Founder {
   image?: string | number;
@@ -38,7 +39,7 @@ const Foundersection: React.FC<FoundersectionProps> = ({ data, customStyle = {} 
             return (
             <div key={idx} className="founder-card">
               {imageSrc ? (
-                <img src={imageSrc} alt={founder.name} className="founder-img" />
+                <LazyImage src={imageSrc} alt={founder.name} className="founder-img" width="220px" height="220px" />
               ) : (
                 <div className="founder-img" style={{ background: '#222', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>No Photo</div>
               )}

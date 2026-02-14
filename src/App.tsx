@@ -7,6 +7,8 @@ import DonateTerms from './pages/DonateTerms';
 import SponsorAGirl from './pages/SponsorAGirl';
 import SponsoredGirls from './pages/SponsoredGirls';
 import MeetTheTeams from './pages/MeetTheTeams';
+import DonationSuccess from './pages/DonationSuccess';
+import DonationError from './pages/DonationError';
 import Foundersection from './components/FoundersSection';
 
 function App() { 
@@ -24,6 +26,8 @@ function App() {
           <Route path="/sponsor-a-girl" element={<SponsorAGirl />} />
           <Route path="/sponsored-girls" element={<SponsoredGirls />} />
           <Route path="/meet-the-teams" element={<MeetTheTeams />} />
+          <Route path="/donation-error" element={<DonationError />} />
+          <Route path="/donation-success" element={<DonationSuccess />} />
         </Routes>
       </div>
     </div>

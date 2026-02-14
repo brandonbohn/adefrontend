@@ -1,0 +1,269 @@
+/* Donation Success Page Styles */
+
+.donation-success-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(163, 21, 21, 0.2) 100%);
+}
+
+.donation-success-content {
+  width: 100%;
+  max-width: 700px;
+  animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Success Header */
+.success-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.success-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background: #a31515;
+  color: white;
+  font-size: 3rem;
+  border-radius: 50%;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 20px rgba(163, 21, 21, 0.3);
+}
+
+.success-header h1 {
+  color: #fff;
+  font-size: 2.5rem;
+  margin: 0 0 0.5rem 0;
+  font-weight: bold;
+}
+
+.success-subtitle {
+  color: #a31515;
+  font-size: 1.2rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Message Box */
+.success-message-box {
+  background: #111;
+  color: #fff;
+  padding: 2rem;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  margin-bottom: 2rem;
+  border-left: 5px solid #a31515;
+  line-height: 1.8;
+  font-size: 1.1rem;
+}
+
+/* Donation Details Box */
+.donation-details-box {
+  background: rgba(163, 21, 21, 0.1);
+  border: 2px solid #a31515;
+  color: #fff;
+  padding: 2rem;
+  border-radius: 18px;
+  margin-bottom: 2rem;
+}
+
+.donation-details-box h3 {
+  color: #a31515;
+  margin-top: 0;
+  font-size: 1.3rem;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.detail-label {
+  font-size: 0.9rem;
+  color: #bbb;
+  font-weight: 600;
+}
+
+.detail-value {
+  font-family: 'Monaco', 'Courier New', monospace;
+  font-size: 1rem;
+  color: #fff;
+  word-break: break-all;
+}
+
+/* Confirmation Box */
+.confirmation-box {
+  background: #111;
+  color: #fff;
+  padding: 2rem;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  margin-bottom: 2rem;
+}
+
+.confirmation-box h3 {
+  color: #a31515;
+  margin-top: 0;
+  font-size: 1.3rem;
+}
+
+.next-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.next-steps li {
+  padding: 0.8rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.next-steps li:last-child {
+  border-bottom: none;
+}
+
+/* Action Buttons */
+.success-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+}
+
+.btn-primary {
+  background: #a31515;
+  color: #fff;
+  min-width: 200px;
+}
+
+.btn-primary:hover {
+  background: #8a1010;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(163, 21, 21, 0.3);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #a31515;
+  border: 2px solid #a31515;
+  min-width: 200px;
+}
+
+.btn-secondary:hover {
+  background: #a31515;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Impact Message */
+.impact-message {
+  background: rgba(163, 21, 21, 0.05);
+  border: 1px solid #a31515;
+  color: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.impact-message strong {
+  color: #a31515;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .donation-success-content {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+
+  .success-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .success-subtitle {
+    font-size: 1rem;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .success-actions {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .success-message-box,
+  .confirmation-box,
+  .donation-details-box {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .donation-success-container {
+    padding: 1rem;
+  }
+
+  .success-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 2.5rem;
+  }
+
+  .success-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .success-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .next-steps li {
+    font-size: 0.95rem;
+  }
+}

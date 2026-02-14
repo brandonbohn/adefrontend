@@ -89,6 +89,11 @@ const Donate: React.FC = () => {
   const donateButton = content?.donateButton || { label: 'Give Now', link: '#donate', visible: true };
   const volunteerButton = content?.volunteerButton || { label: 'Get Involved', link: '#volunteer', visible: true };
   const sponsorButton = content?.sponsorButton || { label: 'Sponsor', link: '/sponsor-a-girl', visible: true };
+  const ctaItems = content?.ctaItems || [
+    { icon: '💰', title: 'DONATE', description: donateCta, button: donateButton.label, link: donateButton.link },
+    { icon: '👥', title: 'VOLUNTEER', description: volunteerCta, button: volunteerButton.label, link: volunteerButton.link },
+    { icon: '💝', title: 'SPONSOR', description: sponsorCta, button: sponsorButton.label, link: sponsorButton.link }
+  ];
   // Main donation action buttons (e.g., Donate Now, Pay with M-Pesa)
   const mainDonateButtons = content?.mainDonateButtons || [
     { label: 'Donate Now', link: '#', visible: true },
@@ -108,6 +113,8 @@ const Donate: React.FC = () => {
     'Safe transportation',
     'Football training and mentorship'
   ];
+  const trustTitle = content?.trust?.title || 'Trust & Transparency';
+  const trustCommitment = content?.trust?.commitment || 'We steward every gift with care and accountability.';
   const trustBullets = content?.trustBullets || [
     '100% of sponsorships fund girl support',
     'Transparent reporting on all spending',
@@ -115,6 +122,17 @@ const Donate: React.FC = () => {
     'Secure payment processing',
     'Cancel anytime'
   ];
+  const realityTitle = content?.reality?.title || 'The Reality in Kibera';
+  const realitySubtitle = content?.reality?.subtitle || 'Every day is a fight for education, safety, and dignity.';
+  const realityBullets = content?.reality?.bullets || [
+    'Many girls miss school due to fees, hunger, or lack of supplies',
+    'Limited access to sanitation and menstrual health support',
+    'Unsafe routes to school and limited mentorship opportunities'
+  ];
+  const realityFooter = content?.reality?.footer || 'Your support breaks these barriers and unlocks opportunity.';
+  const donationTitle = content?.donation?.title || 'Make a Donation';
+  const donationSubtitle = content?.donation?.subtitle || 'Every dollar creates real change.';
+  const donationDescription = content?.donation?.description || 'Choose an amount, select a payment method, and make a gift today.';
   
   // Dynamic volunteer data from backend
   const volunteerOpportunities = volunteerData?.opportunities || [
@@ -282,12 +300,7 @@ const Donate: React.FC = () => {
   const volunteerSubtitle = content?.volunteer?.subtitle || 'Help us reach more girls in Kibera:';
   const volunteerOpportunitiesFromBackend = content?.volunteer?.opportunities || volunteerOpportunities;
   
-  // Payment methods - not in donateSection, keep as is for now
-  const paymentMethods = [
-    { key: 'paypal', label: 'PayPal', link: 'https://www.paypal.com/donate' },
-    { key: 'flutterwave', label: 'Flutterwave', link: 'https://flutterwave.com/donate' },
-    { key: 'mpesa', label: 'M-Pesa', link: 'https://www.safaricom.co.ke/mpesa' }
-  ];
+  // Payment methods are defined above with backend fallback.
 
   return (
     <>

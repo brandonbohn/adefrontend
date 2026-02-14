@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { getImagePath, getImageIdByName } from '../imageRegistry';
+import LazyImage from './LazyImage';
 
 interface Girl {
   name: string;
@@ -92,11 +93,12 @@ const GirlsList: React.FC = () => {
               overflow: 'hidden'
             }}>
               {imageSrc ? (
-                <img 
+                <LazyImage 
                   src={imageSrc} 
                   alt={girl.name}
+                  width="100%"
+                  height="100%"
                   style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 8 }}
-                  loading="lazy"
                 />
               ) : (
                 'Photo Coming Soon'
