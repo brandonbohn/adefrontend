@@ -21,8 +21,9 @@ const DonateTerms: React.FC = () => {
   }, []);
 
   if (error) return <div style={{textAlign:'center',margin:'2rem',color:'#d32f2f'}}>{error}</div>;
+  if (loading) return <div style={{ textAlign: 'center', margin: '2rem', color: '#fff' }}>Loading donation terms...</div>;
 
-  const donateTerms = content.donateTerms || {
+  const donateTerms = content?.donateTerms || {
     title: 'Donation Terms',
     intro: 'By donating to ADE FC you acknowledge that donations are used to support the programs described on this site. Donations are generally final. If you believe there was an error in processing or you need a refund, please contact us at ',
     contactEmail: 'brandonbohn@barebohnzconsulting.com',
@@ -32,20 +33,22 @@ const DonateTerms: React.FC = () => {
   };
 
   return (
-    <div style={{ maxWidth: 900, margin: '2rem auto', padding: '1.25rem', lineHeight: 1.6 }}>
-      <h1>{donateTerms.title}</h1>
-      <p>
-        {donateTerms.intro}
-        <a href={`mailto:${donateTerms.contactEmail}`}>{donateTerms.contactEmail}</a>.
-      </p>
+    <div style={{ maxWidth: 960, margin: '2rem auto', padding: '1.25rem' }}>
+      <div style={{ background: '#111', color: '#fff', borderRadius: 12, padding: '2rem', lineHeight: 1.7, boxShadow: '0 14px 32px rgba(0,0,0,0.28)' }}>
+        <h1>{donateTerms.title}</h1>
+        <p>
+          {donateTerms.intro}
+          <a href={`mailto:${donateTerms.contactEmail}`} style={{ color: '#ffb3c7' }}>{donateTerms.contactEmail}</a>.
+        </p>
 
-      <h2>Receipts</h2>
-      <p>{donateTerms.receipts}</p>
+        <h2>Receipts</h2>
+        <p>{donateTerms.receipts}</p>
 
-      <h2>Payment Providers</h2>
-      <p>{donateTerms.paymentProviders}</p>
+        <h2>Payment Providers</h2>
+        <p>{donateTerms.paymentProviders}</p>
 
-      <p style={{ fontStyle: 'italic', color: '#666', marginTop: '1rem' }}>{donateTerms.disclaimer}</p>
+        <p style={{ fontStyle: 'italic', color: '#d5d5d5', marginTop: '1rem' }}>{donateTerms.disclaimer}</p>
+      </div>
     </div>
   );
 };

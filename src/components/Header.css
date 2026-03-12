@@ -6,6 +6,7 @@
   padding: 0 2rem;
   height: 80px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  gap: 1.5rem;
 }
 
 .header-logo img {
@@ -16,6 +17,8 @@
 .header-nav {
   display: flex;
   gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .header-link {
@@ -25,6 +28,34 @@
   font-weight: 600;
   letter-spacing: 1px;
   transition: color 0.2s;
+}
+
+.header-link:hover {
+  color: #ffd6df !important;
+}
+
+@media (max-width: 900px) {
+  .main-header {
+    height: auto;
+    min-height: 80px;
+    padding: 0.75rem 1rem;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .header-logo img {
+    height: 120px;
+    width: 72px;
+  }
+
+  .header-nav {
+    gap: 0.85rem;
+    justify-content: center;
+  }
+
+  .header-link {
+    font-size: 16px;
+  }
 }
 
 

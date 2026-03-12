@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { getImagePath, getImageIdByName } from '../imageRegistry';
 import LazyImage from './LazyImage';
+import { Link, useSearchParams } from 'react-router-dom';
 
 interface Girl {
   name: string;
@@ -17,6 +18,8 @@ interface Girl {
 import { API_BASE_URL } from '../config';
 
 const GirlsList: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const selectedPlan = searchParams.get('plan') || 'monthly-21';
   const [data, setData] = useState<any>(girlsData);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -51,7 +54,7 @@ const GirlsList: React.FC = () => {
         gridTemplateColumns: 'repeat(3, 1fr)',
         marginBottom: '0'
       }}>
-        {data.girls.slice(0, 3).map((girl: any, idx: number) => {
+        {data.girls.slice(0, 3).map((girl: Girl, idx: number) => {
           // Handle both string paths from backend and number IDs
           let imageSrc = '';
           if (typeof girl.image === 'string') {
@@ -64,6 +67,9 @@ const GirlsList: React.FC = () => {
             imageSrc = imageId ? getImagePath(imageId) : '';
           }
           
+          const girlId = encodeURIComponent(`${girl.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${idx + 1}`);
+          const sponsorHref = `/sponsorship-form?plan=${encodeURIComponent(selectedPlan)}&girl=${encodeURIComponent(girl.name)}&girlId=${girlId}`;
+
           return (
           <div
             key={idx}
@@ -79,6 +85,7 @@ const GirlsList: React.FC = () => {
               minHeight: '700px'
             }}
           >
+            <Link to={sponsorHref} style={{ textDecoration: 'none' }}>
             <div style={{
               width: '100%',
               height: '320px',
@@ -104,6 +111,7 @@ const GirlsList: React.FC = () => {
                 'Photo Coming Soon'
               )}
             </div>
+            </Link>
             <h3 style={{ margin: 0, marginBottom: '1rem', fontSize: '1.5rem', color: '#fff' }}>
               {girl.name} <span style={{ fontWeight: 400, color: '#ccc' }}>({girl.age})</span>
             </h3>
@@ -138,7 +146,7 @@ const GirlsList: React.FC = () => {
               </p>
             </div>
             
-            <a href="/sponsor-a-girl" style={{ textDecoration: 'none' }}>
+            <Link to={sponsorHref} style={{ textDecoration: 'none' }}>
               <div style={{
                 background: '#a31515',
                 color: '#fff',
@@ -154,9 +162,9 @@ const GirlsList: React.FC = () => {
               onMouseEnter={(e) => e.currentTarget.style.background = '#8a1212'}
               onMouseLeave={(e) => e.currentTarget.style.background = '#a31515'}
               >
-                {girl.status || 'Available for Sponsorship'}
+                Yes, I want to sponsor her
               </div>
-            </a>
+            </Link>
           </div>
           );
         })}
@@ -171,7 +179,7 @@ const GirlsList: React.FC = () => {
           width: '100%',
           margin: '0'
         }}>
-          {data.girls.slice(3, 5).map((girl: any, idx: number) => {
+          {data.girls.slice(3, 5).map((girl: Girl, idx: number) => {
             // Handle both string paths from backend and number IDs
             let imageSrc = '';
             if (typeof girl.image === 'string') {
@@ -184,6 +192,9 @@ const GirlsList: React.FC = () => {
               imageSrc = imageId ? getImagePath(imageId) : '';
             }
             
+            const girlId = encodeURIComponent(`${girl.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${idx + 4}`);
+            const sponsorHref = `/sponsorship-form?plan=${encodeURIComponent(selectedPlan)}&girl=${encodeURIComponent(girl.name)}&girlId=${girlId}`;
+
             return (
             <div
               key={idx + 3}
@@ -200,6 +211,7 @@ const GirlsList: React.FC = () => {
                 flex: '1 1 0'
               }}
             >
+              <Link to={sponsorHref} style={{ textDecoration: 'none' }}>
               <div style={{
                 width: '100%',
                 height: '320px',
@@ -224,6 +236,7 @@ const GirlsList: React.FC = () => {
                   'Photo Coming Soon'
                 )}
               </div>
+              </Link>
               <h3 style={{ margin: 0, marginBottom: '1rem', fontSize: '1.5rem', color: '#fff' }}>
                 {girl.name} <span style={{ fontWeight: 400, color: '#ccc' }}>({girl.age})</span>
               </h3>
@@ -258,7 +271,7 @@ const GirlsList: React.FC = () => {
                 </p>
               </div>
               
-              <a href="/sponsor-a-girl" style={{ textDecoration: 'none' }}>
+              <Link to={sponsorHref} style={{ textDecoration: 'none' }}>
                 <div style={{
                   background: '#a31515',
                   color: '#fff',
@@ -274,9 +287,9 @@ const GirlsList: React.FC = () => {
                 onMouseEnter={(e) => e.currentTarget.style.background = '#8a1212'}
                 onMouseLeave={(e) => e.currentTarget.style.background = '#a31515'}
                 >
-                  {girl.status || 'Available for Sponsorship'}
+                  Yes, I want to sponsor her
                 </div>
-              </a>
+              </Link>
             </div>
             );
           })}

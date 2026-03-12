@@ -9,8 +9,10 @@ const Header = () => {
         <img src="/ADEFClogo.jpg" alt="ADE FC Logo" style={{ height: '60px', verticalAlign: 'middle' }} loading="eager" />
       </div>
       <nav className="header-nav">
-        <Link to="/" className="header-link" style={{ color: '#d32f2f' }}>Home</Link>
-        <Link to="/contact" className="header-link" style={{ color: '#d32f2f' }}>Contact</Link>
+        <Link to="/" className="header-link">Home</Link>
+        <Link to="/donate" className="header-link">Donate</Link>
+        <Link to="/sponsor-a-girl" className="header-link">Sponsor a Girl</Link>
+        <Link to="/contact" className="header-link">Contact</Link>
       </nav>
     </header>
   );

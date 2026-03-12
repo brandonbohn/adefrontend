@@ -40,9 +40,17 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroTitle, mission, videoSrc,
   if (!_buttons || !Array.isArray(_buttons) || _buttons.length === 0) {
     _buttons = [
       { label: 'Donate', link: 'https://www.adekiberafoundation.org/donate' },
-      { label: 'Sponsor a Girl', link: '/sponsor-a-girl' }
+      { label: 'Sponsor a Girl', link: '/sponsored-girls' }
     ];
   }
+
+  // Keep legacy CMS links working: sponsor CTAs should open the girls list page.
+  _buttons = _buttons.map((btn) => {
+    if (btn?.label?.toLowerCase().includes('sponsor') && btn.link === '/sponsor-a-girl') {
+      return { ...btn, link: '/sponsored-girls' };
+    }
+    return btn;
+  });
 
   return (
     <>
@@ -123,7 +131,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroTitle, mission, videoSrc,
                   </button>
                 </Link>
                 <Link
-                  to="/sponsor-a-girl"
+                  to="/sponsored-girls"
                   style={{
                     textDecoration: 'none',
                     flex: '0 1 auto',

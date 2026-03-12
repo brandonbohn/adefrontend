@@ -21,8 +21,9 @@ const Privacy: React.FC = () => {
   }, []);
 
   if (error) return <div style={{textAlign:'center',margin:'2rem',color:'#d32f2f'}}>{error}</div>;
+  if (loading) return <div style={{ textAlign: 'center', margin: '2rem', color: '#fff' }}>Loading privacy policy...</div>;
 
-  const privacy = content.privacy || {
+  const privacy = content?.privacy || {
     title: 'Privacy Policy',
     intro: 'ADE FC ("we", "us") collects only the personal information necessary to process donations and to contact supporters. We do not sell personal data. Donations are processed by third-party payment providers and payment details are handled directly by those providers.',
     whatWeCollect: [
@@ -37,27 +38,29 @@ const Privacy: React.FC = () => {
   };
 
   return (
-    <div style={{ maxWidth: 900, margin: '2rem auto', padding: '1.25rem', lineHeight: 1.6 }}>
-      <h1>{privacy.title}</h1>
-      <p>{privacy.intro}</p>
+    <div style={{ maxWidth: 960, margin: '2rem auto', padding: '1.25rem' }}>
+      <div style={{ background: '#111', color: '#fff', borderRadius: 12, padding: '2rem', lineHeight: 1.7, boxShadow: '0 14px 32px rgba(0,0,0,0.28)' }}>
+        <h1>{privacy.title}</h1>
+        <p>{privacy.intro}</p>
 
-      <h2>What we collect</h2>
-      <ul>
-        {privacy.whatWeCollect.map((item: string, idx: number) => (
-          <li key={idx}>{item}</li>
-        ))}
-      </ul>
+        <h2>What we collect</h2>
+        <ul>
+          {privacy.whatWeCollect.map((item: string, idx: number) => (
+            <li key={idx}>{item}</li>
+          ))}
+        </ul>
 
-      <h2>How we use your information</h2>
-      <p>{privacy.howWeUse}</p>
+        <h2>How we use your information</h2>
+        <p>{privacy.howWeUse}</p>
 
-      <h2>Your rights</h2>
-      <p>
-        {privacy.rights}
-        <a href={`mailto:${privacy.contactEmail}`}>{privacy.contactEmail}</a>.
-      </p>
+        <h2>Your rights</h2>
+        <p>
+          {privacy.rights}
+          <a href={`mailto:${privacy.contactEmail}`} style={{ color: '#ffb3c7' }}>{privacy.contactEmail}</a>.
+        </p>
 
-      <p style={{ fontStyle: 'italic', color: '#666', marginTop: '1rem' }}>{privacy.disclaimer}</p>
+        <p style={{ fontStyle: 'italic', color: '#d5d5d5', marginTop: '1rem' }}>{privacy.disclaimer}</p>
+      </div>
     </div>
   );
 };

@@ -17,6 +17,7 @@ const Donate: React.FC = () => {
     name: '',
     email: '',
     phone: '',
+    donationPurpose: 'general-donations',
     amount: '',
     message: ''
   });
@@ -88,11 +89,12 @@ const Donate: React.FC = () => {
   // Button configs (labels, links, visibility)
   const donateButton = content?.donateButton || { label: 'Give Now', link: '#donate', visible: true };
   const volunteerButton = content?.volunteerButton || { label: 'Get Involved', link: '#volunteer', visible: true };
-  const sponsorButton = content?.sponsorButton || { label: 'Sponsor', link: '/sponsor-a-girl', visible: true };
+  const sponsorButton = content?.sponsorButton || { label: 'Sponsor', link: '/sponsored-girls', visible: true };
+  const normalizedSponsorLink = sponsorButton.link === '/sponsor-a-girl' ? '/sponsored-girls' : sponsorButton.link;
   const ctaItems = content?.ctaItems || [
     { icon: '💰', title: 'DONATE', description: donateCta, button: donateButton.label, link: donateButton.link },
     { icon: '👥', title: 'VOLUNTEER', description: volunteerCta, button: volunteerButton.label, link: volunteerButton.link },
-    { icon: '💝', title: 'SPONSOR', description: sponsorCta, button: sponsorButton.label, link: sponsorButton.link }
+    { icon: '💝', title: 'SPONSOR', description: sponsorCta, button: sponsorButton.label, link: normalizedSponsorLink }
   ];
   // Main donation action buttons (e.g., Donate Now, Pay with M-Pesa)
   const mainDonateButtons = content?.mainDonateButtons || [
@@ -130,6 +132,17 @@ const Donate: React.FC = () => {
     'Unsafe routes to school and limited mentorship opportunities'
   ];
   const realityFooter = content?.reality?.footer || 'Your support breaks these barriers and unlocks opportunity.';
+  const latestProjectTitle = content?.latestProject?.title || 'Latest Project: Girls Rescue Center';
+  const latestProjectSubtitle = content?.latestProject?.subtitle || 'Preventing sexual exploitation and rescuing vulnerable girls.';
+  const latestProjectDescription = content?.latestProject?.description || 'This center is not completed yet. We are actively raising funds to build a safe space that provides emergency protection, trauma support, and a pathway back to education.';
+  const latestProjectNeeds = content?.latestProject?.needs || [
+    'Complete construction and safe accommodation spaces',
+    'Set up counseling and case-management support',
+    'Provide emergency rescue and recovery services',
+    'Fund school reintegration for rescued girls'
+  ];
+  const latestProjectButtonLabel = content?.latestProject?.buttonLabel || 'Support the Rescue Center';
+  const latestProjectButtonLink = content?.latestProject?.buttonLink || '#donate';
   const donationTitle = content?.donation?.title || 'Make a Donation';
   const donationSubtitle = content?.donation?.subtitle || 'Every dollar creates real change.';
   const donationDescription = content?.donation?.description || 'Choose an amount, select a payment method, and make a gift today.';
@@ -235,6 +248,7 @@ const Donate: React.FC = () => {
         currency: selectedCurrency,
         paymentMethod: selectedPayment,
         message: donationForm.message.trim(),
+        donationPurpose: donationForm.donationPurpose,
         source: 'website'
       });
 
@@ -261,6 +275,7 @@ const Donate: React.FC = () => {
           name: '',
           email: '',
           phone: '',
+          donationPurpose: 'general-donations',
           amount: '',
           message: ''
         });
@@ -277,6 +292,7 @@ const Donate: React.FC = () => {
         name: '',
         email: '',
         phone: '',
+        donationPurpose: 'general-donations',
         amount: '',
         message: ''
       });
@@ -370,7 +386,7 @@ const Donate: React.FC = () => {
           <span style={{ fontSize: '2.5rem', marginBottom: '0.5rem', color: '#e91e63' }}>{ctaItems[2]?.icon || '💝'}</span>
           <h3 style={{ color: '#e91e63', marginBottom: '0.5rem', fontWeight: 700, fontSize: '1.35rem' }}>{ctaItems[2]?.title || 'SPONSOR'}</h3>
           <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#fff', fontSize: '1.05rem', flex: '1' }}>{ctaItems[2]?.description || 'Change one girl\'s entire future'}</p>
-          <a href={ctaItems[2]?.link || '/sponsor-a-girl'} style={{ textDecoration: 'none', width: '100%' }}>
+          <a href={ctaItems[2]?.link || '/sponsored-girls'} style={{ textDecoration: 'none', width: '100%' }}>
             <button style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 8, border: 'none', fontWeight: 600, fontSize: '1.05rem', width: '100%' }}>{ctaItems[2]?.button || 'Sponsor'}</button>
           </a>
         </div>
@@ -472,10 +488,45 @@ const Donate: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Latest Project Section */}
+      <section style={{ width: '95%', maxWidth: 1400, margin: '0 auto 2.5rem', padding: '0 1rem' }}>
+        <div style={{ background: '#111', borderRadius: 14, padding: '2rem 1.5rem', color: '#fff', border: '1px solid #222', boxShadow: '0 2px 12px rgba(0,0,0,0.18)' }}>
+          <h2 style={{ color: '#ffcccb', textAlign: 'center', fontWeight: 800, fontSize: '2rem', marginBottom: '0.8rem' }}>
+            {latestProjectTitle}
+          </h2>
+          <p style={{ textAlign: 'center', color: '#fff', fontSize: '1.08rem', marginBottom: '0.75rem' }}>
+            <em>{latestProjectSubtitle}</em>
+          </p>
+          <p style={{ textAlign: 'center', color: '#e7e7e7', fontSize: '1rem', margin: '0 auto 1.1rem', maxWidth: 980, lineHeight: 1.7 }}>
+            {latestProjectDescription}
+          </p>
+          <ul style={{ margin: '0 auto 1.4rem', maxWidth: 980, color: '#f0f0f0', fontSize: '0.98rem', lineHeight: 1.8, listStyle: 'none', padding: 0, textAlign: 'center' }}>
+            {latestProjectNeeds.map((item: string, idx: number) => (
+              <li key={idx} style={{ marginBottom: '0.35rem' }}>- {item}</li>
+            ))}
+          </ul>
+          <div style={{ textAlign: 'center' }}>
+            <a href={latestProjectButtonLink} style={{ textDecoration: 'none' }}>
+              <button style={{ background: '#d32f2f', color: '#fff', padding: '0.85rem 2rem', borderRadius: 10, border: 'none', fontWeight: 700, fontSize: '1.05rem' }}>
+                {latestProjectButtonLabel}
+              </button>
+            </a>
+          </div>
+        </div>
+      </section>
       
       {/* Responsive styles for image grid */}
       <style>{`
         @media (max-width: 768px) {
+          .donate-section-shell,
+          .volunteer-section-shell {
+            width: calc(100% - 1rem) !important;
+            padding: 1.25rem 0.85rem !important;
+            border-radius: 14px !important;
+            box-sizing: border-box !important;
+          }
+
           .donate-image-grid {
             grid-template-columns: repeat(2, 1fr) !important;
             gap: 1rem !important;
@@ -492,6 +543,25 @@ const Donate: React.FC = () => {
           .volunteer-form {
             padding: 1.5rem !important;
           }
+
+          .donation-form {
+            padding: 1.35rem !important;
+          }
+
+          .donation-currency-row {
+            text-align: left !important;
+          }
+
+          .donation-currency-row label {
+            display: block !important;
+            margin-right: 0 !important;
+            margin-bottom: 0.45rem !important;
+          }
+
+          .donation-currency-select {
+            width: 100% !important;
+            max-width: 100% !important;
+          }
         }
         
         @media (min-width: 769px) and (max-width: 1024px) {
@@ -503,7 +573,7 @@ const Donate: React.FC = () => {
           }
         }
       `}</style>
-  <section id="donate" style={{ width: '95%', maxWidth: 1400, margin: '2.5rem auto', background: '#fff', borderRadius: 18, boxShadow: '0 2px 16px rgba(0,0,0,0.10)', padding: '2.5rem 1.5rem', border: '1px solid #f5f5f5' }}>
+  <section id="donate" className="donate-section-shell" style={{ width: '95%', maxWidth: 1400, margin: '2.5rem auto', background: '#fff', borderRadius: 18, boxShadow: '0 2px 16px rgba(0,0,0,0.10)', padding: '2.5rem 1.5rem', border: '1px solid #f5f5f5', boxSizing: 'border-box' }}>
   <h2 style={{ color: '#d32f2f', textAlign: 'center', fontWeight: 800, fontSize: '2rem', marginBottom: '1.5rem' }}>{donationTitle}</h2>
   
         <p style={{ textAlign: 'center', marginBottom: '1.25rem', color: '#d32f2f', fontSize: '1.1rem' }}>
@@ -517,7 +587,7 @@ const Donate: React.FC = () => {
         </ul>
 
           {/* Donation Form */}
-        <form onSubmit={handleDonationSubmit} style={{ maxWidth: 860, margin: '0 auto 2.5rem', background: '#23272a', borderRadius: 12, padding: '2.25rem', boxShadow: '0 1px 8px rgba(0,0,0,0.18)', border: '2px solid #fff' }}>
+        <form onSubmit={handleDonationSubmit} className="donation-form" style={{ maxWidth: 860, margin: '0 auto 2.5rem', background: '#23272a', borderRadius: 12, padding: '2.25rem', boxShadow: '0 1px 8px rgba(0,0,0,0.18)', border: '2px solid #fff', boxSizing: 'border-box' }}>
           <h3 style={{ color: '#d32f2f', textAlign: 'center', marginBottom: '1rem', fontSize: '1.4rem' }}>Donation Details</h3>
 
             {donationSubmitSuccess && (
@@ -570,6 +640,18 @@ const Donate: React.FC = () => {
               </div>
 
               <div>
+                <label style={{ color: '#fff', display: 'block', marginBottom: 6, fontSize: '1.1rem' }}>Donation Purpose</label>
+                <select
+                  value={donationForm.donationPurpose}
+                  onChange={(e) => setDonationForm({ ...donationForm, donationPurpose: e.target.value })}
+                  style={{ width: '100%', padding: '0.85rem', borderRadius: 8, border: '1px solid #444', background: '#111', color: '#fff', boxSizing: 'border-box', fontSize: '1.05rem' }}
+                >
+                  <option value="general-donations">General Donations</option>
+                  <option value="rescue-center">Girls Rescue Center</option>
+                </select>
+              </div>
+
+              <div>
                 <label style={{ color: '#fff', display: 'block', marginBottom: 6, fontSize: '1.1rem' }}>
                   Donation Amount ({selectedCurrency})
                 </label>
@@ -604,9 +686,10 @@ const Donate: React.FC = () => {
             </div>
 
             {/* Currency Selector */}
-            <div style={{ textAlign: 'center', marginTop: '1.5rem' }}>
+            <div className="donation-currency-row" style={{ textAlign: 'center', marginTop: '1.5rem' }}>
               <label htmlFor="currency" style={{ fontWeight: 500, marginRight: 8, color: '#fff', fontSize: '1.1rem' }}>Currency:</label>
               <select 
+                className="donation-currency-select"
                 id="currency" 
                 value={selectedCurrency}
                 onChange={(e) => setSelectedCurrency(e.target.value)}
@@ -661,7 +744,7 @@ const Donate: React.FC = () => {
       </section>
 
       {/* VOLUNTEER SECTION - DYNAMIC */}
-      <section id="volunteer" style={{ width: '95%', maxWidth: 1400, margin: '2.5rem auto', background: '#fff', borderRadius: 18, boxShadow: '0 2px 16px rgba(0,0,0,0.08)', padding: '2.5rem 1.5rem' }}>
+      <section id="volunteer" className="volunteer-section-shell" style={{ width: '95%', maxWidth: 1400, margin: '2.5rem auto', background: '#fff', borderRadius: 18, boxShadow: '0 2px 16px rgba(0,0,0,0.08)', padding: '2.5rem 1.5rem', boxSizing: 'border-box' }}>
         <h2 style={{ color: '#d32f2f', textAlign: 'center', fontWeight: 800, fontSize: '2rem', marginBottom: '1.5rem' }}>
           {volunteerTitle}
         </h2>
@@ -681,7 +764,7 @@ const Donate: React.FC = () => {
         </div> 
         
         {/* Volunteer Interest Form - DYNAMIC with Backend Submission */}
-        <form onSubmit={handleVolunteerSubmit} className="volunteer-form" style={{ background: '#23272a', borderRadius: 12, padding: '2.25rem', boxShadow: '0 1px 8px rgba(0,0,0,0.18)', maxWidth: 860, margin: '0 auto', width: '100%', border: '2px solid #fff' }}>
+        <form onSubmit={handleVolunteerSubmit} className="volunteer-form" style={{ background: '#23272a', borderRadius: 12, padding: '2.25rem', boxShadow: '0 1px 8px rgba(0,0,0,0.18)', maxWidth: 860, margin: '0 auto', width: '100%', border: '2px solid #fff', boxSizing: 'border-box' }}>
           <h3 style={{ color: '#d32f2f', marginBottom: '1rem', textAlign: 'center', fontSize: '1.4rem' }}>Volunteer Interest Form:</h3>
           
           {submitSuccess && (
