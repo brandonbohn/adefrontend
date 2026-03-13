@@ -5,6 +5,7 @@ import LazyImage from './LazyImage';
 import { Link, useSearchParams } from 'react-router-dom';
 
 interface Girl {
+  _id?: string;
   name: string;
   age: string;
   dream: string;
@@ -20,24 +21,25 @@ import { API_BASE_URL } from '../config';
 const GirlsList: React.FC = () => {
   const [searchParams] = useSearchParams();
   const selectedPlan = searchParams.get('plan') || 'monthly-21';
-  const [data, setData] = useState<any>(girlsData);
+  const [data, setData] = useState<any>({ girls: [] });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    axios.get(`${API_BASE_URL}/api/content/section/girlsSection`)
+    axios.get(`${API_BASE_URL}/api/sponsored-girls`)
       .then(res => {
-        console.log('Backend girls data:', res.data);
-        console.log('First girl data:', res.data.girls?.[0]);
-        setData(res.data);
+        setData({ girls: Array.isArray(res.data?.girls) ? res.data.girls : [] });
         setLoading(false);
       })
       .catch((err) => {
-        console.log('Failed to load from backend, using fallback:', err.message);
-        setData(girlsData); // fallback to hardcoded
+        setError('Failed to load sponsored girls');
+        setData({ girls: [] });
         setLoading(false);
       });
   }, []);
+
+  if (loading) return <div>Loading girls...</div>;
+  if (error && (!data || !Array.isArray(data.girls) || data.girls.length === 0)) return <div>{error}</div>;
 
   if (!data || !Array.isArray(data.girls) || data.girls.length === 0) return <div>No girls found.</div>;
 
@@ -67,7 +69,7 @@ const GirlsList: React.FC = () => {
             imageSrc = imageId ? getImagePath(imageId) : '';
           }
           
-          const girlId = encodeURIComponent(`${girl.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${idx + 1}`);
+          const girlId = encodeURIComponent(girl._id || `${girl.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${idx + 1}`);
           const sponsorHref = `/sponsorship-form?plan=${encodeURIComponent(selectedPlan)}&girl=${encodeURIComponent(girl.name)}&girlId=${girlId}`;
 
           return (
@@ -192,7 +194,7 @@ const GirlsList: React.FC = () => {
               imageSrc = imageId ? getImagePath(imageId) : '';
             }
             
-            const girlId = encodeURIComponent(`${girl.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${idx + 4}`);
+            const girlId = encodeURIComponent(girl._id || `${girl.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${idx + 4}`);
             const sponsorHref = `/sponsorship-form?plan=${encodeURIComponent(selectedPlan)}&girl=${encodeURIComponent(girl.name)}&girlId=${girlId}`;
 
             return (
@@ -297,48 +299,6 @@ const GirlsList: React.FC = () => {
       )}
     </div>
   );
-};
-
-export const girlsData = {
-  title: 'Girls Available for Sponsorship',
-  girls: [
-    {
-      name: 'Mithcell Atieno',
-      age: '15',
-      dream: 'become a nurse',
-      description: 'She loves english and is attending Toi Junior school in grade ten',
-      sentenceInTheirWords: "I'll appreciate any support for ade",
-      situation: 'Her mother can barely feed her and she sometimes gets sent home from school for lack of tuition and school fees',
-      status: 'Available for Sponsorship'
-    },
-    {
-      name: 'Vivian Atieno',
-      age: '16',
-      dream: 'Become a nurse',
-      description: 'she loves english and lives with her mother and is attending Kojongo High School form three',
-      sentenceInTheirWords: 'When I grow up I want to help vulnerable girls',
-      situation: 'she lost her father and lives with her mother and they live on less than a dollar a day and cant afford three meals a day',
-      status: 'Available for Sponsorship'
-    },
-    {
-      name: 'Cynthia Anyaugo',
-      age: '14',
-      dream: 'to become a pro footballer',
-      description: 'her favorite subject is math and she goes to new hope initiative kibera living with her Mother',
-      sentenceInTheirWords: 'I wish to play internationally',
-      situation: 'Lost a parent; sponsorship ensures continued education.',
-      status: 'Available for Sponsorship'
-    },
-    {
-      name: 'Cindy Adhiambo',
-      age: '15',
-      dream: 'Become a Doctor',
-      description: 'Loves playing football and tries to help her grandma who supports her the best she can',
-      sentenceInTheirWords: 'ADE CBO has helped us in to many ways',
-      situation: 'Lives with her grandma who cant afford to do a serious job to feed the family',
-      status: 'Available for Sponsorship'
-    }
-  ]
 };
 
 export default GirlsList;
