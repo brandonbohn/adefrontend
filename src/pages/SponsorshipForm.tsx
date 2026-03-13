@@ -22,6 +22,17 @@ const normalizePaymentKey = (value: string) => {
   return v;
 };
 
+const getDefaultPaymentMethod = (country: string): 'mpesa' | 'paypal' => {
+  const normalizedCountry = country.trim().toLowerCase();
+  if (normalizedCountry.includes('kenya') || normalizedCountry === 'ke') return 'mpesa';
+  if (normalizedCountry.includes('united states') || normalizedCountry === 'us' || normalizedCountry === 'usa') return 'paypal';
+  return 'paypal';
+};
+
+const getDefaultCurrency = (country: string): 'KES' | 'USD' => {
+  return getDefaultPaymentMethod(country) === 'mpesa' ? 'KES' : 'USD';
+};
+
 const SponsorshipForm: React.FC = () => {
   const [searchParams] = useSearchParams();
   const planFromQuery = searchParams.get('plan') || 'monthly-21';
@@ -64,6 +75,14 @@ const SponsorshipForm: React.FC = () => {
       });
   }, []);
 
+  useEffect(() => {
+    // Keep currency compatible with country default payment method.
+    const nextCurrency = getDefaultCurrency(form.country);
+    if (selectedCurrency !== nextCurrency) {
+      setSelectedCurrency(nextCurrency);
+    }
+  }, [form.country, selectedCurrency]);
+
   const onPlanChange = (planKey: string) => {
     const matched = planOptions.find((p) => p.key === planKey);
     if (!matched) return;
@@ -98,8 +117,7 @@ const SponsorshipForm: React.FC = () => {
     }
 
     try {
-      const normalizedCountry = form.country.trim().toLowerCase();
-      const paymentMethod = normalizedCountry.includes('kenya') || normalizedCountry === 'ke' ? 'mpesa' : 'paypal';
+      const paymentMethod = getDefaultPaymentMethod(form.country);
 
       const response = await axios.post(`${API_BASE_URL}/api/donors`, {
         name: sponsorName,
@@ -212,6 +230,10 @@ const SponsorshipForm: React.FC = () => {
         <div style={{ marginTop: '1rem' }}>
           <label style={{ display: 'block', marginBottom: 6, fontWeight: 600 }}>Message (optional)</label>
           <textarea rows={4} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} style={{ width: '100%', padding: '0.7rem', borderRadius: 8, border: '1px solid #444', background: '#101010', color: '#fff' }} />
+        </div>
+
+        <div style={{ marginTop: '1rem', color: '#dddddd', fontSize: '0.95rem' }}>
+          Payment method is selected automatically by country: Kenya uses M-Pesa, US uses PayPal.
         </div>
 
         {submitError && <div style={{ marginTop: '1rem', color: '#ffb3b3' }}>{submitError}</div>}
