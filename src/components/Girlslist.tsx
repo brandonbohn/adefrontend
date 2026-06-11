@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { getImagePath, getImageIdByName } from '../imageRegistry';
 import LazyImage from './LazyImage';
 import { Link, useSearchParams } from 'react-router-dom';
 
@@ -12,7 +11,7 @@ interface Girl {
   description: string;
   sentenceInTheirWords?: string;
   situation: string;
-  image?: number;
+  image?: string | number;
   status?: string;
 }
 
@@ -28,10 +27,20 @@ const GirlsList: React.FC = () => {
   useEffect(() => {
     axios.get(`${API_BASE_URL}/api/sponsored-girls`)
       .then(res => {
-        setData({ girls: Array.isArray(res.data?.girls) ? res.data.girls : [] });
+        console.log('API Response:', res.data);
+        // Handle different response formats
+        let girls = [];
+        if (Array.isArray(res.data?.girls)) {
+          girls = res.data.girls;
+        } else if (Array.isArray(res.data)) {
+          girls = res.data;
+        }
+        console.log('Girls data:', girls);
+        setData({ girls });
         setLoading(false);
       })
       .catch((err) => {
+        console.error('API Error:', err);
         setError('Failed to load sponsored girls');
         setData({ girls: [] });
         setLoading(false);
@@ -57,18 +66,8 @@ const GirlsList: React.FC = () => {
         marginBottom: '0'
       }}>
         {data.girls.slice(0, 3).map((girl: Girl, idx: number) => {
-          // Handle both string paths from backend and number IDs
-          let imageSrc = '';
-          if (typeof girl.image === 'string') {
-            imageSrc = girl.image; // Backend sends path like "/talia.jpeg"
-          } else if (typeof girl.image === 'number') {
-            imageSrc = getImagePath(girl.image); // Use registry for number IDs
-          } else {
-            // Fallback to name-based matching
-            const imageId = getImageIdByName(girl.name);
-            imageSrc = imageId ? getImagePath(imageId) : '';
-          }
-          
+          // Backend now returns full URLs directly
+          const imageSrc = typeof girl.image === 'string' ? girl.image : '';
           const girlId = encodeURIComponent(girl._id || `${girl.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${idx + 1}`);
           const sponsorHref = `/sponsorship-form?plan=${encodeURIComponent(selectedPlan)}&girl=${encodeURIComponent(girl.name)}&girlId=${girlId}`;
 
@@ -182,18 +181,8 @@ const GirlsList: React.FC = () => {
           margin: '0'
         }}>
           {data.girls.slice(3, 5).map((girl: Girl, idx: number) => {
-            // Handle both string paths from backend and number IDs
-            let imageSrc = '';
-            if (typeof girl.image === 'string') {
-              imageSrc = girl.image; // Backend sends path like "/talia.jpeg"
-            } else if (typeof girl.image === 'number') {
-              imageSrc = getImagePath(girl.image); // Use registry for number IDs
-            } else {
-              // Fallback to name-based matching
-              const imageId = getImageIdByName(girl.name);
-              imageSrc = imageId ? getImagePath(imageId) : '';
-            }
-            
+            // Backend now returns full URLs directly
+            const imageSrc = typeof girl.image === 'string' ? girl.image : '';
             const girlId = encodeURIComponent(girl._id || `${girl.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${idx + 4}`);
             const sponsorHref = `/sponsorship-form?plan=${encodeURIComponent(selectedPlan)}&girl=${encodeURIComponent(girl.name)}&girlId=${girlId}`;
 
