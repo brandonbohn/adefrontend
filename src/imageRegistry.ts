@@ -20,6 +20,12 @@ export const imageRegistry: ImageRegistryItem[] = [
         description: "Site background image"
     },
     {
+        id: 25,
+        filename: "worldcupstar.jpg",
+        alt: "Voices of Kibera",
+        description: "Hero background image for Voices of Kibera"
+    },
+    {
         id: 3,
         filename: "donationsandreality.jpeg",
         alt: "kibera conditions",
