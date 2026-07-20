@@ -17,6 +17,7 @@ interface QuickStats {
   activeVolunteers: number;
   pendingInquiries: number;
 }
+const MANAGEMENT_SYSTEM = "https://ademanagementsystem.vercel.app";
 
 const EmployeePortal: React.FC = () => {
   const navigate = useNavigate();
@@ -73,51 +74,59 @@ const EmployeePortal: React.FC = () => {
     }
   };
 
-  const getDefaultSections = (): PortalSection[] => [
-    {
+  const MANAGEMENT_SYSTEM = "https://ademanagementsystem.vercel.app";
+
+const getDefaultSections = (): PortalSection[] => [
+  {
+    title: "Donor Management",
+    description: "View and manage donor information and contributions",
+    icon: "💰",
+    link: `${MANAGEMENT_SYSTEM}/donors`,
+    color: "#2d8f2d"
+  },
+  {
+    title: "Volunteer Management",
+    description: "Manage volunteer profiles and assignments",
+    icon: "👥",
+    link: `${MANAGEMENT_SYSTEM}/participants`,
+    color: "#1a5fb4"
+  },
+   {
       title: 'Safeguarding Programs',
       description: 'Manage safeguarding programs, incidents, and reports',
       icon: '🛡️',
       link: '/employee-portal/safeguarding',
       color: '#a31515'
     },
-    {
-      title: 'Donor Management',
-      description: 'View and manage donor information and contributions',
-      icon: '💰',
-      link: '/admin/donors',
-      color: '#2d8f2d'
-    },
-    {
-      title: 'Volunteer Management',
-      description: 'Manage volunteer profiles and assignments',
-      icon: '👥',
-      link: '/admin/volunteers',
-      color: '#1a5fb4'
-    },
-    {
-      title: 'Contact Management',
-      description: 'Review and respond to contact inquiries',
-      icon: '📧',
-      link: '/admin/contacts',
-      color: '#e6a700'
-    },
-    {
-      title: 'Blog Posts',
-      description: 'Create and manage blog content',
-      icon: '📝',
-      link: '/admin/blog',
-      color: '#9c27b0'
-    },
-    {
-      title: 'Team Management',
-      description: 'Manage team members and organizational structure',
-      icon: '🏢',
-      link: '/meet-the-teams',
-      color: '#0097a7'
-    }
-  ];
-
+  {
+    title: "Girls Management",
+    description: "Manage girls",
+    icon: "👧",
+    link: `${MANAGEMENT_SYSTEM}/girls`,
+    color: "#ff6f00"
+  },
+  {
+    title: "Programs",
+    description: "Manage programs",
+    icon: "📚",
+    link: `${MANAGEMENT_SYSTEM}/programs`,
+    color: "#0097a7"
+  },
+  {
+    title: "Reports",
+    description: "Reporting",
+    icon: "📊",
+    link: `${MANAGEMENT_SYSTEM}/reports`,
+    color: "#9c27b0"
+  },
+  {
+    title: "Team",
+    description: "Manage team",
+    icon: "🏢",
+    link: `${MANAGEMENT_SYSTEM}/team`,
+    color: "#5555cc"
+  }
+];
   return (
     <div style={{ minHeight: '100vh', background: '#0a0a0a' }}>
       {/* Header */}
@@ -180,11 +189,13 @@ const EmployeePortal: React.FC = () => {
           gap: '1.5rem'
         }}>
           {portalSections.map((section, index) => (
-            <Link
-              key={index}
-              to={section.link}
-              style={{ textDecoration: 'none', color: 'inherit' }}
-            >
+           <a
+          key={index}
+           href={section.link}
+  target="_blank"
+  rel="noopener noreferrer"
+  style={{ textDecoration: 'none', color: 'inherit' }}
+>
               <div
                 style={{
                   background: '#111',
@@ -235,7 +246,7 @@ const EmployeePortal: React.FC = () => {
                   <span style={{ fontSize: '1.2rem' }}>→</span>
                 </div>
               </div>
-            </Link>
+            </a>
           ))}
         </div>
 
